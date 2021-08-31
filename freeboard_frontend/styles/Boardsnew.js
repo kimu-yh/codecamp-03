@@ -1,128 +1,168 @@
 import styled from '@emotion/styled';
 
 export const Wrapper = styled.div`
-  margin: auto auto;
-  height: 100vh;
   width: 1200px;
+  margin: 100px;
+  padding: 80px 102px 100px 102px;
   display: flex;
   flex-direction: column;
-  justify-content: start;
-  padding: 65px;
+  align-items: center;
+  box-shadow: 0px 0px 10px gray;
 `
 
-export const Title = styled.h1`
-  text-align: center;
+export const Title = styled.div`
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 36px;
-  margin: 40px auto;
+  font-weight: bold;
 `
 
-export const SubTitle = styled.div`
-  font-size: 16px;
-  font-family: Noto Sans CJK KR;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: left;
-`
-
-export const Content = styled.textarea`
+export const WriteWrapper = styled.div`
   width: 100%;
-  height: 480px;
-  resize: none;
-  font-family: Noto Sans CJK KR;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: rgb(117, 117, 117);
-  padding: 10px;
-`
-
-export const Item = styled.div`
-  width: 996px;
-  padding: 20px 0;
-`
-
-export const Input = styled.input`
-  width: 100%;
-  height: 52px;
-  border: 1px solid rgb(117, 117, 117);
-  box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-  font-family: Noto Sans CJK KR;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: left;
-  color: #BDBDBD;
-  margin-bottom: 10px;
-`
-export const Box = styled.div`
-  width: 78px;
-  height: 78px;
-  background-color: #BDBDBD;
-  color: #4F4F4F;
-  font-size: 14px;
-  text-align: center;
-  padding: 20px 20px 20px 17px;
-`
-
-export const BoxWrap = styled.div`
-  width: 282px;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
+  padding-top: 40px;
 `
 
-export const RegisterBtn = styled.button`
-  width: 179px;
+export const Writer = styled.input`
+  width: 486px;
   height: 52px;
-  background-color: #FFD600;
-  font-family: Noto Sans CJK KR;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px;
-  letter-spacing: 0em;
-  text-align: center;
-  border: none;
-  margin: 20px auto;
-  padding: 18px;
+  padding-left: 16px;
+  border: 1px solid #bdbdbd;
 `
 
-export const Postbox = styled.input`
+export const Password = styled.input`
+  width: 486px;
+  height: 52px;
+  padding-left: 16px;
+  border: 1px solid #bdbdbd;
+`
+
+export const Label = styled.div`
+  padding-bottom: 16px;
+  font-size: 16px;
+  font-weight: 500;
+`
+
+export const InputWrapper = styled.div`
+  padding-top: 40px;
+`
+
+export const Subject = styled.input`
+  width: 996px;
+  height: 52px;
+  padding-left: 16px;
+  border: 1px solid #bdbdbd;
+`
+
+export const Contents = styled.textarea`
+  width: 996px;
+  height: 480px;
+  padding: 14px 16px 14px 14px;
+  border: 1px solid #bdbdbd;
+  resize: none;
+`
+
+export const ZipcodeWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`
+
+export const Zipcode = styled.input`
   width: 77px;
   height: 52px;
-  color: rgb(117, 117, 117);
-  font-size: 16px;
-  padding: 14px;
-  text-align: center;
-  margin-bottom: 10px;
+  padding-left: 16px;
+  border: 1px solid #bdbdbd;
 `
 
-export const PostboxSearch = styled.button`
+export const SearchButton = styled.button`
   width: 124px;
   height: 52px;
-  margin: 0 0 10px 10px;
-  padding: 14px;
+  margin-left: 16px;
   background-color: black;
+  cursor: pointer;
   color: white;
-  font-size: 16px;
+`
+export const Address = styled.input`
+  width: 996px;
+  height: 52px;
+  margin-top: 16px;
+  padding-left: 16px;
+  border: 1px solid #bdbdbd;
+`
+
+export const Youtube = styled.input`
+  width: 996px;
+  height: 52px;
+  padding-left: 16px;
+	border: 1px solid #bdbdbd;
+`
+
+export const ImageWrapper = styled.div`
+  width: 996px;
+  padding-top: 40px;
+`
+
+export const UploadButton = styled.button`
+  width: 78px;
+  height: 78px;
+  background-color: #bdbdbd;
+  margin-left: 24px;
+  outline: none;
   border: none;
+  cursor: pointer;
 `
 
-export const Radio = styled.input`
-  margin-top: 10px;
-  background-color: #FFD600;
-  /* &:checked + Radio {
-  &::after { color: #FFD600 
+export const OptionWrapper = styled.div`
+  width: 996px;
+  padding-top: 40px;
+`
+
+export const RadioButton = styled.input`
+  cursor: pointer;
+`
+export const RadioLabel = styled.label`
+  margin-left: 8px;
+  margin-right: 20px;
+  font-weight: 500;
+  cursor: pointer;
+`
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 80px;
+`
+export const CancelButton = styled.button`
+  width: 179px;
+  height: 52px;
+  background-color: #bdbdbd;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 12px;
+  margin-right: 12px;
+  cursor: pointer;
+  :hover {
+    background-color: red;
   }
-} */
 `
 
+export const SubmitButton = styled.button`
+  width: 179px;
+  height: 52px;
+  background-color: #ffd600;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 12px;
+  margin-right: 12px;
+  cursor: pointer;
+`
 
-
+export const ErrorMessage = styled.div`
+  font-size: 14px;
+  color: red;
+  font-family: Nanum Myeongjo;
+`
