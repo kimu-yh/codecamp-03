@@ -230,3 +230,45 @@ let validation = (pw1, pw2) => {
 	}
 return message;
 }
+
+//3일차 업로드 (2021. 9.2 오전 진행분)
+//반복문: 숫자 더하기 23.
+let sum = (num) => {
+	let result = 0;
+	for (let i = 1; i <= num; i++) {
+		result += i
+	}
+	return result;
+}
+
+//반복문: 특정 문자열 세기 24.
+let countLetter = (str) => {
+	let count = 0;
+	str = str.toLowerCase();
+  for (let i = 0; i < str.length; i++) {
+		if (str[i] === "a") {
+		count += 1;
+		}
+  }
+return count;
+}
+
+//반복문: 문자열 삽입 25.
+let makeNumber = (num) => {
+	let result = 1;
+	for (let i = 2; i <= num; i++) {
+		result += '-' + i
+	}
+	return result;
+}
+
+//반복문: 홀수 문자열 26.
+let makeOdd = (num) => {
+	let result = '1';
+	for (let i = 2; i <= num; i++) {
+		if (i % 2 === 1) {
+			result += i
+		}
+	}
+	return result
+}
