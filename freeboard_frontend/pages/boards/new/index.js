@@ -5,8 +5,22 @@ import {
 } from '../../../styles/Boardsnew'
 
 import { useState } from "react";
+import { useMutation, gql } from '@apollo/client';
+
+const CREATE_BOARD = gql`
+  mutation createBoard(
+    $createBoardInput: CreateBoardInput!
+    ){
+      createBoard(
+        createBoardInput: $createBoardInput
+      ){
+        _id
+      }
+    }
+  `
 
 export default function BoardsNewPage(){
+  const [createBoard] = useMutation(CREATE_BOARD)
   const [writer, setWriter] = useState('');
   const [writerError, setWriterError] = useState('');
   const [pw, setPw] = useState('');
@@ -16,23 +30,12 @@ export default function BoardsNewPage(){
   const [contents, setContents] = useState('');
   const [contentsError, setContentsError] = useState('');
 
-  function onChangeWriter(event) {
-    setWriter(event.target.value)
-  }
+  const onChangeWriter = e => setWriter(e.target.value)
+  const onChangePw = e => setPw(e.target.value)
+  const onChangeTitle = e => setTitle(e.target.value)
+  const onChangeContents = e => setContents(e.target.value)
   
-  function onChangePw(event) {
-    setPw(event.target.value)
-  }
-
-  function onChangeTitle(event) {
-    setTitle(event.target.value)
-  }
-
-  function onChangeContents(event) {
-    setContents(event.target.value)
-  }
-
-  function onClickSubmit() {
+  async function onClickSubmit() {
     if (writer.length === 0) {
       setWriterError("작성자가 없습니다!")
     } else {
@@ -53,7 +56,23 @@ export default function BoardsNewPage(){
     } else {
       setContentsError("")
     }
+    if (writer !== '' && pw !== '' && title !== '' && contents !== '') {
+      alert("게시물을 등록합니다.")
+    }
+
+    const result = await createBoard({
+      variables: {
+        createBoardInput: {
+          writer: writer,
+          password: pw,
+          title: title, 
+          contents: contents
+        }
+      }
+    })
+    console.log(result.data.createBoard._id)
   }
+  
 
   return (
     <Wrapper>
