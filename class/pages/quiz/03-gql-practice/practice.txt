@@ -1,0 +1,750 @@
+======================================================================
+// graphql-API 문제
+// ======================================================================
+// http://example.codebootcamp.co.kr/graphql 에서 제공하는 API를 사용하세요.
+// ======================================================================
+
+1) 철수의 나이는 몇살인가요?(나이만 조회해 주세요.)  	1
+
+2) 영희의 학교는 어디인가요?(학교만 조회해 주세요. null
+
+3) 3번 게시글의 내용과 작성일이 무엇인가요?(내용과 작성일만 조회해 주세요.)
+ "contents": "우리",
+ "createdAt": "2021-09-01T03:32:03.744Z"
+4) 본인의 이름으로 프로필을 작성해 보세요.
+"createProfile": {
+      "_id": null,
+      "number": null,
+      "message": "프로필이 정상적으로 등록되었습니다."
+5) 본인의 이름으로 게시글을 작성해 보세요.
+mutation {
+  createBoard(
+    writer:"김여현",
+  	title: "숙제가 왜 안끝나냐고",
+    contents: "혹시 숙제가 너무 많은 것은 아닌가요"
+  ) {
+    _id
+    number
+    message
+  }
+}
+
+{
+  "data": {
+    "createBoard": {
+      "_id": null,
+      "number": 124,
+      "message": "게시물이 정상적으로 등록되었습니다."
+    }
+  }
+}
+6) 자신의 프로필을 조회해 보세요.
+{
+  "data": {
+    "fetchProfile": {
+      "name": "김여현",
+      "number": 127,
+      "age": 41,
+      "school": "연세대학교"
+    }
+  }
+}
+7) 자신의 게시글을 조회해 보세요.
+{
+  "data": {
+    "fetchBoard": {
+      "writer": "김여현",
+      "title": "숙제가 왜 안끝나냐고",
+      "contents": "혹시 숙제가 너무 많은 것은 아닌가요",
+      "createdAt": "2021-09-01T05:44:24.632Z"
+    }
+  }
+}
+8) 본인의 프로필에서, 학교를 자신이 졸업한 초등학교로 바꿔보세요.
+mutation {
+  updateProfile(
+    name: "김여현"
+    age: 41
+    school: "중앙초등학교"
+  ) {
+    _id
+    number
+    message
+  }
+}
+
+{
+  "data": {
+    "updateProfile": {
+      "_id": null,
+      "number": null,
+      "message": "프로필이 정상적으로 수정되었습니다."
+    }
+  }
+}
+
+9) 본인의 게시글에서, 제목과 내용을 바꿔보세요.
+mutation {
+  updateBoard(
+    number: 124,
+    writer: "김여현",
+    title: "코드캠프"
+    contents: "존경스러울만큼 빡센 것 같아요"
+  ) {
+    _id
+    number
+    message
+  }
+}
+
+{
+  "data": {
+    "updateBoard": {
+      "_id": null,
+      "number": null,
+      "message": "게시물이 정상적으로 수정되었습니다."
+    }
+  }
+}
+
+10) 자신이 좋아하는 만화 주인공으로 프로필을 작성해 보세요.
+mutation {
+  createProfile(
+    name: "Bonobono",
+    age: 2,
+    school: "아기해달"
+  ) {
+    _id
+    number
+    message
+  }
+}
+
+{
+  "data": {
+    "createProfile": {
+      "_id": null,
+      "number": null,
+      "message": "프로필이 정상적으로 등록되었습니다."
+    }
+  }
+}
+11) 위 10번에서 작성한 프로필을 삭제해 보세요.
+mutation {
+  deleteProfile(
+name: "Bonobono"
+  ) {
+    _id
+    number
+    message
+  }
+}
+
+{
+  "data": {
+    "deleteProfile": {
+      "_id": null,
+      "number": null,
+      "message": "프로필이 정상적으로 삭제되었습니다."
+    }
+  }
+}
+12) 상품을 하나 만들어 보세요.
+mutation {
+  createProduct(
+    seller: "주식회사 김여현",
+    createProductInput: {
+      
+      name: "사장님의 비밀일기",
+      detail: "베스트셀러",
+      price: 18000
+
+    } 
+  ) {
+    message
+  }
+}
+
+{
+  "data": {
+    "createProduct": {
+      "message": "상품이 정상적으로 등록되었습니다."
+    }
+  }
+}
+13) 위 12번에서 만들었던 상품의 가격을 500원 인상해 보세요.
+mutation {
+  updateProduct(
+    productId: "b687d65c-21b5-4aae-8bfe-80e6d64b7411",
+    updateProductInput: {
+      price: 18500
+      }
+  ) {
+    _id
+    number
+    message
+  }
+}
+
+{
+  "data": {
+    "updateProduct": {
+      "_id": null,
+      "number": null,
+      "message": "상품이 정상적으로 수정되었습니다."
+    }
+  }
+}
+14) 위에서 만든 상품을 조회하되, 가격만 조회해 보세요.
+query {
+  fetchProduct(
+		productId: "b687d65c-21b5-4aae-8bfe-80e6d64b7411"
+  ) {
+    price
+  }
+}
+
+{
+  "data": {
+    "fetchProduct": {
+      "price": 18500
+    }
+  }
+}
+
+15) 조회했던 상품을 삭제해 보세요.
+mutation {
+  deleteProduct(
+		productId: "b687d65c-21b5-4aae-8bfe-80e6d64b7411"
+  ) {
+    	message
+  }
+}
+
+{
+  "data": {
+    "deleteProduct": {
+      "message": "상품이 정상적으로 삭제되었습니다."
+    }
+  }
+}
+16) 삭제한 상품이 정말로 삭제되었는지 다시 한번 조회해 보세요.
+query {
+  fetchProduct(
+   productId: "b687d65c-21b5-4aae-8bfe-80e6d64b7411"
+  ) {
+    name
+    price
+  }
+}
+
+{
+  "data": {
+    "fetchProduct": null
+  }
+}
+
+
+17) 게시물 목록 중, 2페이지를 조회해 보세요.
+query {
+  fetchBoards(
+		page: 2
+   ){
+    number
+    writer
+    title
+    contents
+    like
+    createdAt
+  }
+}
+
+{
+  "data": {
+    "fetchBoards": [
+      {
+        "number": 126,
+        "writer": "이중현",
+        "title": "코드캠프3일차",
+        "contents": "지금이걸하고있다",
+        "like": 0,
+        "createdAt": "2021-09-01T05:48:47.081Z"
+      },
+      {
+        "number": 125,
+        "writer": "홍상기",
+        "title": "첫글",
+        "contents": "없음",
+        "like": 0,
+        "createdAt": "2021-09-01T05:48:03.883Z"
+      },
+      {
+        "number": 124,
+        "writer": "김여현",
+        "title": "코드캠프",
+        "contents": "존경스러울만큼 빡센 것 같아요",
+        "like": 0,
+        "createdAt": "2021-09-01T05:44:24.632Z"
+      },
+      {
+        "number": 123,
+        "writer": "홍상기",
+        "title": "첫글",
+        "contents": "없음",
+        "like": 0,
+        "createdAt": "2021-09-01T05:43:21.050Z"
+      },
+      {
+        "number": 122,
+        "writer": "이지원",
+        "title": "update borard",
+        "contents": "update",
+        "like": 0,
+        "createdAt": "2021-09-01T05:34:14.283Z"
+      },
+      {
+        "number": 121,
+        "writer": "Lee",
+        "title": "Messi",
+        "contents": "Film",
+        "like": 0,
+        "createdAt": "2021-09-01T05:34:12.509Z"
+      },
+      {
+        "number": 120,
+        "writer": "나",
+        "title": "너",
+        "contents": "우리",
+        "like": 0,
+        "createdAt": "2021-09-01T05:29:58.634Z"
+      },
+      {
+        "number": 118,
+        "writer": "곰곰이",
+        "title": "아카시아꿀 구매 방법",
+        "contents": "인터파크에서 구매 가능",
+        "like": 0,
+        "createdAt": "2021-09-01T05:29:40.572Z"
+      },
+      {
+        "number": 117,
+        "writer": "Lee",
+        "title": "Messi",
+        "contents": "Film",
+        "like": 0,
+        "createdAt": "2021-09-01T05:28:25.428Z"
+      },
+      {
+        "number": 116,
+        "writer": "부끄러운 곰숙이",
+        "title": "달콤한꿀을 구하는 방법",
+        "contents": "인터파크에서 구매 가능",
+        "like": 0,
+        "createdAt": "2021-09-01T05:25:31.040Z"
+      }
+    ]
+  }
+}
+18) 게시물 목록을 조회할 때, page를 입력하지 않으면, 어떤 결과가 발생하나요?
+
+아무일도 일어나지 않습니다.
+
+19) 프로필이 전체 몇 개가 있는지 확인해 보세요.
+query {
+  fetchProfilesCount
+}
+
+{
+  "data": {
+    "fetchProfilesCount": 160
+  }
+}
+
+20) 게시물은 몇 개가 있나요?
+query {
+  fetchBoardsCount
+}
+
+{
+  "data": {
+    "fetchBoardsCount": 123
+  }
+}
+
+
+// ======================================================================
+// graphql-API 문제
+// ======================================================================
+// http://backend03.codebootcamp.co.kr/graphql 에서 제공하는 API를 사용하세요.
+// ======================================================================
+
+1) createBoard를 활용해, 게시물을 하나 등록해 주세요.
+mutation {
+  createBoard(
+    createBoardInput: {
+      writer: "kimyeohyun",
+      password: "whoisit",
+      title: "I wanna go home",
+      contents: "Yes, I am trapped here in CodeCamp",
+      youtubeUrl: "hereishref",
+      boardAddress:  {
+            zipcode: "72340"
+            address: "code"
+            addressDetail: "camp"
+      },
+      images: ["image/address/route"]
+    }
+  ) {
+    _id
+    title
+    contents
+  }
+}
+
+{
+  "data": {
+    "createBoard": {
+      "_id": "612f1ed9abd89b00293add21",
+      "title": "I wanna go home",
+      "contents": "Yes, I am trapped here in CodeCamp"
+    }
+  }
+}
+
+2) 등록한 게시글의 제목과 내용은 무엇인가요?
+query {
+  fetchBoard(boardId: "612f1ed9abd89b00293add21") {
+    title
+    contents
+  }
+}
+
+{
+  "data": {
+    "fetchBoard": {
+      "title": "I wanna go home",
+      "contents": "Yes, I am trapped here in CodeCamp"
+    }
+  }
+}
+         
+3) 등록한 게시글에 좋아요를 1 올려주세요.
+mutation {
+  likeBoard(boardId: "612f1ed9abd89b00293add21") 
+}
+
+{
+  "data": {
+    "likeBoard": 1
+  }
+}
+
+4) 등록한 게시글에 싫어요도 1 올려주세요.
+mutation {
+  dislikeBoard(boardId: "612f1ed9abd89b00293add21") 
+}
+
+{
+  "data": {
+    "dislikeBoard": 1
+  }
+}
+
+5) 등록한 게시글의 좋아요와 싫어요는 각각 몇 개 인가요? (fetchBoard를 활용해서 확인해 보세요.)
+query {
+  fetchBoard(boardId: "612f1ed9abd89b00293add21") {
+    likeCount
+    dislikeCount
+  }
+}
+
+{
+  "data": {
+    "fetchBoard": {
+      "likeCount": 1,
+      "dislikeCount": 1
+    }
+  }
+}
+
+6) 현재 등록된 게시글의 총 갯수는 몇 개 인가요? (어떤 API를 활용하면 좋을지 찾아보세요!)
+query {
+  fetchBoardsCount(
+    endDate: "2021-09-02,
+    startDate: "2019-12-03T09:54:33Z",
+    search: "")
+}
+
+{
+  "data": {
+    "fetchBoardsCount": 19
+  }
+}
+
+
+7) 등록한 게시글의 제목을 수정해 보세요!
+mutation {
+ updateBoard(
+    updateBoardInput:  {
+      title: "코드캠프 티셔츠 나왔으면"
+    },
+    password: "whoisit",
+    boardId: "612f1ed9abd89b00293add21"
+) {
+  title
+  contents
+  writer
+}
+}
+
+{
+  "data": {
+    "updateBoard": {
+      "title": "코드캠프 티셔츠 나왔으면",
+      "contents": "Yes, I am trapped here in CodeCamp",
+      "writer": "kimyeohyun"
+    }
+  }
+}
+
+8) fetchBoards 전체 게시물 조회를 활용하여 내가 쓴 게시물을 검색해 보세요.(search 변수를 활용해요!)
+query {
+  fetchBoardsCount(
+    endDate: "2021-09-02",
+    startDate: "2019-12-03",
+    search: "코드캠프 티셔츠 나왔으면")
+}
+
+{
+  "data": {
+    "fetchBoardsCount": 1
+  }
+}
+
+9) 등록한 게시글에 댓글을 3개 추가해 보세요.
+mutation {
+  createBoardComment(
+  	createBoardCommentInput: {
+      writer: "uhuh",
+      password: "1234",
+      contents: "우와 맞아 티셔트가 없어서 좀 그렇다",
+      rating: 10
+    },
+  	boardId: "612f1ed9abd89b00293add21"
+  ) {
+      createdAt
+      writer
+      _id
+    }
+}
+
+{
+  "data": {
+    "createBoardComment": {
+      "createdAt": "2021-09-01T07:13:45.382Z",
+      "writer": "uhuh",
+      "_id": "612f2829abd89b00293add50"
+    }
+  }
+}
+***** 총 생성된 댓글********
+"data": {
+    "fetchBoardComments": [
+      {
+        "_id": "612f2829abd89b00293add50",
+        "writer": "uhuh",
+        "contents": "아니 티셔츠에 스티커 붙이고 다니는 사람이 어딨어",
+        "rating": 6,
+        "createdAt": "2021-09-01T07:13:45.382Z",
+        "updatedAt": "2021-09-01T07:13:45.382Z"
+      },
+      {
+        "_id": "612f2820abd89b00293add4f",
+        "writer": "uhuh",
+        "contents": "우와 맞아 티셔트가 없어서 좀 그렇다",
+        "rating": 5,
+        "createdAt": "2021-09-01T07:13:36.651Z",
+        "updatedAt": "2021-09-01T07:13:36.651Z"
+      },
+      {
+        "_id": "612f2814abd89b00293add4e",
+        "writer": "uhuh",
+        "contents": "우와 맞아 티셔트가 없어서 좀 그렇다",
+        "rating": 3,
+        "createdAt": "2021-09-01T07:13:24.171Z",
+        "updatedAt": "2021-09-01T07:13:24.171Z"
+      },
+      {
+        "_id": "612f27d3abd89b00293add4b",
+        "writer": "uhuh",
+        "contents": "우와 맞아 티셔트가 없어서 좀 그렇다",
+        "rating": 7,
+        "createdAt": "2021-09-01T07:12:19.499Z",
+        "updatedAt": "2021-09-01T07:12:19.499Z"
+      }
+    ]
+  }
+}
+10) 첫번째 댓글의 내용을 수정해 보세요! 
+mutation {
+  updateBoardComment(
+    updateBoardCommentInput: {
+      contents: "아니 티셔츠에 스티커 붙이고 다니는 사람이 어딨어"
+      rating: 6
+      },
+    password: "1234", 
+    boardCommentId: "612f2829abd89b00293add50"
+  ) {
+    _id
+    writer
+    contents
+    createdAt
+  }
+}
+
+{
+  "data": {
+    "updateBoardComment": {
+      "_id": "612f2829abd89b00293add50",
+      "writer": "uhuh",
+      "contents": "아니 티셔츠에 스티커 붙이고 다니는 사람이 어딨어",
+      "createdAt": "2021-09-01T07:13:45.382Z"
+    }
+  }
+}
+
+11) 두번째 댓글을 삭제해 보세요!
+mutation {
+  deleteBoardComment(password: "1234", boardCommentId: "612f27d3abd89b00293add4b") 
+}
+
+{
+  "data": {
+    "deleteBoardComment": "612f27d3abd89b00293add4b"
+  }
+}
+12) 등록한 게시글에 달려있는 모든 댓글을 조회해 보세요.(작성자와 내용만 조회합니다.)
+query {
+  fetchBoardComments(
+    page: 1
+    boardId: "612f1ed9abd89b00293add21"
+  ) {
+    _id
+    writer
+    contents
+    rating
+    createdAt
+    updatedAt
+  }
+}
+
+{
+  "data": {
+    "fetchBoardComments": [
+      {
+        "_id": "612f2829abd89b00293add50",
+        "writer": "uhuh",
+        "contents": "아니 티셔츠에 스티커 붙이고 다니는 사람이 어딨어",
+        "rating": 6,
+        "createdAt": "2021-09-01T07:13:45.382Z",
+        "updatedAt": "2021-09-01T07:13:45.382Z"
+      },
+      {
+        "_id": "612f2814abd89b00293add4e",
+        "writer": "uhuh",
+        "contents": "우와 맞아 티셔트가 없어서 좀 그렇다",
+        "rating": 3,
+        "createdAt": "2021-09-01T07:13:24.171Z",
+        "updatedAt": "2021-09-01T07:13:24.171Z"
+      }
+    ]
+  }
+}
+
+13) BEST게시글을 조회해 보세요! (API 이름을 잘 찾아보세요!)
+query {
+  fetchBoardsOfTheBest {
+    _id
+    writer
+    title
+    contents
+    likeCount
+    dislikeCount
+  }
+}
+
+{
+  "data": {
+    "fetchBoardsOfTheBest": [
+      {
+        "_id": "612f2581abd89b00293add42",
+        "writer": "민지",
+        "title": "제목입니다.",
+        "contents": "과제입니다.",
+        "likeCount": 2,
+        "dislikeCount": 1
+      },
+      {
+        "_id": "612f1ed9abd89b00293add21",
+        "writer": "kimyeohyun",
+        "title": "코드캠프 티셔츠 나왔으면",
+        "contents": "Yes, I am trapped here in CodeCamp",
+        "likeCount": 1,
+        "dislikeCount": 1
+      },
+      {
+        "_id": "612f2054abd89b00293add25",
+        "writer": "영범",
+        "title": "수정했다",
+        "contents": "진짜로",
+        "likeCount": 1,
+        "dislikeCount": 1
+      },
+      {
+        "_id": "612f18e1abd89b00293add19",
+        "writer": "이지원",
+        "title": "second title",
+        "contents": "new board",
+        "likeCount": 1,
+        "dislikeCount": 1
+      }
+    ]
+  }
+}
+14) 회원가입을 해보세요! 사용자, 즉 User를 만드는 API입니다!
+mutation {
+  createUser(
+	createUserInput: {
+    email: "yeohyun@codecamp.com"
+    password: "1234"
+    name: "kimyeohyun"
+    }
+  ) {
+    _id
+    email
+    name
+  }
+}
+
+{
+  "data": {
+    "createUser": {
+      "_id": "612f2fc3abd89b00293add6a",
+      "email": "yeohyun@codecamp.com",
+      "name": "kimyeohyun"
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
