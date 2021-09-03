@@ -6,6 +6,8 @@ import {
 
 import { useState } from "react";
 import { useMutation, gql } from '@apollo/client';
+import { useRouter } from 'next/dist/client/router';
+
 
 const CREATE_BOARD = gql`
   mutation createBoard(
@@ -20,6 +22,8 @@ const CREATE_BOARD = gql`
   `
 
 export default function BoardsNewPage(){
+  const router = useRouter()
+
   const [createBoard] = useMutation(CREATE_BOARD)
   const [writer, setWriter] = useState('');
   const [writerError, setWriterError] = useState('');
@@ -36,7 +40,7 @@ export default function BoardsNewPage(){
   const onChangeContents = e => setContents(e.target.value)
   
   async function onClickSubmit() {
-    if (writer.length === 0) {
+    if (writer === '') {
       setWriterError("작성자가 없습니다!")
     } else {
       setWriterError("")
@@ -60,17 +64,23 @@ export default function BoardsNewPage(){
       alert("게시물을 등록합니다.")
     }
 
-    const result = await createBoard({
-      variables: {
-        createBoardInput: {
-          writer: writer,
-          password: pw,
-          title: title, 
-          contents: contents
+    try {
+      const result = await createBoard({
+        variables: {
+          createBoardInput: {
+            writer: writer,
+            password: pw,
+            title: title, 
+            contents: contents
+          }
         }
-      }
-    })
-    console.log(result.data.createBoard._id)
+      })
+      console.log(result.data.createBoard._id)
+      router.push(`/boards/detail/${result.data.createBoard._id}`)
+    } catch(error) {
+      console.error()
+    }
+    
   }
   
 

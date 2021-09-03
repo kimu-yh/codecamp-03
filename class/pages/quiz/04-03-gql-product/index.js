@@ -2,7 +2,7 @@ import { useMutation, gql } from "@apollo/client"
 import { useState } from "react"
 
 const CREATE_PRODUCT = gql`
-  mutation createProduct(
+  mutation createProduct (
     $seller: String
     $createProductInput: CreateProductInput!
   ) {
@@ -28,6 +28,7 @@ export default function QuizGqlProduct() {
   const onChangeProduct = e => setProduct(e.target.value)
   const onChangeProductDetail = e => setProductDetail(e.target.value)
   const onChangeProductPrice = e => setProductPrice(e.target.value)
+  
   async function onClickSubmit () {
     const result = await createProduct({
       variables: {

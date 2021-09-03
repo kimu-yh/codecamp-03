@@ -32,14 +32,19 @@ export default function DynamicBoardWritePage() {
   }
 
   async function aaa() {
-    const result = await createBoard({
-      variables: { writer: myWriter, title: myTitle, contents: myContents }
-    })
-    console.log(result)
-    console.log(result.data.createBoard.number)
-    // router.push('/05-06-dynamic-board-read/' + result.data.createBoard.number) 옛날 방식
-    router.push(`/05-06-dynamic-board-read/${result.data.createBoard.number}`) // 최신 방식 templete literal
+    try {
 
+      const result = await createBoard({
+        variables: { writer: myWriter, title: myTitle, contents: myContents }
+      })
+      console.log(result)
+      console.log(result.data.createBoard.number)
+      // router.push('/05-06-dynamic-board-read/' + result.data.createBoard.number) 옛날 방식
+      router.push(`/05-06-dynamic-board-read/${result.data.createBoard.number}`) // 최신 방식 templete literal
+
+    } catch(error) {
+        console.log(error)
+    }
   }
 
   return (
