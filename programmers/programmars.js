@@ -377,5 +377,34 @@ function solution(phone_number) {
 			}
 	}
 	return asnswer;
-	
+}
+
+//7일차 (2주차 2일) 짝수와 홀수
+function solution(num) {
+	let answer = num % 2 === 0? "Even": "Odd";
+	return answer;
+}
+
+//7일차 평균 구하기
+function solution(arr) {
+	let sum = 0;
+	for (let i = 0; i < arr.length; i++) {
+			sum += arr[i]
+	} 
+	return sum/arr.length;
+}
+
+//7일차 가운데 글자 가져오기
+function solution(s) {
+	let mid = s.length/2;
+	if (s.length%2 === 0) {
+	 return s.slice(Math.floor(mid - 0.5), Math.floor(mid - 0.5) + 2)
+	} else {
+	 return s.slice(mid, mid + 1)
+	}
+}
+
+//7일차 서울에서 김서방 찾기
+function solution(seoul) {
+	return `김서방은 ${seoul.indexOf("Kim")}에 있다`;
 }
