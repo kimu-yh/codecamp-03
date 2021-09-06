@@ -350,3 +350,32 @@ for(let i = 0; i < myShopping.length; i = i + 1) {
 	console.log(result)
 	return result
 }
+
+//2주차 1일. 문자열을 정수로 바꾸기
+function solution(s) {
+	// return s/1
+	return Number(s)
+}
+
+//2주차 1일. 같은 숫자는 싫어
+function solution(arr)
+{ let answer = [];
+    for (let i = 0; i < arr.length; i++) {
+        arr[i] !== arr[i+1] && answer.push(arr[i])
+    }
+ return answer
+}
+
+//2주차 1일. 핸드폰 번호 가리기
+function solution(phone_number) {
+	let answer = '';
+	for (let i = 0; i < phone_number.length; i++) {
+			if (i < phone_number.length - 4) {
+					answer += '*'
+			} else {
+					answer += phone_number[i]
+			}
+	}
+	return asnswer;
+	
+}
