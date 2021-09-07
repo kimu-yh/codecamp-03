@@ -404,7 +404,25 @@ function solution(s) {
 	}
 }
 
-//7일차 서울에서 김서방 찾기
+//8일차 서울에서 김서방 찾기
 function solution(seoul) {
 	return `김서방은 ${seoul.indexOf("Kim")}에 있다`;
+}
+
+//8일차 문자열 다루기 기본
+function solution(s) {
+	return s.length === 4 || s.length === 6 ? s.split('').filter(e => isNaN(e) === true).length === 0 ?
+			true : false : false 
+ }
+
+
+ //8일차 약수의 합
+ function solution(n) {
+	let sum = 0
+	for (let i = 0; i <= Math.floor(n/2); i++) {
+			if (n%i === 0) {
+					sum += i
+			}
+	}
+	return sum + n;
 }
