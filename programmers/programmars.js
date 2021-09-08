@@ -413,6 +413,13 @@ function solution(seoul) {
 function solution(s) {
 	return s.length === 4 || s.length === 6 ? s.split('').filter(e => isNaN(e) === true).length === 0 ?
 			true : false : false 
+	/*
+	if (s.length !== 4 && s.length !== 6) {
+		return false;
+	}
+		const answer = s.split('').filter(str => isNaN(str) === true).length === 0
+		return answer
+	*/
  }
 
 
@@ -425,4 +432,34 @@ function solution(s) {
 			}
 	}
 	return sum + n;
+	/* 
+	  let answer = 0;
+    const array = new Array(n)
+					.fill(1)
+					.forEach((num, index) => {
+						n % (num + index) === 0
+							? answer += (num + index)
+							: null
+					})
+    return answer;
+	*/
+}
+ 
+//9일차 자릿수 더하기
+function solution(n)
+{
+    let answer = 0;
+    n = String(n);
+    n.split('').map(e => answer += e - 0);
+    
+    return answer;
+}
+
+//9일차 x만큼 간격이 있는 n개의 숫자
+function solution(x, n) {
+	let arr = [x]
+	for (let i = 1; i < n; i++) {
+			arr[i] = x + x*i
+	}
+	return arr
 }
