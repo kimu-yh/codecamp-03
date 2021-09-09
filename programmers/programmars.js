@@ -446,13 +446,11 @@ function solution(s) {
 }
  
 //9일차 자릿수 더하기
-function solution(n)
-{
-    let answer = 0;
-    n = String(n);
-    n.split('').map(e => answer += e - 0);
-    
-    return answer;
+function solution(n) {
+	let answer = 0;
+	n = String(n);
+	n.split('').forEach(e => answer += Number(e));
+	return answer;
 }
 
 //9일차 x만큼 간격이 있는 n개의 숫자
@@ -462,4 +460,27 @@ function solution(x, n) {
 			arr[i] = x + x*i
 	}
 	return arr
+}
+
+/*
+function solution(x, n) {
+	const array =  new Array(n).fill(x).map((number, index) => {
+		return number * (index + 1)
+	})
+	return array;
+}
+*/
+
+//10일차: 문자열 내림차순으로 배치하기
+function solution(s) {
+	let answer = s.split('').sort().reverse().join('');
+	return answer;
+}
+
+//10일차: K번째수
+function solution(array, commands) {
+	let answer = [];
+	commands.forEach(e => answer.push(array.slice(e[0]-1, e[1])
+																		.sort((a, b) => a - b)[e[2]-1]))
+	return answer;
 }
