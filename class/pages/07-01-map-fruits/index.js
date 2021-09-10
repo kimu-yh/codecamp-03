@@ -13,7 +13,7 @@ export default function MapFruitsPage() {
     { number: 10, title: "귤" },
   ]
 
-  //const aaa = fruits.map(el => (<div>{el.number}. {el.title}</div>))
+  //  const aaa = fruits.map(el => (<div>{el.number}. {el.title}</div>))
 
 
   return (
@@ -21,7 +21,7 @@ export default function MapFruitsPage() {
     <div>
     {
       fruits.filter(el => el.number % 2 === 0).map((el) => (
-        <div>
+        <div key={el.number}>
           <span>{el.number}</span> 
           <h1>{el.title}</h1>
         </div>

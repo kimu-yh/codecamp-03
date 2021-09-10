@@ -1,6 +1,6 @@
 import { 
   Container, Title, Name, Img, Wrapper, RowFlex, Menu, Number, 
-  EachQuery, BottomIcon, Icon, IconMenu, Selected, Search
+  EachQuery, Icon, IconMenu, Selected, Search
 } from "../../../styles/QuizFaq"
 
 export default function QuizFaqPage() {

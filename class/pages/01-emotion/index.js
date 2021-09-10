@@ -1,4 +1,4 @@
-import { MyDiv, Title, IdInput, PwInput, LoginButton, Wrapper } from '../../styles/Example'
+import { Title, IdInput, PwInput, LoginButton, Wrapper } from '../../styles/Example'
 
 
 

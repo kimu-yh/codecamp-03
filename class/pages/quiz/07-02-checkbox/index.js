@@ -16,7 +16,7 @@ const Column = styled.div`
   width: 20%;
 `
 export default function CheckBoxListPage() {
-  let List = [
+  const List = [
     { number: "번호", title: "제목", createdAt:"작성일"},
     { number: 1, title: "9월달 시스템 점검 안내입니다", createdAt: "2020.09.19"}, 
     { number: 2, title: "안녕하세요! 공지사항 전달드립니다", createdAt: "2020.09.17"},
@@ -32,19 +32,15 @@ export default function CheckBoxListPage() {
     Lists = List.map((el) => (el.number !== event.target.number))
   }
 
-  const onClickCheck = (event) => {
-    if (event.target.number === "번호") {
-      input.checked === "checked"
-    } else {
-      
-    }
-  }
+  // const onClickCheck = (event) => {
+    
+  // }
 
   return (
     <Table>
       {Lists.map(el => (
         <Row key={el.number}>
-          <Column><input type="checkbox" onClick={onClickCheck} /></Column>
+          <Column><input type="checkbox" onClick={} /></Column>
           <Column>{el.title}</Column>
           <Column>{el.createdAt}</Column>
         </Row>

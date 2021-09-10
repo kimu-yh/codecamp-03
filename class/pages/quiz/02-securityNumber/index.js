@@ -4,7 +4,7 @@ export default function SecurityNumber() {
   const [securityNum, setSecurityNum] = useState('000000');
   
   function onChangeNum() {
-    let randomNum = String(Math.floor(Math.random()*1000000)).padStart(6, '0')
+    const randomNum = String(Math.floor(Math.random()*1000000)).padStart(6, '0')
     setSecurityNum( randomNum );
   }
 

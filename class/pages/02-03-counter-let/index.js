@@ -1,7 +1,7 @@
 export default function CounterLetPage() {
 
   function aaa() {
-    let count = Number(document.getElementById("number").innerText) + 1
+    const count = Number(document.getElementById("number").innerText) + 1
     document.getElementById('number').innerText = count
   }
 
