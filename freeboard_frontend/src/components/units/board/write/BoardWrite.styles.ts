@@ -155,10 +155,14 @@ export const CancelButton = styled.button`
 	cursor: pointer;
 `;
 
+interface IProps {
+	isActive: boolean
+}
+
 export const SubmitButton = styled.button`
 	width: 179px;
 	height: 52px;
-	background-color: ${(props) => props.isActive ? "yellow" : "gray"};
+	background-color: ${(props: IProps) => props.isActive ? "yellow" : "gray"};
 	border: none;
 	font-size: 16px;
 	font-weight: 500;

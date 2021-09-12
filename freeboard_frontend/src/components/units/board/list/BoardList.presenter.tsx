@@ -29,7 +29,7 @@ export default function BoardListUI(props) {
             {el.title}
           </ColumnTitle>
           <ColumnBasic>{el.writer}</ColumnBasic>
-          <ColumnBasic>{el.createdAt}</ColumnBasic>
+          <ColumnBasic>{el.createdAt.slice(0, 10)}</ColumnBasic>
         </Row>
       ))}
       <TableBottom />

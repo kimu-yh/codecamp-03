@@ -23,7 +23,16 @@ import {
   UploadButton
 } from "./BoardWrite.styles";
 
-export default function BoardWriteUI(props) {
+interface IProps {
+  isEdit: boolean,
+  isActive: boolean,
+  writerError: string,
+  passwordError: string,
+  titleError: string,
+
+}
+
+export default function BoardWriteUI(props: IProps) {
   return (
     <Wrapper>
         <Title>{props.isEdit ? "게시판 수정" : "게시판 등록"}</Title>
@@ -119,13 +128,15 @@ export default function BoardWriteUI(props) {
           <RadioLabel htmlFor="image">사진</RadioLabel>
         </OptionWrapper>
         <ButtonWrapper>
+        {!props.isEdit && (
           <SubmitButton 
             onClick={props.onClickSubmit} 
             isActive={props.isActive} 
             disabled={!props.isActive}>
             등록하기
           </SubmitButton>
-        {props.isEidt && (
+        )}
+        {props.isEdit && (
           <SubmitButton
             onClick={props.onClickUpdate}
             isActive={true}>
