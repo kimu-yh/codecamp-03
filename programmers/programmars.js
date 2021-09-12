@@ -476,6 +476,20 @@ function solution(s) {
 	let answer = s.split('').sort().reverse().join('');
 	return answer;
 }
+/* 	문자열 배열 오름차순 정렬
+			arr.sort()
+
+		문자열 배열 내림차순 정렬 (또는 위 식에서 .reverse() 추가)
+			arr.sort((a, b) => {
+			return a > b? -1: 1
+			})
+	  
+		숫자 배열 오름차순 정렬
+			arr.sort((a, b) => a - b )
+
+	  숫자 배열 내림차순 정렬
+			arr.sort((a, b) => b - a)
+*/
 
 //10일차: K번째수
 function solution(array, commands) {
@@ -483,4 +497,30 @@ function solution(array, commands) {
 	commands.forEach(e => answer.push(array.slice(e[0]-1, e[1])
 																		.sort((a, b) => a - b)[e[2]-1]))
 	return answer;
+}
+
+//11일차: 문자열 내 p와 y의 개수
+function solution(s){
+	s = s.toLowerCase();
+		 return  [...s].filter(e => e === 'p').length === [...s].filter(e => e === 'y').length
+	
+}
+
+//11일차: 이상한 문자 만들기
+function solution(s) {
+	let arr = s.split(' ');
+	let answer = []
+	let word = ''
+	for (let i = 0; i < arr.length; i++) {
+			
+			for (let j = 0; j < arr[i].length; j++) {
+			 word +=  j % 2 === 0
+					?  arr[i][j].toUpperCase()
+					:  arr[i][j].toLowerCase()
+					
+			}
+			answer.push(word);
+			word = '';
+	}
+	 return answer.join(' ')
 }
