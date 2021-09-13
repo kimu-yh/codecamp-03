@@ -503,8 +503,25 @@ function solution(array, commands) {
 function solution(s){
 	s = s.toLowerCase();
 		 return  [...s].filter(e => e === 'p').length === [...s].filter(e => e === 'y').length
-	
 }
+/*
+	const check = { p: 0, y: 0}
+	s = s.toLowerCAse()
+	for (let i = 0; i < s.length; i++) {
+		if (s[i] === 'p' || s[i] === 'y') {
+			check[s[i]] += 1
+		}
+	}
+	return check.p === check.y
+*/
+
+/*
+	const check = {}
+	const result = s.toLowerCase().split('').forEach(str => {
+		check[str] === undefined ? check[str] = 1 : check[str] += 1
+	})
+	return check.p === check.y
+*/
 
 //11일차: 이상한 문자 만들기
 function solution(s) {
@@ -517,10 +534,51 @@ function solution(s) {
 			 word +=  j % 2 === 0
 					?  arr[i][j].toUpperCase()
 					:  arr[i][j].toLowerCase()
-					
 			}
 			answer.push(word);
 			word = '';
 	}
 	 return answer.join(' ')
 }
+/* 단어 별로 인덱스 값을 판단하는 변수
+let idx = 0;
+for (let i = 0; i < s.length; i++) {
+	if ( s[i] === " ") {
+		idx = 0;
+		answer += " "
+	} else {
+		answer = answer + ( idx % 2 === 0
+			? s[i].toUpperCase() : s[i].toLowerCase() 
+			)
+			idx += 1
+	}
+}
+return answer
+*/
+
+/*
+const answer = s.split(" ").map( str => {
+	return str.split("").map(letter, i) => {
+		return i % 2 === 0
+		? letter.toUpperCase()
+		: letter.toLowerCase()
+	}).join("")
+}).join(" ")
+*/
+
+//12일차 자연수 뒤집어 배열로 만들기
+function solution(n) {
+	return String(n).split('').reverse().map(e => Number(e))
+}
+
+//12일차 나누어 떨어지는 숫자 배열
+function solution(arr, divisor) {
+	let answer = []
+	let result = arr.filter(e => e % divisor === 0)
+	result.length === 0 
+			? answer.push(-1)
+			: answer.push(...result)
+	return answer.sort((a, b) => a - b)
+}
+
+
