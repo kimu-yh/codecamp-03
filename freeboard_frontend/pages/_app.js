@@ -1,5 +1,6 @@
 import {ApolloClient, ApolloProvider, InMemoryCache} from '@apollo/client'
 import '../styles/globals.css'
+import 'antd/dist/antd.css'
 
 function MyApp({ Component, pageProps }) {
   const client = new ApolloClient({
