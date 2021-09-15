@@ -1,4 +1,17 @@
 import styled from "@emotion/styled";
+import DaumPostcode from 'react-daum-postcode';
+import { Modal } from "antd";
+
+export const AddressModal = styled(Modal)`
+	width: 500px;
+	background-color: skyblue;
+`
+
+export const AddressSearch = styled(DaumPostcode)`
+	width: 450px;
+	margin: auto;
+	background-color: white;
+`
 
 export const Wrapper = styled.div`
 	width: 1200px;

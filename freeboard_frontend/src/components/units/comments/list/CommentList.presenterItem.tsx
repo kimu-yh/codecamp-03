@@ -1,6 +1,6 @@
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { useMutation } from "@apollo/client";
 import CommentWrite from "../write/CommentWrite.container"
 import { FETCH_BOARD_COMMENTS, DELETE_BOARD_COMMENTS } from "./CommentList.queries";
 import {
@@ -17,15 +17,21 @@ import {
   Delete,
   Star
 } from "./CommentList.styles"
+import { Modal } from "antd"
 
 export default function CommentListUIItem(props) {
   const router = useRouter()
   const [isEdit, setIsEdit] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
+  const [myPw, setMyPw] = useState("")
+
   const [ deletedBoardComment ] = useMutation(DELETE_BOARD_COMMENTS)
+
+  const onChangeMyPw = e => setMyPw(e.target.value)
   const onClickUpdateOpen = () => setIsEdit(true)
+  const onToggleModal = () => setIsOpen(prev => !prev)
 
   async function onClickDeleteComment() {
-    const myPw = prompt("비밀번호를 입력해주세요.");
     try {
       await deletedBoardComment({
         variables: {
@@ -39,6 +45,7 @@ export default function CommentListUIItem(props) {
           }
         ]
       })
+      onToggleModal()
     } catch(error) {
       alert(error.message)
     }
@@ -59,7 +66,11 @@ export default function CommentListUIItem(props) {
         </ShowWrapper>
         <FixDelWrapper>
           <Fix alt="pencil image" src="/images/fix.png" onClick={onClickUpdateOpen} />
-          <Delete alt="delete image" src="/images/ex.png" onClick={onClickDeleteComment} />
+          <Delete alt="delete image" src="/images/ex.png" onClick={onToggleModal} />
+          <Modal visible={isOpen} onCancel={onToggleModal} onOk={onClickDeleteComment}>
+            비밀번호 입력: <input type="password" onChange={onChangeMyPw} />
+          </Modal>
+        
         </FixDelWrapper>
       </CommentsWrapper>
     ) }

@@ -1,18 +1,22 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD, UPDATE_BOARD, FETCH_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 
 export default function BoardWrite(props) {
   const router = useRouter()
   const [isActive, setIsActive] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   const [writer, setWriter] = useState('')
   const [password, setPassword] = useState('')
   const [title, setTitle] = useState('')
   const [contents, setContents] = useState('')
   const [youtubeUrl, setYoutubeUrl] = useState('')
+  const [zipcode, setZipcode] = useState('')
+  const [address, setAddress] = useState('')
+  const [addressDetail, setAddressDetail] = useState('')
 
   const [writerError, setWriterError] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -21,9 +25,6 @@ export default function BoardWrite(props) {
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: { boardId: router.query.boardId },
-  });
 
   function onChangeWriter(event){
     setWriter(event.target.value)
@@ -81,6 +82,20 @@ export default function BoardWrite(props) {
     setYoutubeUrl(event.target.value)
   }
 
+  function onChangeAddressDetail(event) {
+    setAddressDetail(event.target.value)
+  }
+
+  function onClickAddressSearch() {
+    setIsOpen(true)
+  }
+
+  function onCompleteAddressSearch(data) {
+    setAddress(data.address)
+    setZipcode(data.zonecode)
+    setIsOpen(false)
+  }
+
   async function onClickSubmit(){
     if(writer === ""){
       setWriterError("작성자를 입력해주세요.")
@@ -103,7 +118,12 @@ export default function BoardWrite(props) {
               password: password,
               title: title,
               contents: contents,
-              youtubeUrl: youtubeUrl
+              youtubeUrl: youtubeUrl, 
+              boardAddress: {
+                zipcode,
+                address,
+                addressDetail
+              }
             },
           },
         });
@@ -119,10 +139,21 @@ export default function BoardWrite(props) {
     title? : string;
     contents? : string;
     youtubeUrl?: string;
+    boardAddress?: {
+      zipcode?: string;
+      address?: string;
+      addressDetail?: string;
+    }
   }
 
   async function onClickUpdate() {
-    if (!title && !contents && youtubeUrl) {
+    if (!title &&
+       !contents && 
+       !youtubeUrl &&
+       !zipcode &&
+       !address &&
+       !addressDetail
+       ) {
       alert("수정된 내용이 없습니다.");
       return;
     }
@@ -130,6 +161,12 @@ export default function BoardWrite(props) {
     if (title) myUpdateBoardInput.title = title;
     if (contents) myUpdateBoardInput.contents = contents;
     if (youtubeUrl) myUpdateBoardInput.youtubeUrl = youtubeUrl;
+    if (zipcode || address || addressDetail) {
+      myUpdateBoardInput.boardAddress = {}
+      if (zipcode) myUpdateBoardInput.boardAddress.zipcode = zipcode;
+      if (address) myUpdateBoardInput.boardAddress.address = address;
+      if (addressDetail) myUpdateBoardInput.boardAddress.addressDetail = addressDetail;
+    }
     try {
       const result = await updateBoard({ 
         variables: {
@@ -148,19 +185,26 @@ export default function BoardWrite(props) {
   return (
     <BoardWriteUI
       isActive={isActive}
+      isOpen={isOpen}
       onChangeWriter={onChangeWriter}
       onChangePassword={onChangePassword}
       onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
       onChangeYoutubeUrl={onChangeYoutubeUrl}
+      onChangeAddressDetail={onChangeAddressDetail}
+      onClickAddressSearch={onClickAddressSearch}
+      onCompleteAddressSearch={onCompleteAddressSearch}
       onClickSubmit={onClickSubmit}
+      onClickUpdate={onClickUpdate}
       writerError={writerError}
       passwordError={passwordError}
       titleError={titleError}
       contentsError={contentsError}
-      onClickUpdate={onClickUpdate}
       isEdit={props.isEdit}
       data={props.data}
+      address={address}
+      zipcode={zipcode}
+      addressDetail={addressDetail}
     />
   );
 }

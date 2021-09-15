@@ -12,8 +12,18 @@ import {
   Wrapper,
   Writer,
   CardWrapper,
-  Youtube
+  Youtube, 
+  IconWrapper, 
+  LikeIcon, 
+  DislikeIcon,
+  LikeCount,
+  LikeWrapper,
+  DislikeCount, 
+  LinkIcon,
+  ShowAddress, 
+  LocationIcon,
 } from "./BoardDetail.styles";
+
 
 export default function BoardDetailUI(props) {
   return (
@@ -27,11 +37,30 @@ export default function BoardDetailUI(props) {
               <CreatedAt>{props.data?.fetchBoard.createdAt.slice(0, 10)}</CreatedAt>
             </Info>
           </AvatarWrapper>
+          <IconWrapper>
+            <LinkIcon src="/images/link.png" alt="link icon" />
+            <ShowAddress 
+              placement="topRight" 
+              color={'cyan'}
+              title={`${props.data?.fetchBoard.boardAddress?.address} ${props.data?.fetchBoard.boardAddress?.addressDetail}`}>
+              <LocationIcon src="/images/location.png" alt="location icon" />
+            </ShowAddress>
+          </IconWrapper>
         </Header>
         <Body>
           <Title>{props.data?.fetchBoard.title}</Title>
           <Contents>{props.data?.fetchBoard.contents}</Contents>
           <Youtube url={props.data?.fetchBoard.youtubeUrl} width={500}></Youtube>
+          <LikeWrapper>
+            <IconWrapper>
+              <LikeIcon onClick={props.onClickLike}/>
+              <LikeCount>{props.data?. fetchBoard.likeCount}</LikeCount>
+            </IconWrapper>
+            <IconWrapper>
+              <DislikeIcon onClick={props.onClickDislike}/>
+              <DislikeCount>{props.data?. fetchBoard.dislikeCount}</DislikeCount>
+            </IconWrapper>
+          </LikeWrapper>
         </Body>
       </CardWrapper>
       <BottomWrapper>

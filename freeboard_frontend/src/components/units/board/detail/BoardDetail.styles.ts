@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import ReactPlayer from 'react-player'
-
+import { Tooltip } from 'antd'
+import { LikeOutlined, DislikeOutlined } from "@ant-design/icons";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -87,5 +88,49 @@ export const Button = styled.button`
 
 export const Youtube = styled(ReactPlayer)`
   margin: auto;
-  border: 1px solid black;
+  border: 1px solid gray;
 `
+
+export const IconWrapper = styled.div`
+  text-align: center;
+  margin-bottom: 10px;
+`
+
+export const LinkIcon = styled.img`
+  margin-right: 10px;  
+`
+
+export const LocationIcon = styled.img`
+  margin-left: 10px;
+`
+
+export const LikeIcon =  styled(LikeOutlined)`
+  font-size: 24px;
+  color: pink;
+  margin: 0px 20px;
+  cursor: pointer;
+`
+export const DislikeIcon = styled(DislikeOutlined)`
+  font-size: 24px;
+  color: skyblue;
+  margin: 0px 20px;
+  cursor: pointer;
+`
+
+export const LikeWrapper = styled.div`
+  padding-top: 160px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`
+
+export const LikeCount = styled.div`
+  color: pink;
+`
+
+export const DislikeCount = styled.div`
+  color: skyblue;
+`
+
+export const ShowAddress = styled(Tooltip)``
+

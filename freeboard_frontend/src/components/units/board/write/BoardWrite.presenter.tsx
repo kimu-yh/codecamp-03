@@ -1,4 +1,6 @@
 import {
+  AddressModal,
+  AddressSearch,
   Error,
   Address,
   ButtonWrapper,
@@ -23,17 +25,22 @@ import {
   UploadButton
 } from "./BoardWrite.styles";
 
-interface IProps {
-  isEdit: boolean,
-  isActive: boolean,
-  writerError: string,
-  passwordError: string,
-  titleError: string,
+// interface IProps {
+//   isEdit: boolean,
+//   isActive: boolean,
+//   writerError: string,
+//   passwordError: string,
+//   titleError: string,
+// }
 
-}
-
-export default function BoardWriteUI(props: IProps) {
+export default function BoardWriteUI(props) {
   return (
+  <>
+    {props.isOpen && (
+      <AddressModal visible={true}>
+        <AddressSearch onComplete={props.onCompleteAddressSearch} autoClose />
+      </AddressModal>
+    )}
     <Wrapper>
         <Title>{props.isEdit ? "게시판 수정" : "게시판 등록"}</Title>
         <WriterWrapper>
@@ -45,7 +52,7 @@ export default function BoardWriteUI(props: IProps) {
               placeholder="이름을 적어주세요."
               onChange={props.onChangeWriter}
               defaultValue={props.data?.fetchBoard.writer}
-              readOnly={Boolean(props.data?.fetchboard.writer)}
+              readOnly={Boolean(props.data?.fetchboard?.writer)}
             />
             <Error>{props.writerError}</Error>
           </InputWrapper>
@@ -54,7 +61,6 @@ export default function BoardWriteUI(props: IProps) {
             <Password
               name="password"
               type="password"
-              defaultValue={props.data?.fetchBoard.password}
               placeholder="비밀번호를 입력해주세요."
               onChange={props.onChangePassword}
             />
@@ -88,11 +94,24 @@ export default function BoardWriteUI(props: IProps) {
             <Zipcode
               name="zipcode"
               placeholder="07250"
+              readOnly
+              value={
+                props.zipcode || props.data?.fetchBoard.boardAddress?.zipcode
+              }
             />
-            <SearchButton>우편번호 검색</SearchButton>
+            <SearchButton onClick={props.onClickAddressSearch}>
+              우편번호 검색
+            </SearchButton>
           </ZipcodeWrapper>
-          <Address />
-          <Address />
+          <Address 
+            readOnly 
+            value={
+              props.address || props.data?.fetchBoard.boardAddress?.address
+              } />
+          <Address 
+            onChange={props.onChangeAddressDetail} 
+            defaultValue={props.data?.fetchBoard.boardAddress?.addressDetail} 
+          />
         </InputWrapper>
         <InputWrapper>
           <Label>유튜브</Label>
@@ -147,5 +166,6 @@ export default function BoardWriteUI(props: IProps) {
         )}
         </ButtonWrapper>
       </Wrapper>
+    </>
   );
 }

@@ -9,7 +9,9 @@ import {
   BtnWrapper,
   TextLength,
   Star,
-  Fix
+  ReviewWrapper,
+  PencilIcon,
+  Review,
  } from "./CommentWrite.styles"
 
 export default function CommentWriteUI(props) {
@@ -17,10 +19,10 @@ export default function CommentWriteUI(props) {
     <div>
       <InputWrapper>
       {!props.isEdit && (
-        <>
-          <Fix src="/images/fix.png" alt="pencil" />
-          <span>댓글</span>
-        </>
+        <ReviewWrapper>
+          <PencilIcon src="/images/pencil.png" alt="pencil" />
+          <Review>댓글</Review>
+        </ReviewWrapper>
       )}
         <InfoWrapper>
           <InputWriter type="text" placeholder="작성자" 
@@ -41,6 +43,7 @@ export default function CommentWriteUI(props) {
             <TextLength>{props.text.length}/100</TextLength>
             <SubmitBtn id={props.data?._id}
               onClick={props.isEdit? props.onClickUpdateComment : props.onClickSubmitComment}
+              isYellow={Boolean(props.isEdit)}
             >
               {props.isEdit? "수정하기" : "등록하기"}
             </SubmitBtn>

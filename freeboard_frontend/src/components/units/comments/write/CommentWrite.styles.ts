@@ -18,6 +18,7 @@ export const InputWriter = styled.input`
   width: 180px;
   height: 52px;
   padding: 14px 20px;
+  border: 1px solid gray;
 `
 
 export const TextWrapper = styled.div`
@@ -29,6 +30,7 @@ export const InputPw = styled.input`
   width: 180px;
   height: 52px;
   padding: 14px 20px;
+  border: 1px solid gray;
 `
 
 export const InputText = styled.textarea`
@@ -41,11 +43,12 @@ export const InputText = styled.textarea`
 `
 
 export const SubmitBtn = styled.button`
-  background-color: black;
-  color: white;
+  background-color: ${(props) => props.isYellow ? "yellow" : "black"};
+  color: ${(props) => props.isYellow ? "gray" : "white"};
   font-size: 16px;
   width: 91px;
   height: 50px;
+  border: ${(props) => props.isYellow ? "1px solid gray" : "none"};;
 `
 
 export const BtnWrapper = styled.div`
@@ -64,12 +67,24 @@ export const TextLength = styled.div`
   padding: 14px 20px;
 `
 
-export const Fix = styled.img`
-width: 18px;
-height: 18px;
+export const PencilIcon = styled.img`
+  width: 30px;
 `
 
 export const Star = styled(Rate)`
-margin-left: 10px;
-padding: 7px;
+  margin-left: 10px;
+  padding: 7px;
+`
+
+export const ReviewWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  padding: 5px 0px 5px 0;
+`
+
+export const Review = styled.span`
+  margin-left: 5px;
+  padding: 0 0 3px 0;
+  font-size: 16px;
+  color: gray;
 `
