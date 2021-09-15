@@ -52,7 +52,7 @@ export default function CommentListUIItem(props) {
         <ShowWrapper>
           <InfoShowWrapper>
             <ShowWriter>{props.data?.writer}</ShowWriter>
-            <ShowStar><Star onChange={props.onChangeStar} value={props.star} /></ShowStar>
+            <ShowStar><Star onChange={props.onChangeStar} value={props.data.rating} /></ShowStar>
           </InfoShowWrapper>
           <ShowText>{props.data?.contents}</ShowText>
           <ShowDate>{props.data?.createdAt.slice(0, 10)}</ShowDate>

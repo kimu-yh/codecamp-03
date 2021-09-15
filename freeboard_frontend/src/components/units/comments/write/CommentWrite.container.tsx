@@ -1,6 +1,7 @@
 import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react'
+import { IMutation, IMutationCreateBoardCommentArgs, IMutationUpdateBoardCommentArgs } from '../../../../commons/types/generated/types';
 import CommentWriteUI from './CommentWrite.presenter'
 import { FETCH_BOARD_COMMENTS, CREATE_BOARD_COMMENT, UPDATE_BOARD_COMMENT,  } from './CommentWrite.queries'
 
@@ -12,8 +13,8 @@ export default function CommentWrite(props) {
   const [ star, setStar ] = useState(3)
   
   const router = useRouter();
-  const [ createBoardComment ] = useMutation(CREATE_BOARD_COMMENT)
-  const [ updateBoardComment ] = useMutation(UPDATE_BOARD_COMMENT)
+  const [ createBoardComment ] = useMutation<Pick<IMutation, 'createBoardComment'>, IMutationCreateBoardCommentArgs>(CREATE_BOARD_COMMENT)
+  const [ updateBoardComment ] = useMutation<Pick<IMutation, 'updateBoardComment'>, IMutationUpdateBoardCommentArgs>(UPDATE_BOARD_COMMENT)
 
   const onChangeWriter = e => setWriter(e.target.value)
   const onChangePw = e => setPw(e.target.value)

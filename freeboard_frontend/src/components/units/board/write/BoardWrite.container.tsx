@@ -12,6 +12,7 @@ export default function BoardWrite(props) {
   const [password, setPassword] = useState('')
   const [title, setTitle] = useState('')
   const [contents, setContents] = useState('')
+  const [youtubeUrl, setYoutubeUrl] = useState('')
 
   const [writerError, setWriterError] = useState('')
   const [passwordError, setPasswordError] = useState('')
@@ -76,6 +77,10 @@ export default function BoardWrite(props) {
     }
   }
 
+  function onChangeYoutubeUrl(event) {
+    setYoutubeUrl(event.target.value)
+  }
+
   async function onClickSubmit(){
     if(writer === ""){
       setWriterError("작성자를 입력해주세요.")
@@ -98,6 +103,7 @@ export default function BoardWrite(props) {
               password: password,
               title: title,
               contents: contents,
+              youtubeUrl: youtubeUrl
             },
           },
         });
@@ -109,16 +115,27 @@ export default function BoardWrite(props) {
     }
   }
 
+  interface IMyUpdateBoardInput {
+    title? : string;
+    contents? : string;
+    youtubeUrl?: string;
+  }
+
   async function onClickUpdate() {
+    if (!title && !contents && youtubeUrl) {
+      alert("수정된 내용이 없습니다.");
+      return;
+    }
+    const myUpdateBoardInput: IMyUpdateBoardInput = {};
+    if (title) myUpdateBoardInput.title = title;
+    if (contents) myUpdateBoardInput.contents = contents;
+    if (youtubeUrl) myUpdateBoardInput.youtubeUrl = youtubeUrl;
     try {
       const result = await updateBoard({ 
         variables: {
           password: password,
           boardId: router.query.boardId,
-          updateBoardInput: {
-          title: title,
-          contents: contents
-          }
+          updateBoardInput: myUpdateBoardInput
         }
       });
     router.push(`/boards/${result.data.updateBoard._id}`)
@@ -135,6 +152,7 @@ export default function BoardWrite(props) {
       onChangePassword={onChangePassword}
       onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
+      onChangeYoutubeUrl={onChangeYoutubeUrl}
       onClickSubmit={onClickSubmit}
       writerError={writerError}
       passwordError={passwordError}
@@ -142,7 +160,7 @@ export default function BoardWrite(props) {
       contentsError={contentsError}
       onClickUpdate={onClickUpdate}
       isEdit={props.isEdit}
-      data={data}
+      data={props.data}
     />
   );
 }

@@ -70,5 +70,4 @@ height: 18px;
 `
 
 export const Star = styled(Rate)`
-color: lavender
 `

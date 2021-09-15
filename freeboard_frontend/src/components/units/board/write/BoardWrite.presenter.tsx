@@ -42,9 +42,10 @@ export default function BoardWriteUI(props: IProps) {
             <Writer
               name="writer"
               type="text"
-              defaultValue={props.data?.fetchBoard.writer}
               placeholder="이름을 적어주세요."
               onChange={props.onChangeWriter}
+              defaultValue={props.data?.fetchBoard.writer}
+              readOnly={Boolean(props.data?.fetchboard.writer)}
             />
             <Error>{props.writerError}</Error>
           </InputWrapper>
@@ -98,6 +99,8 @@ export default function BoardWriteUI(props: IProps) {
           <Youtube
             name="youtube"
             placeholder="링크를 복사해주세요."
+            onChange={props.onChangeYoutubeUrl}
+            defaultValue={props.data?.fetchBoard.youtubeUrl}
           />
         </InputWrapper>
         <ImageWrapper>
