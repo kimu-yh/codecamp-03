@@ -579,7 +579,7 @@ function solution(arr, divisor) {
 			? answer.push(-1)
 			: answer.push(...result)
 	return answer.sort((a, b) => a - b)
-}
+} 
 
 //13일차 콜라츠 추측
 function solution(num) {
@@ -592,4 +592,47 @@ function solution(num) {
 					i++;
 			}
 	return -1
+}
+/*
+for (let i = 0; i < 500; i++) {
+	if (num === 1) {
+		count = i;
+		break;
+	} 
+	if (num % 2 === 0) {
+		num = num / 2
+	} else {
+		num = num * 3 + 1
+	}
+}
+return count;
+}
+*/
+/* 
+let count =  0
+while (num !== 1) {
+	if (count >= 500) {
+		return -1
+	}
+	count += 1
+	if (num % 2 === 0) {
+		num = num / 2
+	}  else {
+		num =  num * 3 + 1
+	}
+	return count;
+}
+*/
+
+//14일차 두 개 뽑아서 더하기
+function solution(numbers) {
+	let answer = []
+	for (let i = 0; i < numbers.length; i++) {
+			for(let j = 0; j < numbers.length; j++) {
+					if (i !== j && !answer.includes(numbers[i] + numbers[j])) {
+							answer.push(numbers[i] + numbers[j])
+					}
+			}
+	}
+ return answer.sort((a, b) => a - b)
 }
