@@ -55,24 +55,30 @@ export const ColumnTitle = styled.div`
 export const Footer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  padding-top: 50px;
+  justify-content: flex-end;
+  padding-top: 50px;  
 `;
 
-export const PencilIcon = styled.img``;
+export const Page = styled.span`
+  margin: 10px auto;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 15px;
+`
 
 export const Button = styled.button`
+  margin-left: 200px;
+  margin-bottom: 50px;
   width: 171px;
   height: 52px;
-  background-color: white;
   border-radius: 15px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
+  border: none;
   cursor: pointer;
-
+  background-color: #9ea395;
+  color:#fffff8;
   :hover {
-    background-color: #f5f2fc;
+    background-color: #4f4f4f;
+    color: #cfd4c5;
+    font-size: 16px;
   }
 `;

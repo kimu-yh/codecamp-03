@@ -1,3 +1,4 @@
+
 import {
   Wrapper,
   TableTop,
@@ -8,8 +9,8 @@ import {
   ColumnBasic,
   ColumnTitle,
   Footer,
-  PencilIcon,
   Button,
+  Page
 } from "./BoardList.styles";
 
 export default function BoardListUI(props) {
@@ -23,20 +24,31 @@ export default function BoardListUI(props) {
         <ColumnHeaderBasic>날짜</ColumnHeaderBasic>
       </Row>
       {props.data?.fetchBoards.map((el, index) => (
-        <Row key={el._id}>
+        <Row key={el._id} id={el._id} onClick={props.onClickMoveToBoardDetail}>
           <ColumnBasic>{10 - index}</ColumnBasic>
-          <ColumnTitle id={el._id} onClick={props.onClickMoveToBoardDetail}>
-            {el.title}
-          </ColumnTitle>
+          <ColumnTitle>{el.title}</ColumnTitle>
           <ColumnBasic>{el.writer}</ColumnBasic>
           <ColumnBasic>{el.createdAt.slice(0, 10)}</ColumnBasic>
         </Row>
       ))}
       <TableBottom />
       <Footer>
+        <div>
+          <span onClick={props.onClickPrevPage}>이전</span>
+            { new Array(10).fill(1).map( (_, index) => (
+              props.startPage + index <= props.lastPage &&
+              <Page 
+                key={props.startPage + index}
+                id={String(props.startPage + index)}
+                onClick={props.onClickPage}
+              >
+                {props.startPage + index}
+              </Page>  
+             ))}
+           <span onClick={props.onClickNextPage}>다음</span>
+        </div>
         <Button onClick={props.onClickMoveToBoardNew}>
-          <PencilIcon src="/images/fix.png" />
-          게시물 등록하기
+          🖌 게시물 등록하기
         </Button>
       </Footer>
     </Wrapper>
