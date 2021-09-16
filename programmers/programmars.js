@@ -636,3 +636,26 @@ function solution(numbers) {
 	}
  return answer.sort((a, b) => a - b)
 }
+/*
+	let answer = []
+	numbers.forEach((num, i) => {
+		numbers.slice(i + 1).forEach(num2 =>
+			const sum = num1 + num2;
+			if (answer.includes(sum) ===  false) {
+				answer.push(sum)
+			})
+	})
+	return answer.sort((a, b) => a - b)
+*/
+
+// 15일차 정수 제곱근 판별
+function solution(n) {
+	let answer = -1
+	for(let i = 1; i <= Math.floor(Math.sqrt(n)); i++) {
+		 if (i**2 === n)  {
+				 answer = i; 
+					break;   
+			}
+	}
+return answer !== -1 ? (answer + 1)**2 : -1
+}
