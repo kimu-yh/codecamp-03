@@ -6,7 +6,7 @@ import LayoutFooter from "./footer/LayoutFooter.container"
 const Wrapper = styled.div``
  
 const Body = styled.div`
-  height: 400px;
+
 `
 const SidebarWrapper = styled.div`
   display: flex;
@@ -18,7 +18,7 @@ const Sidebar = styled.div`
 
 const HIDDEN_FOOTER = ["/13-01-layout-hidden"]
 
-export  default function Layout(props) {
+export default function Layout(props) {
   const router = useRouter();
   console.log(router)
   const isHiddenFooter = HIDDEN_FOOTER.includes(router.pathname)
