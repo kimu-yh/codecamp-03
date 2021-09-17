@@ -659,3 +659,40 @@ function solution(n) {
 	}
 return answer !== -1 ? (answer + 1)**2 : -1
 }
+/* for문
+	for(let i = 1; i * i <= n; i++) {
+		if (i * i === n) {
+			return (i + 1)**2
+		}
+	} 
+	return -1
+*/
+/* while문
+	let num = 1;
+	while ( num * num < n) {
+		num++
+	}
+	return num * num === n
+		? (num + 1)**2 : -1
+*/
+/* method: 매스 스퀘어루트 사용하기
+	let sqrt = Math.sqrt(n) 
+	return Number.isInteger(sqrt) // 괄호안의 숫자의 정수 여부를 true/false로 리턴
+  ? (sqrt + 1)**2
+	: -1
+*/
+
+
+//16일차 하샤드 수
+function solution(x) {
+	return x % String(x).split('').map(a => Number(a)).reduce((a, b) => a + b) === 0
+}
+
+//17일차 내적
+function solution(a, b) {
+  let arr = []
+  for(let i = 0; i < a.length; i++) {
+      arr[i] = a[i]*b[i]
+  }
+    return arr.reduce((a, b) => a + b)
+}
