@@ -696,3 +696,64 @@ function solution(a, b) {
   }
     return arr.reduce((a, b) => a + b)
 }
+
+//17일차 제일 작은 수 제거하기
+function solution(arr) {
+	let answer = arr.filter(e => e !== Math.min(...arr));
+	return answer.length === 0 ? [-1] : answer
+}
+
+//18일차 행렬의 덧셈
+function solution(arr1, arr2) {
+	let N = arr1.length;
+	let answer = new Array(N).fill(0).map(e => new Array(arr1[0].length).fill(0))
+	for (let i = 0; i < N; i++) {
+			for (let j = 0; j < arr1[i].length; j++) {
+					answer[i][j] = arr1[i][j] + arr2[i][j]
+			}
+	}
+	return answer
+}
+
+//19일차 2016년
+function solution(a, b) {
+	let week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
+	console.log(a, b)
+	if (a === 2 || a === 8) {
+			return week[b % 7]
+	} else if (a === 3 || a === 11) {
+			return week[(b + 1) % 7]
+	} else if (a === 6) {
+			return week[(b + 2) % 7]
+	} else if (a === 9 || a === 12) {
+			return week[(b + 3)% 7]
+	} else if (a === 1 || a === 4 || a === 7) {
+			return week[(b + 4) % 7]
+	} else if (a === 10) {
+			return week[(b + 5) % 7]
+	} else if (a === 5) {
+			return week[(b + 6) % 7]
+	}
+}
+ // 1일이 월요일: 2월, 8월
+ // 1일이 화요일: 3월, 11월
+ // 1일이 수요일: 6월
+ // 1일이 목요일: 9월, 12월
+ // 1일이 금요일: 1월, 4월, 7월, 
+ // 1일이 토요일: 10월
+ // 1일이 일요일: 5월
+
+//20일차 최대공약수와 최소공배수
+function solution(n, m) {
+	let result = [];
+	let arr = []
+	for (let i = 1; i <= Math.min(n, m); i++) {
+			if (n % i === 0 && m % i === 0) arr.push(i)
+	}
+	result.push(Math.max(...arr))
+	if (result[0] === 1) result.push(n * m);
+	else {
+		result.push(result[0]*(m/result[0])*(n/result[0]))
+	}
+	return result
+}
