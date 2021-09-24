@@ -9,81 +9,43 @@ export default function BoardWrite(props) {
   const [isActive, setIsActive] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
 
-  const [writer, setWriter] = useState('')
-  const [password, setPassword] = useState('')
-  const [title, setTitle] = useState('')
-  const [contents, setContents] = useState('')
-  const [youtubeUrl, setYoutubeUrl] = useState('')
-  const [zipcode, setZipcode] = useState('')
-  const [address, setAddress] = useState('')
-  const [addressDetail, setAddressDetail] = useState('')
+  const [myInputs, setMyInputs] = useState({
+    writer: '', 
+    password: '',
+    title: '',
+    contents: '',
+    youtubeUrl: '',
+  })
 
-  const [writerError, setWriterError] = useState('')
-  const [passwordError, setPasswordError] = useState('')
-  const [titleError, setTitleError] = useState('')
-  const [contentsError, setContentsError] = useState('')
+  const [boardAddress, setBoardAddress] = useState({
+    zipcode: '',
+    address: '',
+    addressDetail: '',
+  })
+
+  const [myError, setMyError] = useState({
+    writer: '작성자를 입력해주세요.',
+    password: '비밀번호를 입력해주세요.',
+    title: '제목을 입력해주세요.',
+    content: '내용을 입력해주세요'
+  })
 
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
 
-  function onChangeWriter(event){
-    setWriter(event.target.value)
-    if(event.target.value !== ""){
-      setWriterError("")
+  function onChangeMyInputs(event){
+    setMyInputs({...myInputs, [event.target.name]: event.target.value})
+
+    if (event.target.value !== "") {
+      setMyError({...myError, [event.target.name]: ""})
     }
 
-    if(event.target.value !== "" && password !== "" && title !== "" && contents !== ""){
+    if (myError[event.target.name] === "") {
       setIsActive(true)
-    } else {
-      setIsActive(false)
-    }
-  }
-
-  function onChangePassword(event){
-    setPassword(event.target.value)
-    if(event.target.value !== ""){
-      setPasswordError("")
-    }
-
-    if(writer !== "" && event.target.value !== "" && title !== "" && contents !== ""){
-      setIsActive(true)
-    } else {
-      setIsActive(false)
-    }
-  }
-
-  function onChangeTitle(event){
-    setTitle(event.target.value)
-    if(event.target.value !== ""){
-      setTitleError("")
-    }
-
-    if(writer !== "" && password !== "" && event.target.value !== "" && contents !== ""){
-      setIsActive(true)
-    } else {
-      setIsActive(false)
-    }
-  }
-
-  function onChangeContents(event){
-    setContents(event.target.value)
-    if(event.target.value !== ""){
-      setContentsError("")
-    }
-
-    if(writer !== "" && password !== "" && title !== "" && event.target.value !== ""){
-      setIsActive(true)
-    } else {
-      setIsActive(false)
-    }
-  }
-
-  function onChangeYoutubeUrl(event) {
-    setYoutubeUrl(event.target.value)
-  }
-
-  function onChangeAddressDetail(event) {
-    setAddressDetail(event.target.value)
+    } 
+    // else {
+    //   setIsActive(false)
+    // }
   }
 
   function onClickAddressSearch() {
@@ -91,38 +53,33 @@ export default function BoardWrite(props) {
   }
 
   function onCompleteAddressSearch(data) {
-    setAddress(data.address)
-    setZipcode(data.zonecode)
+    setBoardAddress((prev) => ({
+      ...prev,
+      zipcode: data.zonecode,
+      address: data.address
+    }))
     setIsOpen(false)
   }
 
+  function onToggleZipcode() {
+    setIsOpen(prev => !prev)
+  }
+
+  function onChangeAddressInputs(event) {
+    setBoardAddress((prev) => ({
+      ...prev, 
+      addressDetail: event.target.value
+    }))
+  }
+
   async function onClickSubmit(){
-    if(writer === ""){
-      setWriterError("작성자를 입력해주세요.")
-    }
-    if(password === ""){
-      setPasswordError("비밀번호를 입력해주세요.")
-    }
-    if(title === ""){
-      setTitleError("제목을 입력해주세요.")
-    }
-    if(contents === ""){
-      setContentsError("내용을 입력해주세요.")
-    }
-    if(writer !== "" && password !== "" && title !== "" && contents !== ""){
+    if (isActive) {
       try {
         const result = await createBoard({
           variables: {
-            createBoardInput: {
-              writer: writer,
-              password: password,
-              title: title,
-              contents: contents,
-              youtubeUrl: youtubeUrl, 
+            createBoardInput: {...myInputs,
               boardAddress: {
-                zipcode,
-                address,
-                addressDetail
+                ...boardAddress
               }
             },
           },
@@ -135,42 +92,25 @@ export default function BoardWrite(props) {
     }
   }
 
-  interface IMyUpdateBoardInput {
-    title? : string;
-    contents? : string;
-    youtubeUrl?: string;
-    boardAddress?: {
-      zipcode?: string;
-      address?: string;
-      addressDetail?: string;
-    }
-  }
-
   async function onClickUpdate() {
-    if (!title &&
-       !contents && 
-       !youtubeUrl &&
-       !zipcode &&
-       !address &&
-       !addressDetail
-       ) {
+    if (Object.values(myInputs).every(e => e.length === 0)) {
       alert("수정된 내용이 없습니다.");
       return;
     }
-    const myUpdateBoardInput: IMyUpdateBoardInput = {};
-    if (title) myUpdateBoardInput.title = title;
-    if (contents) myUpdateBoardInput.contents = contents;
-    if (youtubeUrl) myUpdateBoardInput.youtubeUrl = youtubeUrl;
-    if (zipcode || address || addressDetail) {
+    const myUpdateBoardInput = {};
+    if (myInputs.title) myUpdateBoardInput.title = myInputs.title;
+    if (myInputs.contents) myUpdateBoardInput.contents = myInputs.contents;
+    if (myInputs.youtubeUrl) myUpdateBoardInput.youtubeUrl = myInputs.youtubeUrl;
+    if (boardAddress.zipcode || boardAddress.address || boardAddress.addressDetail) {
       myUpdateBoardInput.boardAddress = {}
-      if (zipcode) myUpdateBoardInput.boardAddress.zipcode = zipcode;
-      if (address) myUpdateBoardInput.boardAddress.address = address;
-      if (addressDetail) myUpdateBoardInput.boardAddress.addressDetail = addressDetail;
+      if (boardAddress.zipcode) myUpdateBoardInput.boardAddress.zipcode = boardAddress.zipcode;
+      if (boardAddress.address) myUpdateBoardInput.boardAddress.address = boardAddress.address;
+      if (boardAddress.addressDetail) myUpdateBoardInput.boardAddress.addressDetail = boardAddress.addressDetail;
     }
     try {
       const result = await updateBoard({ 
         variables: {
-          password: password,
+          password: myInputs.password,
           boardId: router.query.boardId,
           updateBoardInput: myUpdateBoardInput
         }
@@ -186,25 +126,17 @@ export default function BoardWrite(props) {
     <BoardWriteUI
       isActive={isActive}
       isOpen={isOpen}
-      onChangeWriter={onChangeWriter}
-      onChangePassword={onChangePassword}
-      onChangeTitle={onChangeTitle}
-      onChangeContents={onChangeContents}
-      onChangeYoutubeUrl={onChangeYoutubeUrl}
-      onChangeAddressDetail={onChangeAddressDetail}
+      onChangeMyInputs={onChangeMyInputs}
+      onChangeAddressDetail={onChangeAddressInputs}
       onClickAddressSearch={onClickAddressSearch}
       onCompleteAddressSearch={onCompleteAddressSearch}
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
-      writerError={writerError}
-      passwordError={passwordError}
-      titleError={titleError}
-      contentsError={contentsError}
+      onToggleZipcode={onToggleZipcode}
+      myError={myError}
       isEdit={props.isEdit}
       data={props.data}
-      address={address}
-      zipcode={zipcode}
-      addressDetail={addressDetail}
+      boardAddress={boardAddress}
     />
   );
 }

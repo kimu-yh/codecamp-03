@@ -7,6 +7,7 @@ export const Wrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  font-family: "gamja";
 `
 
 export const InnerWrapper = styled.div`
@@ -19,7 +20,6 @@ export const InnerWrapper = styled.div`
 `
 
 export const InnerLogo = styled.h1`
-  font-family: GamjaFlowerRegular(src="/fonts/GamjaFlowerRegular.ttf"), 'Nanum Myeongjo', serif;
   color: #272727;
   font-size: 30px;
   cursor: pointer;

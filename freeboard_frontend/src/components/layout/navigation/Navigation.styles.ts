@@ -9,6 +9,7 @@ export const Wrapper = styled.div`
   align-items: center;
   font-size: 18px;
   color: #4f4f4f;
+  font-family: "gamja";
 `
 
 export const MenuItem = styled.div`

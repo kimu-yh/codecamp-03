@@ -37,8 +37,8 @@ export default function BoardWriteUI(props) {
   return (
   <>
     {props.isOpen && (
-      <AddressModal visible={true}>
-        <AddressSearch onComplete={props.onCompleteAddressSearch} autoClose />
+      <AddressModal visible={true} onCancel={props.onToggleZipcode} onOk={props.onToggleZipcode}>
+        <AddressSearch onComplete={props.onCompleteAddressSearch}  />
       </AddressModal>
     )}
     <Wrapper>
@@ -50,11 +50,11 @@ export default function BoardWriteUI(props) {
               name="writer"
               type="text"
               placeholder="이름을 적어주세요."
-              onChange={props.onChangeWriter}
+              onChange={props.onChangeMyInputs}
               defaultValue={props.data?.fetchBoard.writer}
               readOnly={Boolean(props.data?.fetchboard?.writer)}
             />
-            <Error>{props.writerError}</Error>
+            <Error>{props.myError.writer}</Error>
           </InputWrapper>
           <InputWrapper>
             <Label>비밀번호</Label>
@@ -62,9 +62,9 @@ export default function BoardWriteUI(props) {
               name="password"
               type="password"
               placeholder="비밀번호를 입력해주세요."
-              onChange={props.onChangePassword}
+              onChange={props.onChangeMyInputs}
             />
-            <Error>{props.passwordError}</Error>
+            <Error>{props.myError.password}</Error>
           </InputWrapper>
         </WriterWrapper>
         <InputWrapper>
@@ -74,9 +74,9 @@ export default function BoardWriteUI(props) {
             type="text"
             defaultValue={props.data?.fetchBoard.title}
             placeholder="제목을 작성해주세요."
-            onChange={props.onChangeTitle}
+            onChange={props.onChangeMyInputs}
           />
-          <Error>{props.titleError}</Error>
+          <Error>{props.myError.title}</Error>
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>
@@ -84,9 +84,9 @@ export default function BoardWriteUI(props) {
             name="contents"
             defaultValue={props.data?.fetchBoard.contents}
             placeholder="내용을 작성해주세요."
-            onChange={props.onChangeContents}
+            onChange={props.onChangeMyInputs}
           />
-          <Error>{props.contentsError}</Error>
+          <Error>{props.myError.contents}</Error>
         </InputWrapper>
         <InputWrapper>
           <Label>주소</Label>
@@ -96,7 +96,7 @@ export default function BoardWriteUI(props) {
               placeholder="07250"
               readOnly
               value={
-                props.zipcode || props.data?.fetchBoard.boardAddress?.zipcode
+                props.boardAddress.zipcode || props.data?.fetchBoard.boardAddress?.zipcode
               }
             />
             <SearchButton onClick={props.onClickAddressSearch}>
@@ -106,9 +106,10 @@ export default function BoardWriteUI(props) {
           <Address 
             readOnly 
             value={
-              props.address || props.data?.fetchBoard.boardAddress?.address
+              props.boardAddress.address || props.data?.fetchBoard.boardAddress?.address
               } />
           <Address 
+            name="addressDetail"
             onChange={props.onChangeAddressDetail} 
             defaultValue={props.data?.fetchBoard.boardAddress?.addressDetail} 
           />
@@ -116,9 +117,9 @@ export default function BoardWriteUI(props) {
         <InputWrapper>
           <Label>유튜브</Label>
           <Youtube
-            name="youtube"
+            name="youtubeUrl"
             placeholder="링크를 복사해주세요."
-            onChange={props.onChangeYoutubeUrl}
+            onChange={props.onChangeMyInputs}
             defaultValue={props.data?.fetchBoard.youtubeUrl}
           />
         </InputWrapper>

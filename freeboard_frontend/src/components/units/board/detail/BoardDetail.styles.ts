@@ -88,7 +88,6 @@ export const Button = styled.button`
 
 export const Youtube = styled(ReactPlayer)`
   margin: auto;
-  border: 1px solid gray;
 `
 
 export const IconWrapper = styled.div`
