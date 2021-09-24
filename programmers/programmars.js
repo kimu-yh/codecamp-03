@@ -696,6 +696,11 @@ function solution(a, b) {
   }
     return arr.reduce((a, b) => a + b)
 }
+/*
+function solution(a, b) {
+ return a.map((a, i)=> a * b[i]).reduce((a, b)=> a + b)
+}
+*/
 
 //17일차 제일 작은 수 제거하기
 function solution(arr) {
