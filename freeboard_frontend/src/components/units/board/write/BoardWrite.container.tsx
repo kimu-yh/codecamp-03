@@ -24,10 +24,11 @@ export default function BoardWrite(props) {
   })
 
   const [myError, setMyError] = useState({
-    writer: '작성자를 입력해주세요.',
-    password: '비밀번호를 입력해주세요.',
-    title: '제목을 입력해주세요.',
-    content: '내용을 입력해주세요'
+    writer: '작성자를 입력해주세요',
+    password: '비밀번호를 입력해주세요',
+    title: '제목을 입력해주세요',
+    contents: '내용을 입력해주세요',
+    youtubeUrl: '유투브 동영상 주소를 입력해주세요'
   })
 
   const [createBoard] = useMutation(CREATE_BOARD);
@@ -36,16 +37,19 @@ export default function BoardWrite(props) {
   function onChangeMyInputs(event){
     setMyInputs({...myInputs, [event.target.name]: event.target.value})
 
-    if (event.target.value !== "") {
-      setMyError({...myError, [event.target.name]: ""})
-    }
+    setIsActive(Object.values(myInputs).every(e => e))
+   
 
-    if (myError[event.target.name] === "") {
-      setIsActive(true)
-    } 
-    // else {
-    //   setIsActive(false)
-    // }
+    if (event.target.value !== "") {
+      setMyError({...myError, [event.target.name]: ''}) 
+    } else {
+      setMyError({...myError, [event.target.name]: `${
+        event.target.name === "writer" && "작성자를" ||
+        event.target.name === "password" && "비밀번호를" ||
+        event.target.name === "title" && "제목을" ||
+        event.target.name === "contents" && "내용을" ||
+        event.target.name === "youtubeUrl" && "유투브동영상주소를"} 입력해주세요`}) 
+    }
   }
 
   function onClickAddressSearch() {

@@ -56,18 +56,19 @@ export const Footer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  padding-top: 50px;  
+  align-content: center;
+  padding: 20px 0 30px 0;
 `;
 
 export const Page = styled.span`
-  margin: 10px auto;
-  padding: 10px;
+  margin: 20px auto;
+  padding: 20px 10px 10px 10px;
   cursor: pointer;
   font-size: 15px;
 `
 
 export const Button = styled.button`
-  margin-left: 200px;
+  margin-left: 300px;
   margin-bottom: 50px;
   width: 171px;
   height: 52px;

@@ -46,6 +46,7 @@ export default function BoardWriteUI(props) {
         <WriterWrapper>
           <InputWrapper>
             <Label>작성자</Label>
+            <Error>{props.myError.writer}</Error>
             <Writer
               name="writer"
               type="text"
@@ -54,21 +55,22 @@ export default function BoardWriteUI(props) {
               defaultValue={props.data?.fetchBoard.writer}
               readOnly={Boolean(props.data?.fetchboard?.writer)}
             />
-            <Error>{props.myError.writer}</Error>
+            
           </InputWrapper>
           <InputWrapper>
             <Label>비밀번호</Label>
+            <Error>{props.myError.password}</Error>
             <Password
               name="password"
               type="password"
               placeholder="비밀번호를 입력해주세요."
               onChange={props.onChangeMyInputs}
             />
-            <Error>{props.myError.password}</Error>
           </InputWrapper>
         </WriterWrapper>
         <InputWrapper>
           <Label>제목</Label>
+          <Error>{props.myError.title}</Error>
           <Subject
             name="title"
             type="text"
@@ -76,17 +78,17 @@ export default function BoardWriteUI(props) {
             placeholder="제목을 작성해주세요."
             onChange={props.onChangeMyInputs}
           />
-          <Error>{props.myError.title}</Error>
+         
         </InputWrapper>
         <InputWrapper>
           <Label>내용</Label>
+          <Error>{props.myError.contents}</Error>
           <Contents
             name="contents"
             defaultValue={props.data?.fetchBoard.contents}
             placeholder="내용을 작성해주세요."
             onChange={props.onChangeMyInputs}
           />
-          <Error>{props.myError.contents}</Error>
         </InputWrapper>
         <InputWrapper>
           <Label>주소</Label>
@@ -116,6 +118,7 @@ export default function BoardWriteUI(props) {
         </InputWrapper>
         <InputWrapper>
           <Label>유튜브</Label>
+          <Error>{props.myError.youtubeUrl}</Error>
           <Youtube
             name="youtubeUrl"
             placeholder="링크를 복사해주세요."
