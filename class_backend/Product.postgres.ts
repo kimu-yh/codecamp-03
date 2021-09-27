@@ -1,18 +1,21 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export default class Board extends BaseEntity {
+export default class Product extends BaseEntity {
   @PrimaryGeneratedColumn("increment") // Primary Key (고유한 값)
   number!: number;
 
   @Column({ type: "text" })
-  writer!: string;
+  seller!: string;
 
   @Column({ type: "text" })
-  title!: string;
+  name!: string;
+
+  @Column({ type: "text" })
+  detail!: string;
 
   @Column({ type: "integer" })
-  age!: number;
+  price!: number;
 
   @Column({ type: "timestamp", default: null, nullable: true })
   deletedAt?: Date;
