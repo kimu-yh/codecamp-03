@@ -719,11 +719,15 @@ function solution(arr1, arr2) {
 	}
 	return answer
 }
+/*
+function solution(arr1, arr2) {
+    return arr1.map((e, i) =>  e.map((l, j) => l + arr2[i][j]))
+}
+*/
 
 //19일차 2016년
 function solution(a, b) {
 	let week = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
-	console.log(a, b)
 	if (a === 2 || a === 8) {
 			return week[b % 7]
 	} else if (a === 3 || a === 11) {
@@ -748,6 +752,58 @@ function solution(a, b) {
  // 1일이 토요일: 10월
  // 1일이 일요일: 5월
 
+ /*
+ const month = {
+    1 : 31,
+    2 : 29,
+    3 : 31,
+    4 : 30,
+    5 : 31,
+    6 : 30,
+    7 : 31,
+    8 : 31,
+    9 : 30,
+    10 : 31,
+    11 : 30,
+    12 : 31
+}
+ let week = [ "FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"]
+
+function solution(a, b) {
+    let answer = ''
+    let days = 0;
+    for (let i = 1; i < a; i++) {
+        days += month[i]
+    }
+    days += (b-1)
+    answer = week[days % 7]
+    return answer;
+}
+*/
+
+/* month와 week은 위에서 선언한대로.
+ function solution(a, b) {
+   const days = new Array(a).fill(1).reduce((acc, cur, i) => {
+       const mn = cur + i;
+       return acc + (mn !== a
+                   ? month[mn]
+                   : b - 1
+                   )
+   }, 0)
+   return week[days % 7]
+}
+*/
+
+/* new Date().getDay()를 이용한 방법 => get Day는 일요일을 기준으로 인덱스 값을 리턴
+	month	입력시 5 넣으면 6월 리턴하므로, 실제 월 - 1로 리턴
+let week = ["SUN", "MON", "TUE", "WED", "THU",  "FRI", "SAT"]
+function solution(a, b) {
+   const days = new Date(2016, a - 1, b).getDay()
+   return week[days]
+}
+*/
+
+
 //20일차 최대공약수와 최소공배수
 function solution(n, m) {
 	let result = [];
@@ -762,3 +818,4 @@ function solution(n, m) {
 	}
 	return result
 }
+
