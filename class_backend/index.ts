@@ -122,7 +122,7 @@ const resolvers = {
     },
 
     updateBoard: async (_: any, args: any) => {
-      await Board.update({ number: 3 }, { writer: "영희" }); // 조건, 변경할 값
+      await Board.update({number: args.updateBoardInput.number }, { ...args.updateBoardInput }); // 조건, 변경할 값
       return { message: "수정 완료!!" };
     },
 

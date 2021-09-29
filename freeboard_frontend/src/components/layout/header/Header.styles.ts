@@ -8,6 +8,8 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   font-family: "gamja";
+  margin: 0 auto;
+  padding: 0 30px;
 `
 
 export const InnerWrapper = styled.div`

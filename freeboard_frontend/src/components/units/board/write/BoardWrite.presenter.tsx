@@ -1,3 +1,4 @@
+import ImageUpload from "../../../../components/commons/imageUpload/imageUpload.container"
 import {
   AddressModal,
   AddressSearch,
@@ -22,7 +23,8 @@ import {
   Youtube,
   Zipcode,
   ZipcodeWrapper,
-  UploadButton
+  ImageUploadWrapper
+  
 } from "./BoardWrite.styles";
 
 // interface IProps {
@@ -128,23 +130,17 @@ export default function BoardWriteUI(props) {
         </InputWrapper>
         <ImageWrapper>
           <Label>사진첨부</Label>
-          <UploadButton>
-            {/* <input
-              type="file"
-              style={{ display: "none" }}
-              ref={fileRef}
-            /> */}
-            <div>+</div>
-            <div>Upload</div>
-          </UploadButton>
-          <UploadButton>
-            <div>+</div>
-            <div>Upload</div>
-          </UploadButton>
-          <UploadButton>
-            <div>+</div>
-            <div>Upload</div>
-          </UploadButton>
+          <ImageUploadWrapper>
+            {props.imageUrls.map((el, i) => 
+              <ImageUpload
+                key={i} 
+                index={i}
+                imageUrl={el}
+                onChangeImageUrls={props.onChangeImageUrls}
+              />
+            )}
+          </ImageUploadWrapper>
+
         </ImageWrapper>
         <OptionWrapper>
           <Label>메인설정</Label>

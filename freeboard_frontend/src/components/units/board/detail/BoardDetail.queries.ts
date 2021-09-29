@@ -1,4 +1,3 @@
-import { IMutationLikeBoardArgs } from './../../../../commons/types/generated/types.d';
 import { gql } from "@apollo/client";
 
 export const FETCH_BOARD = gql`
@@ -16,6 +15,7 @@ export const FETCH_BOARD = gql`
         address
         addressDetail
       }
+      images
     }
   }
 `;

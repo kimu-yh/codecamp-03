@@ -16,7 +16,7 @@ const Row = styled.div`
   font-size: 20px;
   font-family: "gamja";
   text-align: center;
-  border-top: 1px dotted olive;
+  :not(:first-child) {border-top: 1px dotted olive};
   padding-top: 15px;
 `
 

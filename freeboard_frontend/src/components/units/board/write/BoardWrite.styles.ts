@@ -123,16 +123,6 @@ export const ImageWrapper = styled.div`
 	padding-top: 40px;
 `;
 
-export const UploadButton = styled.button`
-	width: 78px;
-	height: 78px;
-	background-color: #bdbdbd;
-	margin-right: 24px;
-	outline: none;
-	border: none;
-	cursor: pointer;
-`;
-
 export const OptionWrapper = styled.div`
 	width: 996px;
 	padding-top: 40px;
@@ -189,3 +179,9 @@ export const Error = styled.div`
 	font-size: 14px;
 	color: red;
 `
+
+export const ImageUploadWrapper = styled.div`
+	display: flex;
+	align-items : center;
+`
+

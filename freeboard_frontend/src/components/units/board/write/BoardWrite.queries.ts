@@ -8,6 +8,7 @@ export const CREATE_BOARD = gql`
   }
 `;
 
+
 export const UPDATE_BOARD = gql`
   mutation updateBoard(
     $boardId: ID!
@@ -22,4 +23,13 @@ export const UPDATE_BOARD = gql`
         _id
       }
     }
+`
+
+export const UPLOAD_FILE = gql`
+  mutation uploadFile($file: Upload!) {
+    uploadFile(file: $file) {
+      _id
+      url
+    }
+  }
 `

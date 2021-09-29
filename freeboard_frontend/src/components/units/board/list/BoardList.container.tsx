@@ -6,7 +6,6 @@ import { useRouter } from "next/router";
 
 export default function BoardList() {
   const [startPage, setStartPage] = useState(1);
-  
   const router = useRouter();
   const { data, refetch } = useQuery(FETCH_BOARDS, {
     variables: { page: startPage }

@@ -133,3 +133,15 @@ export const DislikeCount = styled.div`
 
 export const ShowAddress = styled(Tooltip)``
 
+export const ImageWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+	align-items: center;
+	justify-content: center;
+`
+export const Image = styled.img`
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+`

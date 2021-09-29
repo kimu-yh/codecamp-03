@@ -804,7 +804,7 @@ function solution(a, b) {
 */
 
 
-//20일차 최대공약수와 최소공배수
+// 20일차 최대공약수와 최소공배수
 function solution(n, m) {
 	let result = [];
 	let arr = []
@@ -818,4 +818,39 @@ function solution(n, m) {
 	}
 	return result
 }
+/*
+최소공배수 구하기: m이 더 큰 수가 들어온다고 가정
 
+for (let l = m; l <= n * m; l += m) {
+	if( l % n === 0) {
+		result[1] = l;
+		break;
+	}
+}
+*/
+/* 유클리드 호제법 
+a가 b보다 큰 수 일 경우
+a를 b로 나눴을 때 나머지 값이 0이 되면 작은 수가 최대공약수가 된다
+0이 되지 않으면 작은 수가 큰 수가 되고 나머지 값이 작은 수가 된다
+반복했을 때에 0이 나오면, 작은 수가 최대공약수가 된다.
+최소공배수는 두 수를 곱한 값에 최대공약수를 나눈 값
+
+let = [ a, b, r] = [Math.max(n, m), Math.min(n, m), 0] 
+while (a % b > 0) {
+	r = a % b;
+	a = b; // 큰 수에 작은 수를 할당
+	b = r; // 작은 수에 나머지값 할당
+}
+return [ b, (n * m)/b ]
+*/
+
+// 22일차 완주하지 못한 선수
+function solution(participant, completion) {
+	participant.sort(); 
+	completion.sort(); 
+	for(let i = 0; i < participant.length; i++) {
+			if (participant[i] !== completion[i]) {
+			return participant[i]
+			}
+	}
+}

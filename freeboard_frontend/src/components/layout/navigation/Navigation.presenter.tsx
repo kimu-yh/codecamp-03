@@ -7,7 +7,7 @@ export default function NavigationUI(props) {
       <>|</>
       <MenuItem id="/boards" onClick={props.onClickMenu}>📜 남의 글 읽기</MenuItem>
       <>|</>
-      <MenuItem id="/music" onClick={props.onClickMenu}>🎧 음악 듣기</MenuItem>
+      <MenuItem id="/music" onClick={props.onClickMenu}>🎹 음악 듣기</MenuItem>
       <>|</>
       <MenuItem id="/boards/new" onClick={props.onClickMenu}>🖌 내 이야기</MenuItem>
     </Wrapper>

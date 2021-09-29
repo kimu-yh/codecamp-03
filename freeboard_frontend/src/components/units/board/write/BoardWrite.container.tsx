@@ -6,9 +6,9 @@ import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 
 export default function BoardWrite(props) {
   const router = useRouter()
+  const [imageUrls, setImageUrls] = useState(["", "", ""])
   const [isActive, setIsActive] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-
   const [myInputs, setMyInputs] = useState({
     writer: '', 
     password: '',
@@ -16,13 +16,11 @@ export default function BoardWrite(props) {
     contents: '',
     youtubeUrl: '',
   })
-
   const [boardAddress, setBoardAddress] = useState({
     zipcode: '',
     address: '',
     addressDetail: '',
   })
-
   const [myError, setMyError] = useState({
     writer: '작성자를 입력해주세요',
     password: '비밀번호를 입력해주세요',
@@ -30,15 +28,12 @@ export default function BoardWrite(props) {
     contents: '내용을 입력해주세요',
     youtubeUrl: '유투브 동영상 주소를 입력해주세요'
   })
-
+  
   const [createBoard] = useMutation(CREATE_BOARD);
   const [updateBoard] = useMutation(UPDATE_BOARD);
 
   function onChangeMyInputs(event){
     setMyInputs({...myInputs, [event.target.name]: event.target.value})
-
-    setIsActive(Object.values(myInputs).every(e => e))
-   
 
     if (event.target.value !== "") {
       setMyError({...myError, [event.target.name]: ''}) 
@@ -50,6 +45,8 @@ export default function BoardWrite(props) {
         event.target.name === "contents" && "내용을" ||
         event.target.name === "youtubeUrl" && "유투브동영상주소를"} 입력해주세요`}) 
     }
+
+    setIsActive(Object.values(myInputs).every(e => e))
   }
 
   function onClickAddressSearch() {
@@ -84,7 +81,8 @@ export default function BoardWrite(props) {
             createBoardInput: {...myInputs,
               boardAddress: {
                 ...boardAddress
-              }
+              },
+              images: [...imageUrls]
             },
           },
         });
@@ -105,12 +103,14 @@ export default function BoardWrite(props) {
     if (myInputs.title) myUpdateBoardInput.title = myInputs.title;
     if (myInputs.contents) myUpdateBoardInput.contents = myInputs.contents;
     if (myInputs.youtubeUrl) myUpdateBoardInput.youtubeUrl = myInputs.youtubeUrl;
+    if (imageUrls) myUpdateBoardInput.images = [...imageUrls];
     if (boardAddress.zipcode || boardAddress.address || boardAddress.addressDetail) {
       myUpdateBoardInput.boardAddress = {}
       if (boardAddress.zipcode) myUpdateBoardInput.boardAddress.zipcode = boardAddress.zipcode;
       if (boardAddress.address) myUpdateBoardInput.boardAddress.address = boardAddress.address;
       if (boardAddress.addressDetail) myUpdateBoardInput.boardAddress.addressDetail = boardAddress.addressDetail;
     }
+    
     try {
       const result = await updateBoard({ 
         variables: {
@@ -125,6 +125,18 @@ export default function BoardWrite(props) {
     } 
   }
 
+  function onChangeImageUrls(imageUrl, index) {
+    let newImageUrls = [...imageUrls]
+    newImageUrls[index] = imageUrl
+    newImageUrls = newImageUrls.filter(ele => ele)
+    const result = new Array(3).fill(1).map((cur, index) => {
+      return newImageUrls[index] ? newImageUrls[index]  : ""
+    })
+    console.log(result)
+    setImageUrls(result)
+    
+    // setImageUrls([...imageUrls, imageUrl])
+  }
 
   return (
     <BoardWriteUI
@@ -137,10 +149,12 @@ export default function BoardWrite(props) {
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
       onToggleZipcode={onToggleZipcode}
+      onChangeImageUrls={onChangeImageUrls}
       myError={myError}
       isEdit={props.isEdit}
       data={props.data}
       boardAddress={boardAddress}
+      imageUrls={imageUrls}
     />
   );
 }

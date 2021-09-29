@@ -22,6 +22,8 @@ import {
   LinkIcon,
   ShowAddress, 
   LocationIcon,
+  ImageWrapper,
+  Image
 } from "./BoardDetail.styles";
 
 
@@ -51,6 +53,12 @@ export default function BoardDetailUI(props) {
           <Title>{props.data?.fetchBoard.title}</Title>
           <Contents>{props.data?.fetchBoard.contents}</Contents>
           <Youtube url={props.data?.fetchBoard.youtubeUrl} width={500}></Youtube>
+          <ImageWrapper>
+            {props.data?.fetchBoard.images
+            ?.filter(el => el).map(el=> (
+              <Image key={el} src={`https://storage.googleapis.com/${el}`} />
+            ))}
+          </ImageWrapper>
           <LikeWrapper>
             <IconWrapper>
               <LikeIcon onClick={props.onClickLike}/>
