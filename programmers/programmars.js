@@ -854,3 +854,60 @@ function solution(participant, completion) {
 			}
 	}
 }
+/*
+function solution(participant, completion) {
+    let answer = ''
+    participant.sort(); 
+    completion.sort(); 
+    let stop = false;
+    participant.forEach((a, i) => {
+        if ( a !== completion[i] && !stop ) {
+        answer = a; 
+        stop = true;
+    }})
+    return answer
+}
+*/
+
+/*  
+function solution(participant, completion) {
+    participant.sort(); 
+    completion.sort(); 
+    return participant.filter((name, i) => {
+            return name !== completion[i]
+            })[0]
+}
+*/
+
+// 22일차 모의고사
+function solution(answers) {
+	// 각 수포자의 점수를 담을 객체
+	let sum = {a: 0, b: 0, c: 0} 
+	// a(1번 수포자)의 답안지 및 맞춘 개수
+	let A = [1, 2, 3, 4, 5]
+	new Array(answers.length).fill(1)
+		.map((el, i) => el = A[i % 5])
+			.forEach((a, i) => {
+				if (a === answers[i]) sum.a += 1
+			})
+	// b(2번 수포자)의 답안지 및 맞춘 개수
+	let B = [2, 1, 2, 3, 2, 4, 2, 5]
+	new Array(answers.length).fill(2)
+		.map((el, i) => el = B[i % 8])
+			.forEach((b, i) => {
+			if (b === answers[i]) sum.b += 1
+	 		}) 
+	// c(3번 수포자)의 답안지 및 맞춘 개수
+	let C = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+	new Array(answers.length).fill(3)
+		.map((el, i) => el = C[i % 10])
+	 		.forEach((c, i) => {
+				if (c === answers[i]) sum.c += 1
+	 		}) 
+	let maxScore = Math.max(...Object.values(sum))
+	let answer = []
+	sum.a === maxScore && answer.push(1);
+	sum.b === maxScore && answer.push(2);
+	sum.c === maxScore && answer.push(3);
+return answer
+}
