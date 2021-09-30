@@ -1,4 +1,4 @@
-
+import { v4 as uuidv4 } from 'uuid';
 import {
   Wrapper,
   TableTop,
@@ -10,12 +10,35 @@ import {
   ColumnTitle,
   Footer,
   Button,
-  Page
+  Page,
+  SearchWrapper,
+  SearchTitle,
+  SearchDate,
+  SearchButton, 
+  SearchIcon,
+  MyWord,
 } from "./BoardList.styles";
 
 export default function BoardListUI(props) {
   return (
     <Wrapper>
+      <SearchWrapper>
+        <SearchTitle 
+          name="title"
+          placeholder="제목을 검색해주세요"
+          onChange={props.onChangeSearch}
+        />
+        <SearchIcon />
+        <SearchDate 
+          name="Date"
+          placeholder="YYYY-MM-DD - YYYY-MM-DD"
+          onChange={props.onChangeSearch}
+        />
+        <SearchButton
+          onClick={props.onClickSearch}
+        >검색하기</SearchButton>
+      </SearchWrapper>
+
       <TableTop />
       <Row>
         <ColumnHeaderBasic>번호</ColumnHeaderBasic>
@@ -26,7 +49,16 @@ export default function BoardListUI(props) {
       {props.data?.fetchBoards.map((el, index) => (
         <Row key={el._id} id={el._id} onClick={props.onClickMoveToBoardDetail}>
           <ColumnBasic>{10 - index}</ColumnBasic>
-          <ColumnTitle>{el.title}</ColumnTitle>
+          <ColumnTitle>{el.title
+            .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
+            .split('#$%')
+            .map(el => (
+              <MyWord key={uuidv4()} isMatched={props.keyword === el}>
+                {el}
+              </MyWord>
+            ))
+          
+          }</ColumnTitle>
           <ColumnBasic>{el.writer}</ColumnBasic>
           <ColumnBasic>{el.createdAt.slice(0, 10)}</ColumnBasic>
         </Row>

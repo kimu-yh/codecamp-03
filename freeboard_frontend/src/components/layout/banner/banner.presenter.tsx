@@ -12,7 +12,7 @@ export default function BannnerUI() {
     slidesToScroll: 1,
     slide: "div",
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 2000,
     arrows: true,
     pauseOnHover: true,
     centerMode: true
@@ -22,22 +22,40 @@ export default function BannnerUI() {
     <Wrapper>
       <Slider {...settings}>
         <div>
-          <SliderItem src="/images/scene01.png" />
+          <SliderItem src="/images/one.webp" />
         </div>
         <div>
-          <SliderItem src="/images/scene02.png" />
+          <SliderItem src="/images/two.webp" />
         </div>
         <div>
-          <SliderItem src="/images/scene03.png" />
+          <SliderItem src="/images/three.webp" />
         </div>
         <div>
-          <SliderItem src="/images/scene04.png" />
+          <SliderItem src="/images/four.webp" />
         </div>
         <div>
-          <SliderItem src="/images/scene05.png" />
+          <SliderItem src="/images/five.webp" />
         </div>
         <div>
-          <SliderItem src="/images/scene06.png" />
+          <SliderItem src="/images/six.webp" />
+        </div>
+        <div>
+          <SliderItem src="/images/seven.webp" />
+        </div>
+        <div>
+          <SliderItem src="/images/eight.webp" />
+        </div>
+        <div>
+          <SliderItem src="/images/nine.webp" />
+        </div>
+        <div>
+          <SliderItem src="/images/ten.webp" />
+        </div>
+        <div>
+          <SliderItem src="/images/eleven.webp" />
+        </div>
+        <div>
+          <SliderItem src="/images/twelve.webp" />
         </div>
       </Slider>
     </Wrapper>

@@ -1,3 +1,4 @@
+import { SearchOutlined } from '@ant-design/icons';
 import styled from "@emotion/styled";
 
 export const Wrapper = styled.div`
@@ -82,4 +83,55 @@ export const Button = styled.button`
     color: #cfd4c5;
     font-size: 16px;
   }
-`;
+`
+
+export const SearchWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+`
+
+export const SearchTitle = styled.input`
+  background-color: #F2F2F2;
+  border-radius: 10px;
+  width: 776px;
+  height: 52px;
+  font-size: 20px;
+  border: none;
+  position: relative;
+  padding: 14px 10px 14px 50px;
+`
+export const SearchIcon = styled(SearchOutlined)`
+  position: absolute;
+  left: 130px;
+  font-size: 20px;
+  
+`
+export const SearchDate = styled.input`
+  width: 244px;
+  height: 52px;
+  margin-left: 42px;
+  padding: 14px 19px;
+  font-size: 14px;
+  text-align: center;
+`
+export const SearchButton = styled.button`
+  width: 94px;
+  height: 52px;
+  margin-left: 44px;
+  background-color: black;
+  color: white;
+  border-radius: 10px;
+  border: none;
+`
+interface Iprops {
+  isMatched: boolean;
+}
+
+export const MyWord = styled.span`
+  color: ${(props: Iprops) => props.isMatched ? 
+  "red" : "black"}
+`
