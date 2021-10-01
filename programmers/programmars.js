@@ -911,3 +911,72 @@ function solution(answers) {
 	sum.c === maxScore && answer.push(3);
 return answer
 }
+
+// my refactoring
+function solution(answers) {
+	let A = [1, 2, 3, 4, 5]
+	let B = [2, 1, 2, 3, 2, 4, 2, 5]
+	let C = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+	let answer = []
+	
+	function counts(arr) {
+		 return answers.filter((a, i) => a === arr[i%arr.length]).length
+	}
+	
+	let maxScore = Math.max(counts(A), counts(B), counts(C))
+
+	counts(A) === maxScore && answer.push(1);
+	counts(B) === maxScore && answer.push(2);
+	counts(C) === maxScore && answer.push(3);
+	
+return answer
+}
+/* sejunSam's answers
+const answerTable = [
+	[1, 2, 3, 4, 5],
+	[2, 1, 2, 3, 2, 4, 2, 5],
+	[3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+]
+function solution(answers) {
+const scores = [0, 0, 0]
+for (let i = 0; i < answers.length; i++) {
+	for (let l = 0; l < answerTable.length; l++) {
+		if(answerTable[l][i% answerTable[l].length] === answers[i]) {
+			scores[l]++
+		}
+	}
+}
+const biggest = Math.max(...scores)
+const result = []
+for (let i = 0; i < scores.length; i++) {
+	if(biggest === scores[i]) {
+		result.push(i + 1)
+	}
+}
+return result
+}
+*/
+/*
+function solution(answers) {
+    const answerTable = [
+	[1, 2, 3, 4, 5],
+	[2, 1, 2, 3, 2, 4, 2, 5],
+	[3, 3, 1, 1, 2, 2, 4, 4, 5, 5]
+]
+	const scoreList = [
+		{student: 1, score: 0},
+		{student: 2, score: 0},
+		{student: 3, score: 0}
+	]
+	answers.forEach((el, i) => {
+		answerTable.forEach((cu, l) => {
+			if(cu[i % cu.length] === el) {
+				scoreList[l].score += 1
+			}
+		})
+	})
+	const biggest = Math.max(...scoreList.map( el => el.score ))
+	const result = scoreList.filter( num => biggest === num.score )
+	return result.map(el => el.student)
+}
+*/
