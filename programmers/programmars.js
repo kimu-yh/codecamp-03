@@ -879,7 +879,7 @@ function solution(participant, completion) {
 }
 */
 
-// 22일차 모의고사
+// 23일차 모의고사
 function solution(answers) {
 	// 각 수포자의 점수를 담을 객체
 	let sum = {a: 0, b: 0, c: 0} 
@@ -980,3 +980,30 @@ function solution(answers) {
 	return result.map(el => el.student)
 }
 */
+
+// 24일차 폰켓몬
+function solution(nums) {
+	let A = [...new Set(nums)].length // 중복제거하여 포켓몬의 종류 개수 구하기
+	let B = nums.length / 2 // 가져갈 수 있는 포켓몬의 개수
+	return A <= B ? A : B
+}
+/* for문 풀이 세준샘
+function solution(nums) {
+    const pocket = []
+    for (let i = 0; i < nums.length; i++) {
+       if (!pocket.includes(nums[i]) // pocket배열의 중복 제거
+           && pocket.length < nums.length/2) pocket.push(nums[i]) // pocket에 넣을 수 있는 최대 폰켓몬 값까지만 추가
+    }
+    return pocket.length;
+}
+*/
+
+// 25일차 피보나치 수
+function solution(n) {
+	let Fibo = [1, 1]
+	let array = new Array(n).fill(0)
+			.forEach((a, i) => {
+			if (i >= 2) Fibo[i] = (Fibo[i-1]% 1234567 + Fibo[i-2]% 1234567)% 1234567
+	})
+ return Fibo[n - 1] % 1234567
+}
