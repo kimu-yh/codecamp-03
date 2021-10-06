@@ -1007,3 +1007,50 @@ function solution(n) {
 	})
  return Fibo[n - 1] % 1234567
 }
+// 세준샘
+/*
+function solution(n) {
+   const arr = [0, 1] // 피보나치 수열들을 저장하는 배열
+   for(let i = 2; i <=n; i++) {
+     arr[i] = (arr[i-1] + arr[i-2])%1234567
+   }
+    return arr[n]           
+}
+*/
+/*
+function solution(n) {
+  let prev = 0 // F(n-2)
+  let next = 1 // F(n-1)
+  let sum = 1 // F(n-2) + F(n-1)
+  for (let i = 2; i <= n ; i++) {
+      sum = (prev + next) % 1234567
+      prev = next
+      next = sum
+  }
+    return sum
+}
+*/
+// 26일차 시저 암호
+function solution(s, n) {
+	let abc = 'abcdefghijklmnopqrstuvwxyz'
+	let ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+	// 공백은 공백으로, 소문자는 인덱스 숫자로, 대문자는 대문자로
+	let array = [...s].map(l => 
+		 l === " " 
+		 ? " "
+		 : abc.includes(l) 
+			 ?  (abc.indexOf(l) + n) % 26               
+			 : l)
+	// 공백은 공백으로, 소문자 인덱스를 암호로된 문자로, 대문자를 대문자 인덱스로.
+			 .map(L => 
+						L === " " 
+						? " " 
+						: typeof(L) === 'string' 
+							? (ABC.indexOf(L) + n) % 26
+							: abc[L])
+	// 대문자 인덱스를 암호화된 문자로, 배열을 문자열로
+					.map(l => typeof l === "number" ? ABC[l] : l)  
+					.join('')  
+	// console.log(array)
+ return array
+}
