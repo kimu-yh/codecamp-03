@@ -1,6 +1,6 @@
 import { useRouter } from "next/router"
 import { useContext, useEffect } from "react"
-import { GlobalContext } from "../../../../_app"
+import { GlobalContext } from "../../../../pages/_app"
 
 
 export const withAuth = (Component) => (props) => {
