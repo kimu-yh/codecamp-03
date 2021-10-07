@@ -1034,23 +1034,55 @@ function solution(n) {
 function solution(s, n) {
 	let abc = 'abcdefghijklmnopqrstuvwxyz'
 	let ABC = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-	// 공백은 공백으로, 소문자는 인덱스 숫자로, 대문자는 대문자로
-	let array = [...s].map(l => 
+	
+	return [...s].map(l => 
 		 l === " " 
 		 ? " "
 		 : abc.includes(l) 
-			 ?  (abc.indexOf(l) + n) % 26               
-			 : l)
-	// 공백은 공백으로, 소문자 인덱스를 암호로된 문자로, 대문자를 대문자 인덱스로.
-			 .map(L => 
-						L === " " 
-						? " " 
-						: typeof(L) === 'string' 
-							? (ABC.indexOf(L) + n) % 26
-							: abc[L])
-	// 대문자 인덱스를 암호화된 문자로, 배열을 문자열로
-					.map(l => typeof l === "number" ? ABC[l] : l)  
-					.join('')  
-	// console.log(array)
- return array
+			 ? abc[(abc.indexOf(l) + n) % 26]               
+			 : ABC[(ABC.indexOf(l) + n) % 26]
+	    ).join('') 
+}
+// 세준샘
+ function solution(s, n) {
+	let result = ''
+    for (let i = 0; i < s.length; i++) {
+        if(s[i] === ' ') {
+            result += ' '
+        } else {
+            let charcode = s.charCodeAt(i) + n;
+            
+            // 소문자 z (122) 이상을 넘어가거나
+            // 대문자 Z (90) 을 넘어가면서
+            // 기존의 차코드의 값이 소문자일 경우 
+            
+            if (charcode > 122 || (charcode > 90 && (charcode - n) < 97)) {
+							charcode = charcode - 26
+					}
+					result += String.fromCharCode( charcode )
+			}
+	}
+return result
+}
+
+// 27일차 체육복 
+function solution(n, lost, reserve) {
+	lost.sort((a, b) => a - b)
+	reserve.sort((a, b) => a - b)
+	lost.map((l, i) => {
+			reserve.map((r, j) => {
+					if(l === r) {
+							reserve[j] = "out"
+							lost[i] = "out"
+					}}) 
+	})
+	lost = lost.filter((el) => el !== "out")
+	reserve = reserve.filter((el) => el !== "out")
+  for (let i = 0; i < lost.length; i++) {
+		 for (let j = 0; j < reserve.length; j++) {
+				 if (lost[i] === reserve[j] + 1 || lost[i] === reserve[j] - 1)
+				 lost.splice(i, 1)
+		 }
+ }
+	return n - lost.length
 }
