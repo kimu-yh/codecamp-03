@@ -1,33 +1,29 @@
 import BoardListUI from "./BoardList.presenter";
-import { useState } from 'react'
+import { useState, ChangeEvent} from 'react'
 import { useQuery } from "@apollo/client";
 import { FETCH_BOARDS, FETCH_BOARDS_COUNT } from "./BoardList.queries";
 import { useRouter } from "next/router";
 import _ from "lodash";
+import { IQuery, IQueryFetchBoardsArgs, IQueryFetchBoardsCountArgs} from "../../../../commons/types/generated/types";
+
 
 
 
 export default function BoardList() {
-  const [search, setSearch] = useState({
-    title: '',
-    endDate: '',
-    startDate: '',
-  })
-  const [keyword, setKeyword] = useState('')
-  const [startPage, setStartPage] = useState(1);
   const router = useRouter();
-  const { data, refetch } = useQuery(FETCH_BOARDS, {
-    variables: { page: startPage }
-  })
-  const { data: totalBoardsCount } = useQuery(FETCH_BOARDS_COUNT)
-
+  const [startPage, setStartPage] = useState(1);
+  const [keyword, setKeyword] = useState('')
   
-
+  const { data, refetch } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(FETCH_BOARDS, { 
+    variables: { page: startPage 
+  }})
+  
+  const { data: totalBoardsCount } = useQuery<
+  Pick<IQuery, "fetchBoardsCount">,
+  IQueryFetchBoardsCountArgs
+  >(FETCH_BOARDS_COUNT)
+  
   const lastPage = Math.ceil(totalBoardsCount?.fetchBoardsCount/10)
-
-  function onClickPage(e) {
-    refetch({ search: keyword, page: Number(e.target.id) })
-  }
 
   function onClickMoveToBoardNew() {
     router.push("/boards/new");
@@ -36,6 +32,11 @@ export default function BoardList() {
   function onClickMoveToBoardDetail(event) {
     router.push(`/boards/${event.currentTarget.id}`);
   }
+
+  function onClickPage(e) {
+    refetch({ search: keyword, page: Number(e.target.id) })
+  }
+
 
   function onClickPrevPage() {
     if (startPage === 1) return;
@@ -49,27 +50,17 @@ export default function BoardList() {
   }
 
   const getDebounce = _.debounce((data) => {
-    // console.log(data.name, data.value)
-    // data.name.includes('Date') &&
-    // setSearch({...search, 
-    //   startDate: data.value.slice(0, 10), 
-    //   endDate: data.value.slice(-10)})
-    // data.name.includes('title') &&
-    // setSearch({...search, title: data.value})
-    refetch({ search: data.value })
-    setKeyword(data.value)
-  }, 1000)
+    refetch({ search: data })
+    setKeyword(data)
+  }, 2000)
 
-  function onChangeSearch(event) {
-    getDebounce(event.target)
-    // setSearch({...search, [event.target.name]: event.target.value})
+  function onChangeSearch(event: ChangeEvent<HTMLInputElement>) {
+    getDebounce(event.target.value)
   }
 
-  function onClickSearch(event) {
-    refetch ({ ...search })
-    setKeyword(search.title)
+  function onChangeDate(date) {
+    refetch({startDate: date[0], endDate: date[1]})
   }
-
 
   return (
     <BoardListUI
@@ -83,7 +74,7 @@ export default function BoardList() {
       lastPage={lastPage}
       setStartPage={setStartPage}
       onChangeSearch={onChangeSearch}
-      onClickSearch={onClickSearch}
+      onChangeDate={onChangeDate}
       keyword={keyword}
     />
   );

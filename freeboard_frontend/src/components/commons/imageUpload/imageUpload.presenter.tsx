@@ -1,38 +1,31 @@
 import {
   UploadButton,
-  InputFile,
-  SeeImage,
+  UploadFileHidden, 
+  UploadImage,
 } from './imageUpload.styles'
+import { IUploadUIProps } from "./imageUpload.types"
 
-export default function ImageUploadUI (props) {
+export default function ImageUploadUI (props: IUploadUIProps) {
 
   return(
     <>
-    {props.imageUrl ? (
-      <UploadButton 
-          onClick={props.onClickDiv}>
-        <InputFile
-          type="file"
-          onChange={props.onChangeFile}
-          ref={props.fileRef}
-        /> 
-        <SeeImage src={`https://storage.googleapis.com/${props.imageUrl}`} />
-        {/* <div>+</div>
-        <div>Upload</div> */}
-     </UploadButton>
-    )
-    :
-    
-      <UploadButton  onClick={props.onClickDiv}>
-        <InputFile
-          type="file"
-          onChange={props.onChangeFile}
-          ref={props.fileRef}
-        />           
-          <div>+</div>
-          <div>Upload</div>
-    </UploadButton>
-  }
+    { props.fileUrl || props.defaultFileUrl ? (
+      <UploadImage
+          onClick={props.onClickUpload}
+          src={
+            props.fileUrl || `https://storage.googleapis.com/${props.defaultFileUrl}`
+          } />
+      ) : (
+      <UploadButton onClick={props.onClickUpload}>
+        <>+</>
+        <>Upload</>
+      </UploadButton>
+    )}
+    <UploadFileHidden 
+      type="file"
+      ref={props.fileRef}
+      onChange={props.onChangeFile}
+    />
   </>
   )
 }

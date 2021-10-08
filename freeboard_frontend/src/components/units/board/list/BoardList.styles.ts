@@ -1,5 +1,20 @@
 import { SearchOutlined } from '@ant-design/icons';
 import styled from "@emotion/styled";
+import { DatePicker, Space } from 'antd';
+
+const { RangePicker } = DatePicker;
+export const Challendar = styled(RangePicker)`
+  width: 440px;
+  height: 52px;
+  margin-left: 42px;
+  padding: 14px 19px;
+  font-size: 14px;
+  text-align: center;
+`
+export const SpaceTag = styled(Space)`
+  direction: vertical;
+  size: 12;
+`
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -91,42 +106,26 @@ export const SearchWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  
+  padding: 7px;
+  position: relative;
 `
 
 export const SearchTitle = styled.input`
   background-color: #F2F2F2;
   border-radius: 10px;
-  width: 776px;
+  width: 710px;
   height: 52px;
   font-size: 20px;
   border: none;
-  position: relative;
   padding: 14px 10px 14px 50px;
 `
 export const SearchIcon = styled(SearchOutlined)`
   position: absolute;
-  left: 130px;
+  left: 10px;
   font-size: 20px;
-  
+  margin-left: 20px;
 `
-export const SearchDate = styled.input`
-  width: 244px;
-  height: 52px;
-  margin-left: 42px;
-  padding: 14px 19px;
-  font-size: 14px;
-  text-align: center;
-`
-export const SearchButton = styled.button`
-  width: 94px;
-  height: 52px;
-  margin-left: 44px;
-  background-color: black;
-  color: white;
-  border-radius: 10px;
-  border: none;
-`
+
 interface Iprops {
   isMatched: boolean;
 }

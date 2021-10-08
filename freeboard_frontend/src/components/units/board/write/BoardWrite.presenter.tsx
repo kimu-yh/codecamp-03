@@ -131,14 +131,24 @@ export default function BoardWriteUI(props) {
         <ImageWrapper>
           <Label>사진첨부</Label>
           <ImageUploadWrapper>
-            {props.imageUrls.map((el, i) => 
+            {/* {props.imageUrls.map((el, i) => 
               <ImageUpload
                 key={i} 
                 index={i}
                 imageUrl={el}
                 onChangeImageUrls={props.onChangeImageUrls}
               />
-            )}
+            )} */}
+            {
+              new Array(3).fill(1).map((el, index)=> (
+                <ImageUpload
+                key={`${el}_${index}`}
+                index={index}
+                onChangeFiles={props.onChangeFiles}
+                defaultFileUrl={props.data?.fetchBoard.images?.[index]}
+                />
+              ))
+            }
           </ImageUploadWrapper>
 
         </ImageWrapper>
@@ -154,7 +164,8 @@ export default function BoardWriteUI(props) {
           <SubmitButton 
             onClick={props.onClickSubmit} 
             isActive={props.isActive} 
-            disabled={!props.isActive}>
+            // disabled={!props.isActive}
+          >
             등록하기
           </SubmitButton>
         )}

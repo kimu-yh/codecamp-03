@@ -13,10 +13,9 @@ import {
   Page,
   SearchWrapper,
   SearchTitle,
-  SearchDate,
-  SearchButton, 
   SearchIcon,
   MyWord,
+  Challendar,
 } from "./BoardList.styles";
 
 export default function BoardListUI(props) {
@@ -29,14 +28,12 @@ export default function BoardListUI(props) {
           onChange={props.onChangeSearch}
         />
         <SearchIcon />
-        <SearchDate 
-          name="Date"
-          placeholder="YYYY-MM-DD - YYYY-MM-DD"
-          onChange={props.onChangeSearch}
+        <Challendar 
+         renderExtraFooter={() => 'extra footer'}
+         name="date"
+         onChange={props.onChangeDate} 
         />
-        <SearchButton
-          onClick={props.onClickSearch}
-        >검색하기</SearchButton>
+        
       </SearchWrapper>
 
       <TableTop />
