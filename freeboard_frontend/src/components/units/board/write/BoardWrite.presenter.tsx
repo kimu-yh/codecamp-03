@@ -23,8 +23,8 @@ import {
   Youtube,
   Zipcode,
   ZipcodeWrapper,
-  ImageUploadWrapper
-  
+  ImageUploadWrapper,
+  UploadWrapper,
 } from "./BoardWrite.styles";
 
 // interface IProps {
@@ -141,16 +141,16 @@ export default function BoardWriteUI(props) {
             )} */}
             {
               new Array(3).fill(1).map((el, index)=> (
-                <ImageUpload
-                key={`${el}_${index}`}
-                index={index}
-                onChangeFiles={props.onChangeFiles}
-                defaultFileUrl={props.data?.fetchBoard.images?.[index]}
-                />
+                <UploadWrapper key={`${el}_${index}`}>
+                  <ImageUpload 
+                    index={index}
+                    onChangeFiles={props.onChangeFiles}
+                    defaultFileUrl={props.data?.fetchBoard.images?.[index]}
+                  />
+                </UploadWrapper>
               ))
             }
           </ImageUploadWrapper>
-
         </ImageWrapper>
         <OptionWrapper>
           <Label>메인설정</Label>

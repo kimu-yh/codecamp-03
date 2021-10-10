@@ -184,4 +184,8 @@ export const ImageUploadWrapper = styled.div`
 	display: flex;
 	align-items : center;
 `
-
+export const UploadWrapper = styled.div`
+	width: 74px;
+	height: 74px;
+	margin-right: 24px;
+`

@@ -4,7 +4,8 @@ import { GlobalContext } from '../_app';
 import {Wrapper, WelcomeMessage, UpdateWrapper,
         Name, Email, 
         Point, MyButton, 
-        Body, PhotoWrapper, InfoWrapper
+        Body, PhotoWrapper, InfoWrapper, 
+        Form, ButtonWrapper
         } from './mypage.styles'
 import ImageUpload from '../../src/components/commons/imageUpload/imageUpload.container';
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -21,8 +22,6 @@ const schema = yup.object().shape({
     .min(2, "닉네임은 두 글자 이상입니다")
     .required("필수 입력 사항입니다"),
 })
-
-
 
 const FETCH_USER_LOGGED_IN = gql`
   query fetchUserLoggedIn {
@@ -70,6 +69,7 @@ export default function MyPage() {
       name: data?.fetchUserLoggedIn.name,
       picture: data?.fetchUserLoggedIn.picture
     })
+    console.log("picture:", userInfo.picture)
   }, [data])
    
   function onChangeFiles(file: File, index: number) {
@@ -113,10 +113,9 @@ export default function MyPage() {
         로그인 성공! {userInfo.name}님 환영합니다
       </WelcomeMessage>
       <UpdateWrapper>
-      <form onSubmit={handleSubmit(onChangeUpdate)}>
+      <Form onSubmit={handleSubmit(onChangeUpdate)}>
         <Body>
           <PhotoWrapper>
-            사진
             {
               new Array(1).fill(1).map((el, index)=> (
                 <ImageUpload
@@ -132,20 +131,22 @@ export default function MyPage() {
             닉네임 <Name 
               type="text" 
               {...register("myName")}
-              value={data?.fetchUserLoggedIn.name} />
+              placeholder={data?.fetchUserLoggedIn.name} />
               <div>{formState.errors.myName?.message}</div>
             이메일 <Email 
               type="text" 
               {...register("myEmail")}
-              value={data?.fetchUserLoggedIn.email} />
+              placeholder={data?.fetchUserLoggedIn.email} />
               <div>{formState.errors.myEmail?.message}</div>
             주 소 <Point />
           </InfoWrapper>
          </Body>
+         <ButtonWrapper>
          <MyButton type="submit" isValid={formState.isValid}>
           프로필 업데이트!
         </MyButton>
-        </form>
+        </ButtonWrapper>
+        </Form>
       </UpdateWrapper>
     </Wrapper>
    

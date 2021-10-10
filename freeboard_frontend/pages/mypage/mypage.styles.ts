@@ -21,7 +21,7 @@ export const UpdateWrapper = styled.div`
   flex-direction: column;
   margin: 10px;
   padding: 10px;
-  align-items: center;
+  align-items: flex-start;
 `
 
 export const Picture = styled.img`
@@ -62,7 +62,7 @@ interface Iprops {
 
 export const MyButton = styled.button`
   padding: 10px;
-  margin: 20px auto;
+  margin: 20px;
   border-radius: 10px;
   border: none;
   background-color: ${(props: Iprops) => (props.isValid ? "#c5efe4" : "lightgray")};
@@ -81,14 +81,19 @@ export const Body = styled.div`
 export const PhotoWrapper = styled.div`
   width: 200px;
   height: 240px;
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   padding: 10px;
 `
 export const InfoWrapper = styled.div`
   width: 400px;
   height: 240px;
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   padding: 10px;
   margin-left: 10px;
 `
-
+export const Form = styled.form`
+  
+`
+export const ButtonWrapper = styled.div`
+  text-align: center;
+`
