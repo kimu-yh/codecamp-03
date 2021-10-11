@@ -1126,3 +1126,44 @@ function solution(n, lost, reserve) {
 	})
 		 return answer
  }
+
+ // 30일차 소수찾기
+ // 제출 후 통과 못한 코드
+ function solution(n) {
+	let prime = [2, 3, 5, 7]
+	if (n <= 10) return prime.filter(e => e <= n).length
+	const sqrt = Math.sqrt(n)
+	
+	 function isPrime(num) {
+			for (let i = 0; i < prime.length; i++) {
+					if(num % prime[i] === 0) return false
+					} 
+			 return true
+	 }
+	
+	isPrime(sqrt) && prime.push(n)
+	return prime.length
+ }
+ //다른 풀이 (오답)
+ function solution(n) {
+	let prime = [2, 3, 5, 7]
+	if (n <= 10) return prime.filter(e => e <= n).length
+ const sqrt = parseInt(Math.sqrt(n));
+	
+	function isPrime(n) {
+			for(let i = 3; i <= sqrt; i += 2) {
+					if(num % i === 0) {
+						return false;
+					}
+			 return true;
+			}
+	}
+	
+	if (n > 10) {
+			for(let i = 3; i <= sqrt; i += 2) {
+				isPrime(n) && prime.push(n)
+			}
+	}
+	return prime.length
+}
+// 오늘은 못풀겠다요...
