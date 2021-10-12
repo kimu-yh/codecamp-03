@@ -1128,42 +1128,26 @@ function solution(n, lost, reserve) {
  }
 
  // 30일차 소수찾기
- // 제출 후 통과 못한 코드
  function solution(n) {
-	let prime = [2, 3, 5, 7]
-	if (n <= 10) return prime.filter(e => e <= n).length
-	const sqrt = Math.sqrt(n)
-	
-	 function isPrime(num) {
-			for (let i = 0; i < prime.length; i++) {
-					if(num % prime[i] === 0) return false
-					} 
-			 return true
-	 }
-	
-	isPrime(sqrt) && prime.push(n)
-	return prime.length
- }
- //다른 풀이 (오답)
- function solution(n) {
-	let prime = [2, 3, 5, 7]
-	if (n <= 10) return prime.filter(e => e <= n).length
- const sqrt = parseInt(Math.sqrt(n));
-	
-	function isPrime(n) {
+    
+	let prime = [2, 3, 5, 7, 11]
+	if (n <= 11) return prime.filter(e => e <= n).length
+
+	function isPrime(num) {
+			const sqrt = parseInt(Math.sqrt(num));
 			for(let i = 3; i <= sqrt; i += 2) {
 					if(num % i === 0) {
 						return false;
 					}
-			 return true;
 			}
+			return true;
 	}
 	
-	if (n > 10) {
-			for(let i = 3; i <= sqrt; i += 2) {
-				isPrime(n) && prime.push(n)
+	if (n >= 12) {
+			for(let i = prime[prime.length - 1 ] + 2; i <= n; i += 2) {
+				 isPrime(i) && prime.push(i)     
 			}
+			return prime.length
 	}
-	return prime.length
+	
 }
-// 오늘은 못풀겠다요...
