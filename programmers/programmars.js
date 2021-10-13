@@ -1134,8 +1134,8 @@ function solution(n, lost, reserve) {
 	if (n <= 11) return prime.filter(e => e <= n).length
 
 	function isPrime(num) {
-			const sqrt = parseInt(Math.sqrt(num));
-			for(let i = 3; i <= sqrt; i += 2) {
+			
+			for(let i = 3; i * i <= num; i += 2) {
 					if(num % i === 0) {
 						return false;
 					}
@@ -1150,4 +1150,119 @@ function solution(n, lost, reserve) {
 			return prime.length
 	}
 	
+}
+
+// 원두샘 
+// 효율성 통과는 못하는 풀이 
+function solution(n) {
+  function check(i) {
+      for (let j = 2; j*j <= i; j++) {
+          if (i % j === 0) return false
+      }
+    return true
+  }
+    let count = 0
+    for (let i = 2; i <= n; i++) {
+        if (check(i)) count++
+    }
+    return count
+}
+// 에라토스테네스의 체 https://library-of-k.tistory.com/79
+// 정답코드: 
+function solution(n) {
+    let answer = 0;
+    
+    // 2부터 n 까지의 숫자들을 담아주는 배열
+    const numbers = [];
+    for(let i = 2; i <= n; i++) {
+        // numbers.push(i);
+        numbers[i - 2] = i;
+    }
+    
+    for(let i = 2; i * i <= n; i++) {
+															  // l = l + i;
+        for(let l = i * i; l <= n; l += i) {
+            numbers[l - 2] = false;
+        }
+    }
+
+		// 배열에서 false 값 (= 소수가 아닌 값)을 제거한다. 
+    answer = numbers.filter( data => data !== false );
+
+    return answer.length;
+}
+
+// 31일차 실패율
+// 내 코드
+function solution(N, stages) {
+	stages.sort((a, b) => a - b)
+let fails = new Array(N).fill(1).map((el, i) => el + i).map(n => {
+		return stages.filter(e => e === n).length
+})
+let players = new Array(N).fill(1).map((el, i) => el + i).map(n => {
+		return stages.filter(e => e >= n).length
+})
+let result = {}
+for (let i = 0; i < N; i++) {
+		result[i + 1] = fails[i]/players[i]
+}
+let answer = Object.entries(result)
+answer.sort((a, b) => b[1] - a[1])
+return answer.map(el => Number(el[0]))
+}
+
+// 세준샘
+function solution(N, stages) {
+	stages.sort((a, b) => a - b)
+	const clearArr = []
+	for (let i = 1; i <= N; i++) {
+			clearArr.push({
+					'stage': i,
+					'clear': 0,
+					'fail' : 0,
+			})
+	}
+	let users = stages.length              
+	for (let i = 0; i < stages.length; i++) {
+			if (clearArr[stages[i] - 1]) {
+					clearArr[stages[i] - 1].clear += 1
+					
+					// 현재 스테이지와 다음 스테이지의 번호가 동일하지 않을 때
+					if ( stages[i] !== stages[i + 1]) {
+							const fail = clearArr[stages[i] - 1].clear / users
+							users = users - clearArr[ stages[i] - 1].clear
+							clearArr[ stages[i] - 1].fail = fail
+					}
+			}
+	}
+	const answer = clearArr.sort((a, b) => {
+			// console.log(a, b)
+			return b.fail - a.fail
+	}).map(el => el.stage)
+	
+	return answer
+}
+
+// 세준샘 메서드 풀이
+function solution(N, stages) {
+	stages.sort((a, b) => a - b)
+	const clearArr = new Array(N).fill(1).map((el, i) => {
+			const stage = el + i
+			const result = { stage: stage, clear: 0, fail: 0 }
+			for (let l = 0; l < stages.length; l++) {
+					if (stages[l] === stage) {
+							result.clear += 1
+							
+							if (stages[l + 1] !== stage) {
+									result.fail = result.clear / stages.length
+									stages.splice(0, result.clear)
+									break;
+							}
+					}
+			}
+			return result
+	})
+	console.log(clearArr)
+	const answer = clearArr.sort((a, b) => b.fail - a.fail).map(e => e.stage)
+	return answer
 }
