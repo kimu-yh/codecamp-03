@@ -1266,3 +1266,50 @@ function solution(N, stages) {
 	const answer = clearArr.sort((a, b) => b.fail - a.fail).map(e => e.stage)
 	return answer
 }
+
+
+// 32일차 예산
+function solution(d, budget) {
+	d.sort((a, b) => b - a)
+	let Q = d.pop()
+	let count = 0
+	
+	while (Q !== undefined && budget >= Q) {
+			console.log("Q:", Q)
+			budget = budget - Q
+			console.log("budget:", budget)
+			count += 1
+			Q = d.pop()
+	}
+	
+	return count
+}
+
+// 33일차
+function solution(board, moves) {
+	let N = board[0].length
+	let basket = []
+	let count = 0
+	moves = moves.map(e => e - 1)
+	for(let i = 0; i < moves.length; i++) {
+		 for (let j = 0; j < N; j ++) {
+					if (board[j][moves[i]]) {
+							let get = board[j][moves[i]]
+							basket.push(get)
+							board[j][moves[i]] = 0
+							if (basket.length >= 2) {
+									let Q = basket.pop()
+									let P = basket.pop()
+									if(P !== Q) {
+											basket.push(P)
+											basket.push(Q)
+									} else {
+											count += 1
+									}
+							}
+					break
+					}
+			}
+	}
+	return count*2
+}
