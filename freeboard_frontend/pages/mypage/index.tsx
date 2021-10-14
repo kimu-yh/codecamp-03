@@ -92,7 +92,7 @@ export default function MyPage() {
         variables: {
           updateUserInput: {
             name: data.myName,
-            picture: myImages[0]
+            picture: myImages
           }
         }
       })
@@ -104,7 +104,7 @@ export default function MyPage() {
     
   }
 
-  
+  console.log(data)
 
   return (
     
@@ -122,7 +122,7 @@ export default function MyPage() {
                 key={`${el}_${index}`}
                 index={index}
                 onChangeFiles={onChangeFiles}
-                defaultFileUrl={data?.fetchUserLoggedIn.picture}
+                defaultFileUrl={[data?.fetchUserLoggedIn.picture]}
                 />
               ))
             }

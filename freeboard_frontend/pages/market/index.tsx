@@ -1,6 +1,5 @@
-import MarketWrite from "../../src/components/units/market/write/MarketWrite.container";
+import MarketList from '../../src/components/units/market/list/MarketList.contatiner'
 
-export default function Market() {
-
-  return <MarketWrite />
+export default function MarketListPage() {
+  return <MarketList />
 }

@@ -22,7 +22,9 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken") || ""
+    const userInfo = localStorage.getItem("userInfo") || {}
     setAccessToken(accessToken)
+    setUserInfo(userInfo)
   }, [])
 
   const uploadLink = createUploadLink({
@@ -32,7 +34,7 @@ function MyApp({ Component, pageProps }) {
 
   const client = new ApolloClient({
     link: ApolloLink.from([uploadLink as unknown as ApolloLink]),
-    cache: new InMemoryCache()
+    cache: new InMemoryCache(),
   })
 
   return (

@@ -6,17 +6,30 @@ import TextBox from '../../../commons/textBox'
 import SubmitButton from  '../../../Button/SubmitButton'
 import RadioButton from '../../../Button/RadioButton'
 
-export default function MarketWriteUI(props) {
 
+export default function MarketWriteUI(props) {
+  // console.log(props.formState.isValid)
   return (
-    <S.Form
-     onSubmit={props.handleSubmit(props.onClickSubmit)}>
-      <S.Title>상품 등록하기</S.Title>
-      <LineInput01 name="상품명" register={props.register("name")} />
-      <LineInput01 name="한줄요약" register={props.register("remarks")} />
-      <TextBox name="상품설명" register={props.register("contents")} />
-      <LineInput01 name="판매 가격" register={props.register("price")} />
-      <LineInput01 name="태그" onChange={props.onChangeTags} />
+    <S.Form onSubmit={props.handleSubmit(
+      props.isEdit ? props.onClickUpdate : props.onClickSubmit
+      )}>
+      <S.Title>
+        {props.isEdit ? "상품 수정하기" : "상품 등록하기"}
+      </S.Title>
+      <LineInput01 name="상품명" register={props.register("name")} formState={props.formState.errors.name?.message} defaultValue={props.data?.fetchUseditem.name} />
+      <LineInput01 name="한줄요약" register={props.register("remarks")} formState={props.formState.errors.remarks?.message} defaultValue={props.data?.fetchUseditem.remarks} />
+
+
+      <TextBox name="상품설명" formState={props.formState.errors.contents?.message} onChange={props.onChangeMyEditor} 
+      //  contents={props.data?.fetchUseditem.contents}
+      // contents={props.data?.fetchUseditem?.contents}
+      contents={props?.contents} // react-quill의 디폴트 밸류 넘기기
+      />
+      <LineInput01 name="판매 가격" register={props.register("price")} formState={props.formState.errors.price?.message}
+      defaultValue={props.data?.fetchUseditem.price} />
+      <LineInput01 name="태그" 
+      register={props.register("tags")} formState={props.formState.errors.tags?.message}
+      defaultValue={props.data?.fetchUseditem.tags?.join(' #')} />
       <S.LocationWrapper>
         <S.MapWrapper>
           <S.Label>거래위치</S.Label>
@@ -38,9 +51,18 @@ export default function MarketWriteUI(props) {
         </S.LocationWrapper>
         <S.PhotoWrapper>
         <S.Label>사진 첨부</S.Label>
-          <S.ImageWrapper>
-            <ImageUpload />
-          </S.ImageWrapper>
+        <S.ImagesWrapper>
+          { new Array(2).fill(1).map((el, index) => (
+            <S.ImageWrapper key={`${el}_${index}`}>
+              <ImageUpload 
+                index={index}
+                onChangeFiles={props.onChangeFiles}
+                defaultFileUrl={props.data?.fetchUseditem.images}
+              />
+            </S.ImageWrapper>
+            ))
+          } 
+        </S.ImagesWrapper>
         </S.PhotoWrapper>
         <S.RadioButtonWrapper>
           <RadioButton 
@@ -49,11 +71,17 @@ export default function MarketWriteUI(props) {
             two="사진2" 
           />
         </S.RadioButtonWrapper>
-        <SubmitButton 
+        {props.isEdit 
+        ? <SubmitButton 
+          name="수정하기"
+          type="submit"
+          />
+        :  <SubmitButton 
           name="등록하기"
           type="submit"
           isValid={props.formState.isValid}
-        />
+          />
+        }
     </S.Form>
   )
 }

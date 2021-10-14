@@ -1,21 +1,24 @@
+
 import { gql } from "@apollo/client";
 
 export const CREATE_USEDITEM = gql`
   mutation createUsedItem($createUseditemInput: CreateUseditemInput!) {
-    createUsedItem(createUseditemInput: $createUseditemInput) {
+    createUseditem(createUseditemInput: $createUseditemInput) {
       _id
       price
       name
+      remarks
+      contents
+      price
     }
   }
 `
 
 export const UPDATE_USEDITEM = gql`
-  mutation updateUseditem($updateUseditemInput: UpdateUseditemInput!,
-    $useditemId: ID!) {
-      updateUseditem(updateUseditemInput: $updateUseditemInput,
-        useditemId: $useditemId) {
+  mutation updateUseditem($updateUseditemInput: UpdateUseditemInput!,$useditemId: ID!) {
+      updateUseditem(updateUseditemInput: $updateUseditemInput, useditemId: $useditemId) {
           _id
+
     } 
   }
 `

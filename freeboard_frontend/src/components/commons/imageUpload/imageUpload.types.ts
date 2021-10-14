@@ -3,7 +3,7 @@ import { ChangeEvent, RefObject } from "react";
 export interface IUploadProps {
   index: number;
   onChangeFiles: (file: File, index: number) => void;
-  defaultFileUrl?: string;
+  defaultFileUrl?: string[]|{} | string;
 }
 
 export interface IUploadUIProps {

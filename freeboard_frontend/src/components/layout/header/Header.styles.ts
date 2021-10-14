@@ -1,4 +1,5 @@
 import styled from "@emotion/styled"
+import { LogoutOutlined } from '@ant-design/icons'
 
 export const Wrapper = styled.div`
   /* height: 150px; */
@@ -33,4 +34,17 @@ export const InnerButton = styled.span`
   margin: 30px 10px 10px 10px;
   color: #272727;
   cursor: pointer;
+`
+
+export const Logout = styled(LogoutOutlined)`
+  margin-left: 10px;
+  font-size: 20px;
+  color: #a3acae;
+`
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
 `

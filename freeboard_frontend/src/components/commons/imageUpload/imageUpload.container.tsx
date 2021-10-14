@@ -32,7 +32,6 @@ export default function ImageUpload(props: IUploadProps) {
       props.onChangeFiles(file, props.index)
     }
   }
-
   return (
     <ImageUploadUI
       fileRef={fileRef} // 현재 클릭하여 업데이트 한 이미지의 실제 스토리지 주소
@@ -40,6 +39,7 @@ export default function ImageUpload(props: IUploadProps) {
       defaultFileUrl = {props.defaultFileUrl} // 얘는 누구지? 이게 처음 등록한 이미지 주소인가.
       onClickUpload={onClickUpload}
       onChangeFile={onChangeFile}
+      index={props.index}
     />
   )
 }

@@ -4,7 +4,6 @@ const Wrapper = styled.div`
   margin: 20px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
   align-items: center;
 `
 const CircleImage = styled.img`

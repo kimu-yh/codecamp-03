@@ -1,16 +1,11 @@
 import {
-  Avatar,
-  AvatarWrapper,
   Body,
   Button,
   Contents,
-  CreatedAt,
   BottomWrapper,
   Header,
-  Info,
   Title,
   Wrapper,
-  Writer,
   CardWrapper,
   Youtube, 
   IconWrapper, 
@@ -25,20 +20,17 @@ import {
   ImageWrapper,
   Image
 } from "./BoardDetail.styles";
-
+import Avatar from '../../../../../src/components/commons/avatar'
 
 export default function BoardDetailUI(props) {
   return (
     <Wrapper>
       <CardWrapper>
         <Header>
-          <AvatarWrapper>
-            <Avatar src="/images/avatar.png" />
-            <Info>
-              <Writer>{props.data?.fetchBoard.writer}</Writer>
-              <CreatedAt>{props.data?.fetchBoard.createdAt.slice(0, 10)}</CreatedAt>
-            </Info>
-          </AvatarWrapper>
+          <Avatar 
+            user={props.user}
+            writer={props.writer}
+            date={props.date} />
           <IconWrapper>
             <LinkIcon src="/images/link.png" alt="link icon" />
             <ShowAddress 

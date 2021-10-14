@@ -21,7 +21,7 @@ const SubmitButton = styled.button`
 export default function Button (props) {
   return (
     <SubmitButton name={props.name}
-      isValid={props.isValid}
+      isValid={props.isValid} type={props.type} onClick={props.onClick}
     >{props.name}</SubmitButton>
   )
 }

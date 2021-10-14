@@ -61,6 +61,9 @@ export default function BoardDetail() {
       onClickDelete={onClickDelete}
       onClickLike={onClickLike}
       onClickDislike={onClickDislike}
+      writer={data?.fetchBoard.writer}
+      date={data?.fetchBoard.createdAt.slice(0, 10)}
+      user={data?.fetchBoard.user?.picture}
     />
   );
 }

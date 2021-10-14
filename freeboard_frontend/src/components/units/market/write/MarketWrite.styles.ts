@@ -38,8 +38,8 @@ export const S = {
   display: flex;
   flex-direction: column;
   margin-right: 24px;
-  
   `,
+  
   Map: styled.img`
     margin-top: 16px;
     width: 384px;
@@ -86,8 +86,14 @@ export const S = {
 
   ImageWrapper: styled.div`
     margin-top: 16px;
+    margin-right: 24px;
     width: 180px;
     height: 180px;
+  `,
+
+  ImagesWrapper: styled.div`
+    display: flex;
+    flex-direction: row;
   `,
 
   RadioButtonWrapper: styled.div`

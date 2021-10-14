@@ -17,13 +17,22 @@ const Input = styled.input`
   border: 1px solid gray;
   padding-left: 16px;
 `
-
+const ErrorMessage = styled.div`
+  margin-top: 5px;
+  color: red;
+`
 export default function LineInput (props) {
 
   return (
     <Wrapper>
-      <Label name={props.name}>{props.name}</Label>
-      <Input type="text" placeholder={`${props.name}을/를 입력해주세요`}/>
+      <Label>{props.name}</Label>
+      <Input type="text" 
+       placeholder={`${props.name}을/를 입력해주세요`}
+       onChange={props.onChange}
+       {...props.register}
+       defaultValue={props.defaultValue}
+       />
+       <ErrorMessage>{props.formState}</ErrorMessage>
     </Wrapper>
   )
 }
