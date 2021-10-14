@@ -7,6 +7,7 @@ import { initializeApp } from "firebase/app";
 import { createUploadLink } from "apollo-upload-client"
 import { useState, createContext, useEffect } from "react";
 
+
 export const firebaseApp = initializeApp({
   apiKey: "AIzaSyAPP0Kp1JEf5xGUWdALUsMrgnLYAijHjlo",
   authDomain: "universalcutie-28322.firebaseapp.com",
