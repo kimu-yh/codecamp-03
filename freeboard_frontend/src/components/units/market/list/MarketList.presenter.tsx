@@ -31,7 +31,7 @@ export default function MarketListUI(props) {
          <S.ColumnWrapper>
            <S.ProductName>{el.name}</S.ProductName>
            <S.Remarks>{el.remarks}</S.Remarks>
-           <S.Tags>{el.tags}</S.Tags>
+           <S.Tags>{el.tags.join(' ,')}</S.Tags>
            <S.LineWrapper>
              <div>
                <S.SellerImage src={ el.seller.picture ? 

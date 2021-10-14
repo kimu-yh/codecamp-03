@@ -40,7 +40,7 @@ export const S = {
   margin-right: 24px;
   `,
   
-  Map: styled.img`
+  Map: styled.div`
     margin-top: 16px;
     width: 384px;
     height: 252px;

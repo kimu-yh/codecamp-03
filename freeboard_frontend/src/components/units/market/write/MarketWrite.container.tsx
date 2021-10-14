@@ -40,14 +40,6 @@ export default function MarketWrite(props) {
     mode: "onChange",
   });
 
-  // function onChangeTags(e) {
-    
-  //   if (!e.target.value.includes(",")) Modal.error({ content: "쉼표(,)로 태그를 구분해주세요" })
-  //   const tagWords = e.target.value.split(',')
-  //   setTags(tagWords)
-  //   console.log("tags:", tags)
-  // }
-
   async function onClickSubmit(data) {
     console.log("data:", data)
    
@@ -97,14 +89,18 @@ export default function MarketWrite(props) {
   }
 
   async function onClickUpdate(data) {
-    console.log("data:Update1", data)
     const myUpdateInput: IMyUpdateInput = {}
+    
     if (data.name) myUpdateInput.name = data.name;
     if (data.remarks) myUpdateInput.remarks = data.remarks;
     if (data.contents) myUpdateInput.contents = data.contents;
     if (data.price) myUpdateInput.price = Number(data.price)
     if (data.tags) myUpdateInput.tags = data.tags
-
+    if (data.zipcode) myUpdateInput.useditemAddress.zipcode = data.zipcode
+    if (data.address) myUpdateInput.useditemAddress.address = data.address
+    if (data.addressDetail) myUpdateInput.useditemAddress.addressDetail = data.addressDetail
+    if (data.lat) myUpdateInput.useditemAddress.lat = data.lat
+    if (data.lng) myUpdateInput.useditemAddress.lng = data.lng
 
     const uploadFiles = files 
         .map(el => el? uploadFile({ variables: {file: el} }) : null)
@@ -151,6 +147,7 @@ export default function MarketWrite(props) {
       data={props.data}
       onChangeMyEditor={onChangeMyEditor}
       contents={watch("contents") || ""}
+      setValue={setValue}
     />
   )
 }

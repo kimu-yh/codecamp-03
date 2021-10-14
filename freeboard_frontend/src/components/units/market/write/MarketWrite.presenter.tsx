@@ -5,6 +5,7 @@ import ImageUpload from '../../../commons/imageUpload/imageUpload.container'
 import TextBox from '../../../commons/textBox'
 import SubmitButton from  '../../../Button/SubmitButton'
 import RadioButton from '../../../Button/RadioButton'
+import Kakaomap from '../../../commons/kakaomap'
 
 
 export default function MarketWriteUI(props) {
@@ -29,23 +30,25 @@ export default function MarketWriteUI(props) {
       defaultValue={props.data?.fetchUseditem.price} />
       <LineInput01 name="태그" 
       register={props.register("tags")} formState={props.formState.errors.tags?.message}
-      defaultValue={props.data?.fetchUseditem.tags?.join(' #')} />
+      defaultValue={props.data?.fetchUseditem.tags} />
       <S.LocationWrapper>
         <S.MapWrapper>
           <S.Label>거래위치</S.Label>
-          <S.Map src="/images/mapImage.png"/>
+          <S.Map>
+            <Kakaomap setValue={props.setValue}/>
+          </S.Map>
         </S.MapWrapper>
         <S.LocationInfoWrapper>
           <S.Label>GPS</S.Label>
           <S.GpsWrapper>
-            <S.Gps placeholder="위도(LAT)"></S.Gps>
+            <S.Gps placeholder="위도(LAT)" {...props.register("lat")}>{props.data?.lat}</S.Gps>
             <S.LocationImage src="/images/location.png" />
-            <S.Gps placeholder="경도(LAT)"></S.Gps>
+            <S.Gps placeholder="경도(LNG)" {...props.register("lng")}>{props.data?.lng}</S.Gps>
           </S.GpsWrapper>
           <S.AddressWrapper>
             <S.Label>주소</S.Label>
-            <LineInput02 />
-            <LineInput02 />
+            <LineInput02 register={props.register("address")}/>
+            <LineInput02 register={props.register("addressDetail")}/>
           </S.AddressWrapper>
         </S.LocationInfoWrapper>
         </S.LocationWrapper>

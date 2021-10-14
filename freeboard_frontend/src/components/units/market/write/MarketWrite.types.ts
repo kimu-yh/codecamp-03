@@ -6,4 +6,5 @@ export interface IMyUpdateInput {
   price?: number;
   images?: string[];
   tags?: string[];
+  useditemAddress?: any;
 }

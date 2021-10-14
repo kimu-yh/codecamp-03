@@ -5,6 +5,7 @@ import Slider from 'react-slick'
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Dompurify from "dompurify"
+import KakaomapPage from '../../../commons/kakaomap';
 
 export default function MarketDetailUI(props) {
   const settings = {
@@ -34,7 +35,7 @@ export default function MarketDetailUI(props) {
       </S.Header>
       <S.Remarks>{props.data?.fetchUseditem.remarks}</S.Remarks>
       <S.ProductTitle>{props.data?.fetchUseditem.name}</S.ProductTitle>
-      <S.ProductPrice>{props.data?.fetchUseditem.price}</S.ProductPrice>
+      <S.ProductPrice>{props.data?.fetchUseditem.price} 원</S.ProductPrice>
       <S.Images>
         <Slider {...settings}>
           { props.data?.fetchUseditem.images.map((el) => (
@@ -48,9 +49,11 @@ export default function MarketDetailUI(props) {
       <S.Contents dangerouslySetInnerHTML={{
         __html: Dompurify.sanitize(props.data?.fetchUseditem.contents)}}></S.Contents>
       }
-      <S.Tags>{props.data?.fetchUseditem.tags}</S.Tags>
+      <S.Tags>{props.data?.fetchUseditem.tags.map(e => '#'+ e).join(' ')}</S.Tags>
       <S.Hr />
-      <S.Map src="/images/mapImage.png"/>
+      <S.Map>
+        <KakaomapPage/>
+      </S.Map> 
       <S.Hr />
       <S.ButtonWrapper>
         <SubmitButton name="목록으로" onClick={props.onClickMoveToList}/>

@@ -58,7 +58,7 @@ export const S = {
     margin-top: 50px;
     border-bottom: 1px solid gray;
   `,
-  Map: styled.img`
+  Map: styled.div`
     margin-top: 80px;
     width: 100%;
     height: 360px;
