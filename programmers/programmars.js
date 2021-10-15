@@ -1284,6 +1284,27 @@ function solution(d, budget) {
 	
 	return count
 }
+// 세준샘 풀이
+function solution(d, budget) {
+	const team = []
+	d.sort((a, b) => a - b)
+ let sum = 0
+ for (let i = 0; i < d.length; i++) {
+		 sum += d[i]
+		 if (sum <= budget) {
+				 team.push(d[i])
+		 }
+ }
+	return team.length
+}
+// 세준샘 메서드 풀이 
+function solution(d, budget) {
+	const result = d.sort((a, b) => a - b).filter(price => {
+			budget -= price
+			if (budget >= 0) return price 
+	})
+	return result.length
+ }
 
 // 33일차
 function solution(board, moves) {
@@ -1313,3 +1334,56 @@ function solution(board, moves) {
 	}
 	return count*2
 }
+// 세준샘
+function solution(board, moves) {
+	let answer = 0
+	const bucket = []
+	for (let i = 0; i < moves.length; i++) {
+			for (let l = 0; l < board.length; l++) {
+					const doll = board[l][moves[i] - 1]
+					if (doll) {
+							board[l][moves[i] - 1] = 0
+							if ( bucket[bucket.length - 1] === doll) {
+									answer += 2
+									bucket.pop()
+									break
+							}
+							bucket.push(doll)
+							break
+					}
+			}
+	}
+	 return answer
+}
+// 메서드 풀이
+function solution(board, moves) {
+	let answer = 0
+	const bucket = []
+	moves.forEach(moves => {
+			let check = false // 반복문을 실행하지 않게 하는 변수(false일때만 forEach가 작동)
+			board.forEach (location => {
+					const doll = location[moves - 1]
+					if (!check) {
+							if (doll !== 0) {
+									location[moves - 1] = 0
+									if (bucket[bucket.length - 1] === doll) {
+											bucket.splice(bucket.length -1, 1)
+											answer += 2
+									} else {
+											bucket.push(doll)
+									}
+									check = true
+							}
+					}
+			})
+	})
+	 return answer
+}
+
+// 36일차 3진법 뒤집기
+function solution(n) {
+  let num = n.toString(3).split('').reverse().join('')
+  return parseInt(num, 3)
+}
+
+// 
