@@ -1275,9 +1275,7 @@ function solution(d, budget) {
 	let count = 0
 	
 	while (Q !== undefined && budget >= Q) {
-			console.log("Q:", Q)
 			budget = budget - Q
-			console.log("budget:", budget)
 			count += 1
 			Q = d.pop()
 	}
@@ -1386,4 +1384,20 @@ function solution(n) {
   return parseInt(num, 3)
 }
 
-// 
+// 37일차 비밀지도
+function solution(n, arr1, arr2) {
+  arr1 = arr1.map(e => e.toString(2)
+            .split(''))
+            .map(e => e = e.length < n 
+             ? (new Array(n - e.length).fill("0")).concat(e)
+             : e
+            )
+  arr2 = arr2.map(e => e.toString(2)
+            .split(''))
+            .map(e => e = e.length < n 
+             ? (new Array(n - e.length).fill("0")).concat(e)
+             : e
+            )  
+ return arr1.map((e, i) => e.map(
+        (l, j) => l === "0" && arr2[i][j] === "0" ? " " : "#").join(''))
+}
