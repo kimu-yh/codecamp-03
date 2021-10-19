@@ -10,10 +10,12 @@ const Body = styled.div`
 `
 const SidebarWrapper = styled.div`
   display: flex;
+ 
 `
 const Sidebar = styled.div`
   width: 300px;
-  background-color: yellow;
+  background-color: #aba7cc;
+  margin-right: 20px;
 `
 
 const HIDDEN_FOOTER = ["/13-01-layout-hidden"]

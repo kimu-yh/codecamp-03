@@ -6,6 +6,8 @@ import { globalStyles } from "../src/commons/styles/globalStyles";
 import { initializeApp } from "firebase/app";
 import { createUploadLink } from "apollo-upload-client"
 import { useState, createContext, useEffect } from "react";
+import { onError } from "@apollo/client/link/error"
+import { getAccessToken } from "../src/commons/libraries/getAccessToken";
 
 
 export const firebaseApp = initializeApp({
@@ -32,18 +34,45 @@ function MyApp({ Component, pageProps }) {
   }
 
   useEffect(()=> {
-    // localStorage.clear()
-    const accessToken = localStorage.getItem("accessToken") || ""
-    setAccessToken(accessToken)
+    // const accessToken = localStorage.getItem("accessToken") || ""
+    // setAccessToken(accessToken)
+    if (localStorage.getItem("refreshToken")) getAccessToken(setAccessToken)
   }, [])
 
+  
+
+
+
+  // operation에 방금 실패했던 쿼리 정보가 있음
+  const errorLink = onError(
+    ({graphQLErrors, operation, forward}) => {
+      if (graphQLErrors) {
+        for (const err of graphQLErrors) {
+          if (err.extensions?.code === "UNAUTHENTICATED") {
+           
+            operation.setContext({
+              headers: {
+                ...operation.getContext().headers, // 기존의 헤더 정보를 가져옴
+                authorization: `Bearer ${getAccessToken(setAccessToken)}`
+              }
+            })
+
+            return forward(operation)
+
+          }
+        }
+      }
+    }
+  )
+
   const uploadLink = createUploadLink({
-    uri: "http://backend03.codebootcamp.co.kr/graphql",
-    headers: { authorization: `Bearer ${accessToken}` }
+    uri: "https://backend03.codebootcamp.co.kr/graphql",
+    headers: { authorization: `Bearer ${accessToken}` }, 
+    credentials: "include", 
   })
 
   const client = new ApolloClient({
-    link: ApolloLink.from([uploadLink]),
+    link: ApolloLink.from([errorLink, uploadLink]),
     cache: new InMemoryCache(),
   });
 

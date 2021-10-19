@@ -38,7 +38,7 @@ export default function KakaomapPage() {
           // 지도 중심좌표에 마커를 생성합니다 
           position: map.getCenter() 
         }); 
-        // 지도에 마커를 표시합니다
+        // 지도에 마커를 표시합니다 
         marker.setMap(map);
 
         
