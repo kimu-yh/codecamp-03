@@ -11,6 +11,7 @@ export const FETCH_USEDITEM = gql`
       images
       tags
       createdAt
+      pickedCount
       seller {
         picture
         name
@@ -22,5 +23,19 @@ export const FETCH_USEDITEM = gql`
 export const  DELETE_USEDITEM = gql`
   mutation deleteUseditem($useditemId: ID!) {
     deleteUseditem(useditemId: $useditemId) 
+  }
+`
+
+export const TOGGLE_USEDITEM_PICK = gql`
+  mutation toggleUseditemPick($useditemId: ID!) {
+    toggleUseditemPick(useditemId: $useditemId)
+  } 
+`
+
+export const FETCH_USEDITEM_IPICKED = gql`
+  query fetchUseditemsIPicked($search: String, $page: Int) {
+    fetchUseditemsIPicked(search: $search, page: $page) {
+      _id
+    }
   }
 `

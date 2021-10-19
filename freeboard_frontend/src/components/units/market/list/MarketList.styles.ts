@@ -34,10 +34,12 @@ export const S = {
     margin-left: 20px;
   `,
   ProductList: styled.div`
+    width: 100%;
     border-bottom: 1px solid gray;
     padding: 20px 0px;
     display: flex;
     justify-content: space-between;
+    position: relative;
   `,
   InfoLeft: styled.div`
     display: flex;
@@ -87,8 +89,8 @@ export const S = {
     margin-left: 22px;
   `,
   PickCount: styled.span`
-    margin-left: 6px;
     font-size: 16px;
+    margin-left: 6px;
   `,
   Price: styled.div`
     font-size: 24px;
@@ -98,6 +100,10 @@ export const S = {
   ButtonWrapper: styled.div`
     display: flex;
     flex-direction: row;
+  `,
+  ListWrapper: styled.div`
+    height: 1004px;
+    width: 1240px;
+    overflow: auto;
   `
-
 }

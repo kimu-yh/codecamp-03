@@ -1,7 +1,6 @@
 import styled from "@emotion/styled"
 import { Rate } from "antd"
 
-
 export const InputWrapper = styled.div`
   width: 1200px;
   display: flex;

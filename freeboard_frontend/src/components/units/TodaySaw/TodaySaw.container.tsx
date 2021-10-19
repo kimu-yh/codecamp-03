@@ -1,19 +1,17 @@
-import router from 'next/router'
+
+import { useRouter } from 'next/router'
 import TodaySawUI from './TodaySaw.presenter'
 
 export default function TodaySaw() {
-  
+  const router = useRouter()
 
-
-  function onClickGetSessionStorage() {
-    const TodaySaw = sessionStorage.getItem("item")
-    router.push('/market/router.query.marketId')
+  function onClickMoveToDetail(e) {
+    router.push(`/market/${e.currentTarget.id}`)
   }
 
   return (
     <TodaySawUI
-    onClickSetSessionStorage={onClickSetSessionStorage}
-    onClickGetSessionStorage={onClickGetSessionStorage}
+    onClickMoveToDetail={onClickMoveToDetail}
     />
   )
 }

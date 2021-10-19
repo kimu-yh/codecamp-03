@@ -6,6 +6,8 @@ import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import Dompurify from "dompurify"
 import KakaomapPage from '../../../commons/kakaomap';
+import { HeartOutlined, HeartFilled } from '@ant-design/icons'
+
 
 export default function MarketDetailUI(props) {
   const settings = {
@@ -21,7 +23,7 @@ export default function MarketDetailUI(props) {
     pauseOnHover: true,
     centerMode: true
   }
-  console.log("data", props.data?.fetchUseditem)
+  
   return (
     <S.Container>
       <S.Header>
@@ -33,6 +35,16 @@ export default function MarketDetailUI(props) {
          {/* 컴포넌트로 빼기  */}
         </S.IconWrapper>
       </S.Header>
+      <S.PickWrapper id={props.data?.fetchUseditem._id} onClick={props.onClickPick}>
+          <S.Pick>
+            {
+              props.picked
+              ? <HeartFilled /> 
+              : <HeartOutlined />
+            }
+          </S.Pick>
+          <S.PickCount>{props.data?.fetchUseditem.pickedCount}</S.PickCount>
+      </S.PickWrapper>
       <S.Remarks>{props.data?.fetchUseditem.remarks}</S.Remarks>
       <S.ProductTitle>{props.data?.fetchUseditem.name}</S.ProductTitle>
       <S.ProductPrice>{props.data?.fetchUseditem.price} 원</S.ProductPrice>

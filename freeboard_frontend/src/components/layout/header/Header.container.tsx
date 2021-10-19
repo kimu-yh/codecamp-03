@@ -20,6 +20,7 @@ export default function Header() {
     setUserInfo({})
     setAccessToken('')
     Modal.confirm({ content: "로그아웃 성공"})
+    router.push('/login')
   }
 
   useEffect(() => {

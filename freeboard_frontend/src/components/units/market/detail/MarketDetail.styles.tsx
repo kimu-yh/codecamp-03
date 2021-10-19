@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
+
 // import { Tooltip } from 'antd'
+
 
 export const S = {
   Container: styled.div`
@@ -7,8 +9,9 @@ export const S = {
     margin: 80px auto;
     display: flex;
     flex-direction: column;
-    width: 1200px;
+    width: 1400px;
     border-bottom: 1px solid gray;
+    position: relative;
   `,
   Header: styled.div`
     padding-bottom: 23px;
@@ -68,5 +71,21 @@ export const S = {
     display: flex;
     flex-direction: row;
   `,
+  PickWrapper: styled.div`
+    width: 36px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 220px;
+    top: 82px;
+    align-items: center;
+  `,
+  PickCount: styled.span`
+    font-size: 18px;
+  `,
 
+  Pick: styled.div`
+    font-size: 30px;
+    color: #FFD600
+  `,
 }

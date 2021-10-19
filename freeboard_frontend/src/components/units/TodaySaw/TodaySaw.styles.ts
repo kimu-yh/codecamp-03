@@ -6,8 +6,12 @@ export const S = {
     display: flex;
     flex-direction: column;
     width: 196px;
-    height: 505px;
     padding: 20px;
+    position: fixed;
+    right: 70px;
+    bottom: 0px;
+    border: 1px solid #BDBDBD;
+    background-color: white; 
   `,
   Title: styled.div`
     font-size: 18px;
@@ -16,22 +20,30 @@ export const S = {
   `,
   Box: styled.div`
     margin-top: 20px;
+    border: 1px solid #BDBDBD;
+    position: relative;
+    padding: 10px;
   `,
   Image: styled.img`
     margin-top: 30px;
-    width: 156px;
-    height: 200px;
+    width: 130px;
+    height: 130px;
     text-align: center;
   `,
   PickWrapper: styled.div`
     width: 35px;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    right: 10px;
+    top: 10px;
   `,
   PickCount: styled.span`
-    margin-left: 5px;
+    margin-left: 8px;
     font-size: 12px;
   `,
   Pick: styled.img`
-    width: 14px;
+    width: 20px;
   `,
   Name: styled.div`
     margin-top: 12px;
@@ -40,6 +52,7 @@ export const S = {
   Remarks: styled.div`
     font-size: 12px;
     font-weight: 400;
+    color: #4F4F4F;
   `,
   Price: styled.div`
     margin-top: 4px;
