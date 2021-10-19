@@ -1401,3 +1401,81 @@ function solution(n, arr1, arr2) {
  return arr1.map((e, i) => e.map(
         (l, j) => l === "0" && arr2[i][j] === "0" ? " " : "#").join(''))
 }
+// 세준샘 num.padStart(n, '0)
+function solution(n, arr1, arr2) {
+  const answer = []
+  for (let i = 0; i < arr1.length; i++) {
+      answer[i] = []
+      const map1 = arr1[i].toString(2).padStart(n, '0')
+      const map2 = arr2[i].toString(2).padStart(n, '0')
+      for (let l = 0; l < map1.length; l++) {
+          if (map1[l] === '1' || map2[l] === '1') {
+              answer[i][l] = "#"
+          } else {
+              answer[i][l] = " "
+          }
+      }
+      answer[i] = answer[i].join("")
+  }
+    return answer
+}
+// 세준샘 메서드
+function solution(n, arr1, arr2) {
+  const answer = arr1.map((map1, i) => {
+      map1 = map1.toString(2).padStart(n, '0')
+      const map2 = arr2[i].toString(2).padStart(n, '0')
+      return map1.split("").map((el, l) => {
+          return el === "1" || map2[l] === "1"
+            ? "#"
+            : " "
+      }).join("")
+  })
+  return answer
+}
+
+// 37일차 다트 게임
+function solution(dartResult) {
+	let dR = dartResult
+	let sum = [0, 0, 0]
+	let count = 0
+	function twoDigits(num) {
+			 return  num.slice(-1) === 'T'
+				? Number(num.replace(/[^0-9]/g, ''))**3
+				:  num.slice(-1) === 'D'
+					? Number(num.replace(/[^0-9]/g, ''))**2
+					: Number(num.replace(/[^0-9]/g, ''))
+		}
+	
+	while(count <= 2) {
+		if (dR.slice(0, 2) !== '10') {
+				sum[count] = dR[2] === '*' 
+				? twoDigits(dR.slice(0,2))*2
+				: dR[2] === '#' 
+					? twoDigits(dR.slice(0,2))*(-1)
+					: twoDigits(dR.slice(0,2))
+
+				dR = dR[2] === '*' || dR[2] === '#'
+						? dR.slice(3)
+						: dR.slice(2)
+				count++     
+		} else {
+			sum[count] = dR[3] === '*' 
+			? twoDigits(dR.slice(0,3))*2
+				: dR[3] === '#' 
+					? twoDigits(dR.slice(0,3))*(-1)
+					: twoDigits(dR.slice(0,3))
+
+			dR = dR[3] === '*' || dR[3] === '#'
+			? dR.slice(4)
+			: dR.slice(3)
+			count++  
+		}   
+		if (count === 1 && dR.slice(0, -1).includes('*')) {
+			sum[0] = sum[0] * 2
+		} else if (count === 2 && dR.slice(0).includes('*')) {
+			sum[1] = sum[1] * 2
+		}
+	}
+
+	return sum.reduce((a, b) => a + b)
+}
