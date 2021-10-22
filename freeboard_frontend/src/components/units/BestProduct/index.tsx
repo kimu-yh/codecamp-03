@@ -50,7 +50,10 @@ export default function BestProductComponent({bestImages, bestName,
 
   return (
     <Wrapper onClick={onClick}>
-      <ProductImage src={`https://storage.googleapis.com/${{bestImages}}`} />
+      <ProductImage src={ bestImages  
+        ? `https://storage.googleapis.com/${{bestImages}}`
+        : "/images/noImages.png"
+      } />
       <ProductName>{bestName}</ProductName>
       <Remarks>{bestRemarks}</Remarks>
       <Price>{bestPrice}</Price>

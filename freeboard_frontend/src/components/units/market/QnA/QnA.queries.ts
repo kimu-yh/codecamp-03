@@ -19,7 +19,7 @@ export const FETCH_USEDITEM_QUESTIONS = gql`
 `
 
 export const FETCH_USEDITEM_QUESTION_ANSWERS = gql`
-  mutation fetchUseditemQuestionAnswers(
+  query fetchUseditemQuestionAnswers(
     $page: Int
     $useditemQuestionId: ID!
     ) {
@@ -29,6 +29,7 @@ export const FETCH_USEDITEM_QUESTION_ANSWERS = gql`
       ) {
       _id
       contents
+      createdAt
       user {
         picture
       }
@@ -68,18 +69,18 @@ export const UPDATE_USEDITEM_QUESTION = gql`
 
 export const CREATE_USEDITEM_QUESTION_ANSWER = gql`
   mutation createUseditemQuestionAnswer(
-    $createUseditemQuestionAnswerInput: CreateUseditemQuestionAnswerInput!
+    $createUseditemQuestionAnswerInput: CreateUseditemQuestionAnswerInput!,
     $useditemQuestionId: ID!
     ) {
       createUseditemQuestionAnswer(
-        createUseditemQuestionAnswerInput: $createUseditemQuestionAnswerInput
+        createUseditemQuestionAnswerInput: $createUseditemQuestionAnswerInput,
         useditemQuestionId: $useditemQuestionId
-      )
-      } {
-      _id
-      user
+      ) {
+        _id
+      }
     }
 `
+
 export const DELETE_USEDITEM_QUESTION = gql`
   mutation deleteUseditemQuestion($useditemQuestionId: ID!) {
     deleteUseditemQuestion(useditemQuestionId: $useditemQuestionId) 
@@ -88,5 +89,25 @@ export const DELETE_USEDITEM_QUESTION = gql`
 export const DELETE_USEDITEM_QUESTION_ANSWER = gql`
     mutation deleteUseditemQuestionAnswer($useditemQuestionAnswerId: ID!) {
       deleteUseditemQuestionAnswer(useditemQuestionAnswerId: $useditemQuestionAnswerId)
+    }
+`
+
+export const UPDATE_USEDITEM_QUESTION_ANSWER = gql`
+  mutation updateUseditemQuestionAnswer(
+    $updateUseditemQuestionAnswerInput: UpdateUseditemQuestionAnswerInput!
+    $useditemQuestionAnswerId: ID!
+    ) {
+      updateUseditemQuestionAnswer(
+        updateUseditemQuestionAnswerInput: $updateUseditemQuestionAnswerInput
+        useditemQuestionAnswerId: $useditemQuestionAnswerId
+      ) {
+        _id
+        contents
+        user {
+          picture
+          name
+        }
+     }
+
     }
 `

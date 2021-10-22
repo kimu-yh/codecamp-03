@@ -35,10 +35,13 @@ export default function MarketListUI(props) {
           // height={"1004px"}
           >
             <S.ListWrapper>
-              {props.data?.fetchUseditems.map((el) => (
-              <S.ProductList key={el._id} id={el._id} onClick={props.onClickMoveToMarketDetailandSetTS(el)}>
+              {props.data?.fetchUseditems.map((el, index) => (
+              <S.ProductList key={el._id + index} id={el._id} onClick={props.onClickMoveToMarketDetailandSetTS(el)}>
                 <S.InfoLeft>
-                  <S.ProductImage src={`https://storage.googleapis.com/${el.images[0]}`} />
+                  <S.ProductImage src={el.images[0]  
+                    ? `https://storage.googleapis.com/${el.images[0]}`
+                    : "/images/noImages.png"
+                  } />
                   <S.ColumnWrapper>
                     <S.ProductName>{el.name}</S.ProductName>
                     <S.Remarks>{el.remarks}</S.Remarks>

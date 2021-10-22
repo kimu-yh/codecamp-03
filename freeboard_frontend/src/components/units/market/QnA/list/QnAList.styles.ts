@@ -9,8 +9,10 @@ width: 1200px;
 border-bottom: 1px solid #BDBDBD;
 margin: 20px 0 20px 100px;
 padding-top: 30px;
+justify-content: flex-end;
 `
 export const Profile = styled.img`
+border-radius: 50%;
 width: 40px;
 height: 40px;
 margin-top: 10px;
@@ -55,21 +57,40 @@ margin-bottom: 20px;
 `
 
 export const FixDelWrapper = styled.div`
-width: 52px;
-margin-left: 75px;
+  width: 52px;
+  position: relative;
 `
 
 export const Fix = styled.img`
-width: 18px;
-height: 18px;
+  width: 18px;
+  height: 18px;
 `
 
 export const Delete = styled.img`
-margin-left: 16px;
-width: 18px;
-height: 18px;
+  margin-left: 16px;
+  width: 18px;
+  height: 18px;
 `
-
 export const Star = styled(Rate)`
 `
+export const Answer = styled.img`
+  width: 20px;
+  position: absolute;
+  right: 0px;
+  bottom: 20px;
+`
+export const Arrow = styled.img`
+  width: 15px;
+  height: 17px;
+  margin-top: 20px;
+  margin-right: 20px;
+`
+  
+export const AnswerWrapper = styled.div`
+  width: 1000px;
+`
 
+export const AnswerWriteWrapper = styled.div`
+  width: 1096px;
+  padding: 20px;
+`

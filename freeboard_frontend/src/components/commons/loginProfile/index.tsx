@@ -23,7 +23,7 @@ const Name = styled.span`
 
 
 export default function LoginProfile(props) {
-  console.log(props.src)
+
   return (
     <>
       <Wrapper>

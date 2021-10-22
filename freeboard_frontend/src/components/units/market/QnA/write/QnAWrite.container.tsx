@@ -1,28 +1,34 @@
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react'
 import QnAWriteUI from './QnAWrite.presenter'
-import { CREATE_USEDITEM_QUESTION, UPDATE_USEDITEM_QUESTION, FETCH_USEDITEM_QUESTIONS, FETCH_USEDITEM_QUESTION_ANSWERS } from '../QnA.queries'
+import { CREATE_USEDITEM_QUESTION, 
+  UPDATE_USEDITEM_QUESTION, 
+  CREATE_USEDITEM_QUESTION_ANSWER,
+  UPDATE_USEDITEM_QUESTION_ANSWER,
+  FETCH_USEDITEM_QUESTIONS,
+  FETCH_USEDITEM_QUESTION_ANSWERS
+ } from '../QnA.queries'
+import { Modal } from 'antd';
 
 
-export default function QnAWrite(props) {
+export default function QnAWrite(props) {  
   const [ contents, setContents ] = useState('')
-  
   const router = useRouter();
   const [ createUseditemQuestion ] = useMutation(CREATE_USEDITEM_QUESTION)
   const [ updateUseditemQuestion ] = useMutation(UPDATE_USEDITEM_QUESTION)
-  const { data } = useQuery(FETCH_USEDITEM_QUESTIONS)
-
+  const [ createUseditemQuestionAnswer ] = useMutation(CREATE_USEDITEM_QUESTION_ANSWER)
+  const [ updateUseditemQuestionAnswer ] = useMutation(UPDATE_USEDITEM_QUESTION_ANSWER)
   
   const onChangeContents = e => {
     setContents(e.target.value);
     e.target.value.length >= 100 
-    && alert("글자수는 100자 이내로 제한됩니다")
+    && Modal.error({content: "글자수는 100자 이내로 제한됩니다"})
   }
 
-  async function onClickSubmitQuestion() {
+  async function onClickSubmitQuestion(e) {
     try {
-      const result = await createUseditemQuestion({
+      await createUseditemQuestion({
         variables: {
           useditemId: String(router.query.marketId),
           createUseditemQuestionInput: {
@@ -33,26 +39,82 @@ export default function QnAWrite(props) {
           {
             query: FETCH_USEDITEM_QUESTIONS,
             variables: { 
-              page: Math.ceil(data?.fetchUseditemQuestions.length / 10) + 1, 
               useditemId: String(router.query.marketId) 
             }
           }
         ]
       })
-      console.log("gohome", result.data?.createUseditemQuestion._id)
+      Modal.confirm({content: "질문을 등록합니다~!"})
+      
     } catch(error) {
-      alert(error.message)
+      Modal.error({content: error.message})
+    }
+  }
+  console.log("aaa", props)
+  async function onClickSubmitAnswer() {
+    console.log(props)
+    try {
+      await createUseditemQuestionAnswer({
+        variables: {
+          useditemQuestionId: props.data._id,
+          createUseditemQuestionAnswerInput: {
+            contents,
+          }
+        }, 
+        refetchQueries: [
+          {
+            query: FETCH_USEDITEM_QUESTION_ANSWERS,
+            variables: { 
+              useditemQuestionId: props.data._id,
+            }
+          }
+        ]
+      })
+      Modal.confirm({content: "답변을 등록합니다~!"})
+      props.setIsAnswer(false)
+    } catch(error) {
+      Modal.error({content: error.message})
     }
   }
 
   async function onClickUpdateQuestion(event) {
     if (!contents) {
-      alert("내용이 수정되지 않았습니다.");
+      Modal.error({content: "내용이 수정되지 않았습니다."})
       return;
     }
     
     try { 
       await updateUseditemQuestion({
+        variables: {
+          useditemQuestionId: event.currentTarget.id,
+          updateUseditemQuestionInput: {
+            contents
+          }
+        },
+        refetchQueries: [
+          {
+          query: FETCH_USEDITEM_QUESTIONS,
+          variables:{ 
+            useditemId: String(router.query.marketId) 
+          }
+          }
+        ]
+      })
+     props.setIsEdit?.(false);
+     Modal.confirm({content: "질문을 수정합니다~!"})
+    } catch(error) {
+     Modal.error({content: error.message})
+    }
+  }
+
+  async function onClickUpdateAnswer(event) {
+    if (!contents) {
+      Modal.error({content: "내용이 수정되지 않았습니다."})
+      return;
+    }
+    
+    try { 
+      await updateUseditemQuestionAnswer({
         variables: {
           useditemQuestionId: event.target.id,
           updateUseditemQuestionInput: {
@@ -63,16 +125,16 @@ export default function QnAWrite(props) {
           {
           query: FETCH_USEDITEM_QUESTIONS,
           variables:{ 
-            page: Math.ceil(data?.fetchUseditemQuestions.length / 10) + 1, 
             useditemId: String(router.query.marketId) 
           }
           }
         ]
       })
-     props.setIsEdit?.(false);
+     props.setIsAnswer?.(false);
+     Modal.confirm({content: "답변을 수정합니다~!"})
 
     } catch(error) {
-      alert(error.message)
+     Modal.error({content: error.message})
     }
   }
 
@@ -80,8 +142,12 @@ export default function QnAWrite(props) {
     onChangeContents={onChangeContents}
     onClickSubmitQuestion={onClickSubmitQuestion}
     onClickUpdateQuestion={onClickUpdateQuestion}
+    onClickSubmitAnswer={onClickSubmitAnswer}
+    onClickUpdateAnswer={onClickUpdateAnswer}
     data={props.data}
+    answerData={props.answerData}
     isEdit={props.isEdit}
     contents={contents}
+    isAnswer={props.isAnswer}
     />
 }

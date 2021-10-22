@@ -15,12 +15,12 @@ export default function MarketDetail() {
     variables: {useditemId: router.query.marketId }
   })
   const { data: dataIpicked } = useQuery(FETCH_USEDITEM_IPICKED, {
-    variables: {page: 1}
+    variables: {page: 1, search: ""}
   })
  
   
   function onClickMoveToList() {
-    router.push("/market")
+    router.push(`/market`)
   }
  
   function onClickMoveToEdit() {

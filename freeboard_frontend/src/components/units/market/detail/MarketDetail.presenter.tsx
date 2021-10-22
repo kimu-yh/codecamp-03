@@ -52,7 +52,10 @@ export default function MarketDetailUI(props) {
         <Slider {...settings}>
           { props.data?.fetchUseditem.images.map((el) => (
           <div key={el}>
-            <S.SliderItem src={`https://storage.googleapis.com/${el}`} />
+            <S.SliderItem src={ el 
+              ? `https://storage.googleapis.com/${el}`
+              : "/images/noImages.png"
+            } />
           </div>
           ))}
         </Slider>

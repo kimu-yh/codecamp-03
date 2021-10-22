@@ -18,7 +18,6 @@ export default function MarketList() {
   }
 
   const onClickMoveToMarketDetailandSetTS = (el) => (event)=> {
-    console.log(el)
     const today = JSON.parse(sessionStorage.getItem("todaySaw")) || []
     let isExist = false;
     today.forEach((item) => {

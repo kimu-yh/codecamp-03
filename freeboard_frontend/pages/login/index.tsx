@@ -1,7 +1,7 @@
 import { gql, useMutation } from "@apollo/client";
-import { useState, useContext } from 'react';
-import { GlobalContext } from '../_app'
+import { useContext, useState } from 'react';
 import { useRouter } from 'next/router'
+import { GlobalContext } from "../_app";
 import styled from '@emotion/styled';
 
 
@@ -47,8 +47,8 @@ const LOGIN_USER = gql`
 `
 
 export default function Login() {
-  const router = useRouter()
   const { setAccessToken } = useContext(GlobalContext)
+  const router = useRouter()
   const [userInput, setUserInput] = useState({
     email: '',
     password: '',
@@ -57,13 +57,16 @@ export default function Login() {
 
   function onChangeUserInput(event) {
     setUserInput({...userInput, [event.target.name]: event.target.value})
+
   }
 
   async function onClickLogin() {
     const result = await loginUser({variables: {...userInput}})
-    localStorage.setItem("accessToken", result.data?.loginUser.accessToken)
+    // localStorage.setItem("accessToken", result.data?.loginUser.accessToken)
     setAccessToken(result.data?.loginUser.accessToken)
+    localStorage.setItem("refreshToken", "true")
     router.push('/mypage')
+    console.log("10/21", result.data?.loginUser.accessToken)
   }
 
 

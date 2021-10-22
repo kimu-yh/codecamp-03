@@ -2,7 +2,7 @@ import styled from "@emotion/styled"
 import { Rate } from "antd"
 
 export const InputWrapper = styled.div`
-  width: 1200px;
+  width: ${ props => props.isAnswer? "1000px" : "1200px" };
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -21,6 +21,12 @@ export const InputWriter = styled.input`
   border: 1px solid gray;
 `
 
+export const Arrow = styled.img`
+  width: 15px;
+  height: 17px;
+  margin-top: 20px;
+  margin-right: 20px;
+`
 export const TextWrapper = styled.div`
   width: 100%
 `
@@ -87,4 +93,10 @@ export const Review = styled.span`
   padding: 0 0 3px 0;
   font-size: 16px;
   color: gray;
+`
+export const AnswerWriteWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding: 20px;
 `
