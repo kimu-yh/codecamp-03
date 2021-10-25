@@ -27,12 +27,15 @@ export default function Header() {
     router.push('/login')
   }
 
+  const onClickMoveToMyPage = () => router.push('/mypage')
+
   return( 
     <HeaderUI
     onClickBoards={onClickBoards}
     onClickMoveToLogin={onClickMoveToLogin}
     onClickMoveToSignup={onClickMoveToSignup}
     onClickLogout={onClickLogout}
+    onClickMoveToMyPage={onClickMoveToMyPage}
     data={data}
     />
   )

@@ -4,7 +4,7 @@ Wrapper, InnerWrapper, InnerLogo, InnerButton, Logout, ButtonWrapper
 import LoginProfile from "../../commons/loginProfile"
 
 export default function HeaderUI(props) {
-  console.log("111" , props?.data)
+  
   return (
     <Wrapper>
       <InnerWrapper>
@@ -13,7 +13,11 @@ export default function HeaderUI(props) {
         { process.browser && localStorage.getItem("refreshToken") 
 
         ? ( <ButtonWrapper>
-        <LoginProfile src={props.data?.fetchUserLoggedIn?.picture} name={props.data?.fetchUserLoggedIn?.name}/>
+        <LoginProfile 
+          onClick={props.onClickMoveToMyPage}
+          src={props.data?.fetchUserLoggedIn?.picture} 
+          name={props.data?.fetchUserLoggedIn?.name}
+        />
         <Logout onClick={props.onClickLogout} /> 
         </ButtonWrapper>)
 

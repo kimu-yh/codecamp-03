@@ -1,16 +1,18 @@
-import {gql, useMutation, useQuery} from '@apollo/client';
+import { useMutation, useQuery} from '@apollo/client';
 import { useContext, useEffect , useState  } from 'react';
 import { GlobalContext } from '../_app';
 import {Wrapper, WelcomeMessage, UpdateWrapper,
         Name, Email, 
         Point, MyButton, 
         Body, PhotoWrapper, InfoWrapper, 
-        Form, ButtonWrapper
+        Form, ButtonWrapper, PointWrapper, PointImage, 
         } from './mypage.styles'
+import { FETCH_USER_LOGGED_IN, UPDATE_USER, UPLOAD_FILE } from './mypage.queries'
 import ImageUpload from '../../src/components/commons/imageUpload/imageUpload.container';
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form';
+import Payment from './payment'
 
 const schema = yup.object().shape({
   myEmail: yup
@@ -23,33 +25,7 @@ const schema = yup.object().shape({
     .required("필수 입력 사항입니다"),
 })
 
-const FETCH_USER_LOGGED_IN = gql`
-  query fetchUserLoggedIn {
-    fetchUserLoggedIn {
-      name
-      email
-      picture
-    }
-  }
-`
 
-const UPDATE_USER = gql`
-  mutation updateUser($updateUserInput: UpdateUserInput!) {
-    updateUser(updateUserInput: $updateUserInput) {
-      _id
-      picture
-      name
-    }
-  }
-`
-export const UPLOAD_FILE = gql`
-  mutation uploadFile($file: Upload!) {
-    uploadFile(file: $file) {
-      _id
-      url
-    }
-  }
-`
 
 export default function MyPage() {
   const [ updateUser ] = useMutation(UPDATE_USER)
@@ -100,11 +76,11 @@ export default function MyPage() {
     } catch(error) {
       alert(error.message)
     }
-  
-    
   }
 
-  console.log(data)
+  function onClickChargePoint() {
+    
+  }
 
   return (
     
@@ -115,6 +91,7 @@ export default function MyPage() {
       <UpdateWrapper>
       <Form onSubmit={handleSubmit(onChangeUpdate)}>
         <Body>
+         {/* <Frame src="/images/profileFrame.png" /> */}
           <PhotoWrapper>
             {
               new Array(1).fill(1).map((el, index)=> (
@@ -141,6 +118,9 @@ export default function MyPage() {
             주 소 <Point />
           </InfoWrapper>
          </Body>
+         <PointWrapper>
+           <PointImage src="/images/point.png" onClick={onClickChargePoint} />
+         </PointWrapper>
          <ButtonWrapper>
          <MyButton type="submit" isValid={formState.isValid}>
           프로필 업데이트!

@@ -66,7 +66,6 @@ export default function Login() {
     setAccessToken(result.data?.loginUser.accessToken)
     localStorage.setItem("refreshToken", "true")
     router.push('/mypage')
-    console.log("10/21", result.data?.loginUser.accessToken)
   }
 
 

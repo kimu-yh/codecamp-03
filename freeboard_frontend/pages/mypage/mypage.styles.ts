@@ -81,8 +81,8 @@ export const Body = styled.div`
 export const PhotoWrapper = styled.div`
   width: 200px;
   height: 240px;
-  /* border: 1px solid gray; */
-  padding: 10px;
+  border: 7px solid gray;
+  
 `
 export const InfoWrapper = styled.div`
   width: 400px;
@@ -96,4 +96,10 @@ export const Form = styled.form`
 `
 export const ButtonWrapper = styled.div`
   text-align: center;
+`
+export const PointWrapper = styled.div`
+  width: 350px;
+`
+export const PointImage = styled.div`
+  width: 240px;
 `

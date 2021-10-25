@@ -11,5 +11,5 @@ export interface IUploadUIProps {
   fileUrl: string;
   onClickUpload: () => void;
   onChangeFile: (event: ChangeEvent<HTMLInputElement>) => void;
-  defaultFileUrl?: string;
-}
+  defaultFileUrl?: string[]|{} | string;
+} 

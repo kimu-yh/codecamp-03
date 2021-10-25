@@ -1479,3 +1479,188 @@ function solution(dartResult) {
 
 	return sum.reduce((a, b) => a + b)
 }
+
+// 세준샘 
+function solution(dartResult) {
+	const bonus = ['S', 'D', 'T']
+	const option = ["*", "#"]
+	let answer = [];
+	let score = '';
+	for (let i = 0; i < dartResult.length; i++) {
+			if (!isNaN(dartResult[i])) {
+					score += dartResult[i]
+			} else {
+					if (bonus.includes(dartResult[i])) {
+							score = Number(score)
+							if (dartResult[i] === 'D') {
+									score = Math.pow(score, 2)
+							} else if (dartResult[i] === 'T') {
+									score = Math.pow(score, 3)
+							}
+							answer.push(Number(score))
+							score = ''
+					} else if (option.includes(dartResult[i])) {
+							if (dartResult[i] === '#') {
+								 answer[answer.length - 1] *= -1
+							} else if (dartResult[i] === '*') {
+								 answer[answer.length - 1] *= 2
+								 if (answer.length > 1) {
+										 answer[answer.length - 2] *= 2
+								 }
+							}
+					}
+			}
+	}
+	 return answer.reduce((a, b) => a + b)
+}
+
+// 39일차 신규아이디 추천
+// 세준샘 for문
+function solution(new_id) {
+	const filter = 'qwertyuiopasdfghjklzxcvbnm1234567890-_.'
+	let id = new_id
+ // 1단계: 대문자를 소문자로
+	id = id.toLowerCase()
+ // 2단계: 영문소문자, 숫자,-, _, . 를 제외한 모든 문자 제거
+	let result = ''
+	for (let i = 0; i < id.length; i++) {
+		 if (filter.includes(id[i])) result += id[i]
+	}
+	// 3단계: .이 연속으로 들어오면 .하나로 치환
+	 while ( result.includes("..") ) {
+			 result = result.replace("..", ".")
+	 }
+ // 4단계: .이 처음이나 끝에 위치한다면 제거
+	if (result[0] === '.') result = result.substr(1) // result = result.slice(1)
+ function removeLastDot() {
+	 if (result[result.length - 1] === '.') result = result.slice(0, -1)
+ }
+	removeLastDot()
+ // 5단계: 빈 문자열이라면 "a" 대입
+	if (result === "") result = "a"
+ // 6단계: 문자열 길이가 16이상이면 15로 자른다. 마침표가 끝에 위치하게 되면 제거
+	if (result.length >= 16) result = result.slice(0, 15)
+	removeLastDot()
+ // 7단계: 문자열 길이가 2자 이하라면 마지막 글자를 3이 될때까지 반복하여 추가
+	if (result.length <= 2) {
+			result = result.padEnd(3, result.slice(-1))
+	}
+		 return result
+ }
+
+ // 세준샘 메서드
+ const filter = 'qwertyuiopasdfghjklzxcvbnm1234567890-_.';
+
+ function solution(new_id) {
+		 // 1단계 : 대문자를 -> 소문자로 치환
+		 new_id = new_id.toLowerCase();
+		 
+		 // 2단계 : 소문자, 숫자, 빼기, 밑줄, 마침표를 제외한 모든 문자 제거
+		 let result = new_id.split( "" )
+												.filter( str => filter.includes( str ) )
+		 
+		 // 3단계 : .가 연속으로 들어오면 .으로 치환 (.. => .)
+		 result = result.filter( ( str, i ) => 
+				 (str === "." && result[i + 1] !== ".") || str !== "."
+		 )    
+ 
+		 // 4단계 : .가 처음이나 끝에 위치한다면 제거
+		 if( result[0] === "." ) {
+				 result.splice( 0, 1 )
+		 }
+		 
+		 function removeLastDot() {
+				 if( result[ result.length - 1 ] === "." ) {
+						 result.splice( result.length - 1, 1 )
+				 }
+		 }
+		 removeLastDot();
+		 
+		 // 5단계 : 빈 문자열이라면 "a" 대입
+		 if( result.length === 0 ) {
+				 result = ["a"]
+		 }
+		 
+		 // 6단계 : 문자열 길이가 16 이상이면 15의 길이값을 가지는 문자열로 치환 (= 15 길이까지 자른다)
+		 //        제거 후에, 마침표가 끝에 위치하면 제거
+		 if( result.length >= 16 ) {
+				 result = result.slice( 0, 15 );
+				 removeLastDot();
+		 }
+		 
+		 // 7단계 : 문자열 길이가 2자 이하라면, 마지막 글자를 3이 될때까지 반복해서 추가
+		 if( result.length <= 2 ) {
+				 const add = new Array( 3 - result.length )
+												 .fill( result[ result.length - 1 ] )
+				 result = result.concat( add )
+		 }
+		 
+		 return result.join("")
+ }
+
+ // 40일차 키패드 누르기
+ // 세준샘
+const [ leftNumbers, rightNumbers ] = [
+	[1, 4, 7],
+	[3, 6, 9]
+]
+
+function solution(numbers, hand) {
+	let answer = '';
+	
+	// 현재 손가락의 위치를 저장
+	const current = {
+			'left' : 10,
+			'right' : 12
+	}
+	
+	for( let i = 0; i < numbers.length; i++ ) {
+			if( leftNumbers.includes( numbers[i] )) {
+					// 누를 번호가 왼쪽 키패드에 해당되는 경우 ( = 왼쪽 손가락으로 누를 경우 )
+					answer += 'L';
+					current['left'] = numbers[i]; // 왼쪽 손가락 위치 변환
+					
+			} else if( rightNumbers.includes( numbers[i] )) {
+					// 누를 번호가 오른쪽 키패드에 해당되는 경우 ( = 오른쪽 손가락으로 누를 경우 )
+					answer += 'R';
+					current['right'] = numbers[i]; // 오른쪽 손가락 위치 변환
+					
+			} else {
+					// 가운데 번호를 누를 때
+					const tempObj = { ...current };
+					
+					for( let hand in tempObj ) {
+							// 0번을 누를 때는 예외 처리 : 11 거리값으로 변환
+							numbers[i] = numbers[i] === 0 ? 11 : numbers[i];
+							let location = Math.abs( numbers[i] - tempObj[hand] );
+	
+							if( location >= 3 ) {
+									location = Math.trunc( location / 3 ) + location % 3
+							}
+							tempObj[ hand ] = location
+					}
+					
+					if( tempObj['left'] === tempObj['right'] ) {
+							// 왼손가락과 오른손가락의 위치가 서로 동일할 경우
+							// 주로 사용하는 손가락으로 키패트를 누른다.
+							
+							answer += hand === 'left' ? 'L' : 'R';
+							current[ hand ] = numbers[i];
+							
+					} else {
+							if( tempObj['left'] > tempObj['right'] ) {
+									// 오른쪽 손가락 위치가 더 가까운 경우
+									answer += 'R';
+									current[ 'right' ] = numbers[i]
+									
+							} else {
+									// 왼쪽 손가락 위치가 더 가까운 경우
+									answer += 'L';
+									current[ 'left' ] = numbers[i];
+							}
+					}
+			}
+	}
+	
+	return answer;
+}

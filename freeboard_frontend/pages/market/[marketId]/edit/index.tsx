@@ -24,7 +24,7 @@ const MarketEditPage = (props) => {
       useditemId: String(router.query.marketId)
     }
   })
-  console.log(data?.fetchUseditem.contents)
+  
   return <MarketWrite isEdit={true} data={data} />
 }
 

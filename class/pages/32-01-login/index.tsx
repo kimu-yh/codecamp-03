@@ -4,8 +4,8 @@ import { GlobalContext } from "../_app"
 import { useRouter } from 'next/router'
 
 const LOGIN_USER = gql`
-  mutation loginUserExample($email: String!, $password: String!) {
-    loginUserExample(email: $email, password: $password) {
+  mutation loginUser($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
       accessToken
     }
   }
@@ -16,7 +16,7 @@ export default function LoginPage() {
   const { setAccessToken } = useContext(GlobalContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const [loginUserExample] = useMutation(LOGIN_USER)
+  const [loginUser] = useMutation(LOGIN_USER)
  
   function onChangeEmail(e) {
     setEmail(e.target.value)
@@ -25,17 +25,17 @@ export default function LoginPage() {
     setPassword(e.target.value)
   }
   async function onClickLogin() {
-    const result = await loginUserExample({
+    const result = await loginUser({
       variables: {
         email, // email: email 
         password
       }
     })
-    // console.log(result.data?.loginUserExample.accessToken)
-    // localStorage.setItem("accessToken", "result.data?.loginUserExample.accessToken")
+    // console.log(result.data?.loginUser.accessToken)
+    // localStorage.setItem("accessToken", "result.data?.loginUser.accessToken")
     localStorage.setItem("refreshToken", "true")
 
-    setAccessToken(result.data?.loginUserExample.accessToken)
+    setAccessToken(result.data?.loginUser.accessToken)
     router.push('/32-02-login-success')
   }
 

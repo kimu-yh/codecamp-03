@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 
+
 const Wrapper = styled.div`
   margin: 20px;
   display: flex;
@@ -26,7 +27,7 @@ export default function LoginProfile(props) {
 
   return (
     <>
-      <Wrapper>
+      <Wrapper onClick={props.onClick}>
         <CircleImage src={`https://storage.googleapis.com/${props.src}`}/>
         <Name>{props.name}</Name>
       </Wrapper>
