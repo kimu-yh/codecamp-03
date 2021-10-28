@@ -16,12 +16,20 @@ const CircleImage = styled.img`
   box-shadow:  8px 8px 15px #c7c7c7,
               -8px -8px 15px #ffffff;
 `
-const Name = styled.span`
-  margin: 10px;
+const Name = styled.div`
   font-family: "gamja";
   font-size: 25px;
 `
-
+const Balance = styled.div`
+  font-family: "gamja";
+  font-size: 20px;
+  color: skyblue;
+`
+const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
 
 export default function LoginProfile(props) {
 
@@ -29,7 +37,10 @@ export default function LoginProfile(props) {
     <>
       <Wrapper onClick={props.onClick}>
         <CircleImage src={`https://storage.googleapis.com/${props.src}`}/>
-        <Name>{props.name}</Name>
+        <InfoWrapper>
+          <Name>{props.name}</Name>
+          <Balance>{props.balance}캔 보유중</Balance>
+        </InfoWrapper>
       </Wrapper>
     </>
   )

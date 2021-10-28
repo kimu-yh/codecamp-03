@@ -65,5 +65,21 @@ export const S = {
     color: #BDBDBD;
     margin-top: 8px;
   `,
-
+  OpenButton: styled.button`
+    height: 30px;
+    font-size: 20px;
+    border-radius: 15px;
+    font-family: "gamja";
+    background-color: skyblue;
+    color: white;
+    border: none;
+  `, 
+  CloseButton: styled.button`
+    margin-bottom: 5px;
+    height: 34px;
+    font-size: 20px;
+    border-radius: 15px;
+    font-family: "gamja";
+    border: 1px solid skyblue;
+  `, 
 }

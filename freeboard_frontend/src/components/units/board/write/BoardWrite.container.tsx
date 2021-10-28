@@ -113,7 +113,7 @@ export default function BoardWrite(props) {
             },
           },
         });
-        // console.log(result.data.createBoard._id)
+        
         router.push(`/boards/${result.data.createBoard._id}`)
       } catch(error){
         alert(error.message)
@@ -189,7 +189,6 @@ export default function BoardWrite(props) {
     const result = new Array(3).fill(1).map((cur, index) => {
       return newImageUrls[index] ? newImageUrls[index]  : ""
     })
-    console.log(result)
     setImageUrls(result)
   */
 

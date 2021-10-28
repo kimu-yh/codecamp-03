@@ -27,8 +27,12 @@ export default function QnAWriteUI(props) {
        <Arrow src="/images/reArrow.png" />
       }
         <TextWrapper>
-          <InputText onChange={props.onChangeContents}
-            defaultValue={props.isEdit ? props.data?.contents : ""}
+          <InputText onChange={props.onChangeContents} 
+            defaultValue={
+              props.isEdit && !props.isAnswer && props.data?.contents ||
+              props.isAnswer && props.isEdit && props.Adata.fetchUseditemQuestionAnswers[props.answerIndex].contents ||
+              ""
+            }
             placeholder={ 
               props.isAnswer 
               ? "답글을 등록해주세요"
@@ -38,12 +42,14 @@ export default function QnAWriteUI(props) {
           </InputText>  
           <BtnWrapper>
             <TextLength>{props.contents.length}/100</TextLength>
-            <SubmitBtn id={props.data?._id}
-              onClick={props.isEdit && !props.isAnswer 
-                ? props.onClickUpdateQuestion
-                : props.isAnswer  && !props.isEdit 
-                  ? props.onClickSubmitAnswer
-                  : props.onClickSubmitQuestion}
+            <SubmitBtn 
+              id={props.isAnswer? props.answerId : props.data?._id}
+              onClick={
+                props.isEdit && props.isAnswer && props.onClickUpdateAnswer ||
+                props.isEdit && !props.isAnswer && props.onClickUpdateQuestion || 
+                !props.isEdit && props.isAnswer && props.onClickSubmitAnswer ||
+                !props.isEdit && !props.isAnswer &&  props.onClickSubmitQuestion
+              }
               isYellow={Boolean(props.isEdit || props.isAnswer)}
             >
               {props.isEdit 

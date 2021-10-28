@@ -23,7 +23,7 @@ export async function getAccessToken(setAccessToken: Dispatch<SetStateAction<str
       return newAccessToken
       
       } catch(error) {
-      console.log(error)
+      console.log("refreshToken", error)
       }
 
   }

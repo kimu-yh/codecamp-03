@@ -17,7 +17,6 @@ import {
   Answer, 
   Arrow,
   AnswerWrapper, 
-  AnswerWriteWrapper
 } from "./QnAList.styles"
 
 
@@ -25,6 +24,8 @@ export default function QnAListUIItem(props) {
   const router = useRouter()
   const [isEdit, setIsEdit] = useState(false)
   const [isAnswer, setIsAnswer] = useState(false)
+  const [answerId, setAnswerId] = useState('')
+  const [answerIndex, setAnswerIndex] = useState('')
 
   const [ deleteUseditemQuestion ] = useMutation(DELETE_USEDITEM_QUESTION)
   const [ deleteUseditemQuestionAnswer ] = useMutation(DELETE_USEDITEM_QUESTION_ANSWER)
@@ -32,9 +33,11 @@ export default function QnAListUIItem(props) {
   const { data: Adata } = useQuery(FETCH_USEDITEM_QUESTION_ANSWERS, {
     variables: {useditemQuestionId: props?.id }
   })
-  console.log(Adata)
 
-  const onClickUpdateOpen = () => setIsEdit(true)
+
+  const onClickUpdateOpen = () => {
+    setIsEdit(true)
+  }
 
   const onClickAnswer = () => setIsAnswer(true)
 
@@ -56,12 +59,12 @@ export default function QnAListUIItem(props) {
     }
   }
 
-  async function onClickDeleteQuestionAnswer() {
+   const onClickDeleteQuestionAnswer = async (event) => {
     try {
-      console.log("dd" , props.data?._id)
+      
       await deleteUseditemQuestionAnswer ({
         variables: {
-          useditemQuestionAnswerId: props.data?._id
+          useditemQuestionAnswerId: event.target.id
         }, 
         refetchQueries: [
           {
@@ -75,7 +78,7 @@ export default function QnAListUIItem(props) {
     }
   }
 
-  console.log("aa",  props)
+ 
 
   return (
     <>
@@ -83,8 +86,13 @@ export default function QnAListUIItem(props) {
     (
       <QnAWrite
       isEdit={isEdit}
+      isAnswer={isAnswer}
       setIsEdit={setIsEdit}
+      setIsAnswer={setIsAnswer}
       data={props.data}
+      answerId={answerId}
+      Adata={Adata}
+      answerIndex={answerIndex}
        />
     ) 
     : (
@@ -110,10 +118,14 @@ export default function QnAListUIItem(props) {
             data={props?.data}
             isAnswer={isAnswer}
             setIsAnswer={setIsAnswer}
+            answerId={answerId}
+            setAnswerIndex={setAnswerIndex}
+            answerIndex={answerIndex}
+            Adata={Adata}
           />
       )}
 
-      {Adata?.fetchUseditemQuestionAnswers?.map( el => 
+      {Adata?.fetchUseditemQuestionAnswers?.map( (el, index) => 
         (  
         <CommentsWrapper key={el._id}>
         <Arrow src="/images/reArrow.png" />
@@ -124,8 +136,9 @@ export default function QnAListUIItem(props) {
           <ShowDate>{el?.createdAt.slice(0, 10)}</ShowDate>
         </AnswerWrapper>
         <FixDelWrapper>
-          <Fix alt="pencil image" src="/images/fix.png" onClick={onClickUpdateOpen} />
-          <Delete alt="delete image" src="/images/ex.png" onClick={onClickDeleteQuestionAnswer} />
+          <Fix alt="pencil image" src="/images/fix.png" 
+            onClick={ (e) => { setIsEdit(true); setIsAnswer(true); setAnswerId(el._id); setAnswerIndex(index) }}/>
+          <Delete alt="delete image" src="/images/ex.png" onClick={onClickDeleteQuestionAnswer} id={el._id} />
           <Answer src="/images/answer.png" onClick={onClickAnswer} />
         </FixDelWrapper>
       </CommentsWrapper>

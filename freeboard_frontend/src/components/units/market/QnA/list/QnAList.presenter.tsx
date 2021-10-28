@@ -4,7 +4,6 @@ import InfiniteScroll from 'react-infinite-scroller'
 
 export default function QnAListUI(props) {
 
-  console.log(props)
   return (
     <>
     <InfiniteScroll
@@ -16,10 +15,6 @@ export default function QnAListUI(props) {
     {props.Qdata?.fetchUseditemQuestions.map(el => 
       <QnAListUIItem key={el._id} data={el} id={el._id} />
     )}
-{/* 
-    {props.Adata?.fetchUseditemQuestionAnswers.map(el => 
-      <QnAListUIItem key={el._id} data={el} />
-    )} */}
 
     </InfiniteScroll>
     </>

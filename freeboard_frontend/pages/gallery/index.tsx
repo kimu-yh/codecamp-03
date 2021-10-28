@@ -32,7 +32,7 @@ export default function OpenapiWithUseEffectPage() {
       prev = Number(prev) - 1;
       return String(prev)
     })
-      console.log('prev', objectId)
+      
   }
 
   function onClickNext() {
@@ -41,7 +41,7 @@ export default function OpenapiWithUseEffectPage() {
       prev = Number(prev) + 1;
       return String(prev)
     })
-      console.log('next', objectId)
+     
   }
 
   useEffect(() => {

@@ -29,7 +29,7 @@ export default function MarketList() {
     delete newEl.__typename;
     today.push(newEl)
     sessionStorage.setItem("todaySaw", JSON.stringify(today))
-    router.push(`/market/${el._id}`)
+    router.push(`/market/${event.currentTarget.id}`)
   }
 
   function onLoadMore() {

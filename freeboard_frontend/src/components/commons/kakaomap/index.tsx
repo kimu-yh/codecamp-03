@@ -28,7 +28,7 @@ export default function KakaomapPage(props) {
         };
 
         const map = new window.kakao.maps.Map(container, options); 
-        console.log(map)
+       
 
         const marker = new window.kakao.maps.Marker({ 
   

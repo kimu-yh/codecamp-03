@@ -1,4 +1,4 @@
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { useRouter } from 'next/router';
 import { useState } from 'react'
 import QnAWriteUI from './QnAWrite.presenter'
@@ -13,12 +13,18 @@ import { Modal } from 'antd';
 
 
 export default function QnAWrite(props) {  
+  
   const [ contents, setContents ] = useState('')
   const router = useRouter();
   const [ createUseditemQuestion ] = useMutation(CREATE_USEDITEM_QUESTION)
   const [ updateUseditemQuestion ] = useMutation(UPDATE_USEDITEM_QUESTION)
   const [ createUseditemQuestionAnswer ] = useMutation(CREATE_USEDITEM_QUESTION_ANSWER)
   const [ updateUseditemQuestionAnswer ] = useMutation(UPDATE_USEDITEM_QUESTION_ANSWER)
+  const { data: Adata } = useQuery(FETCH_USEDITEM_QUESTION_ANSWERS, {
+    variables: {
+      useditemQuestionId: props.data?._id
+    }
+  })
   
   const onChangeContents = e => {
     setContents(e.target.value);
@@ -50,9 +56,9 @@ export default function QnAWrite(props) {
       Modal.error({content: error.message})
     }
   }
-  console.log("aaa", props)
+  
   async function onClickSubmitAnswer() {
-    console.log(props)
+    
     try {
       await createUseditemQuestionAnswer({
         variables: {
@@ -61,6 +67,7 @@ export default function QnAWrite(props) {
             contents,
           }
         }, 
+        
         refetchQueries: [
           {
             query: FETCH_USEDITEM_QUESTION_ANSWERS,
@@ -78,6 +85,7 @@ export default function QnAWrite(props) {
   }
 
   async function onClickUpdateQuestion(event) {
+    
     if (!contents) {
       Modal.error({content: "내용이 수정되지 않았습니다."})
       return;
@@ -86,7 +94,7 @@ export default function QnAWrite(props) {
     try { 
       await updateUseditemQuestion({
         variables: {
-          useditemQuestionId: event.currentTarget.id,
+          useditemQuestionId: props.data._id,
           updateUseditemQuestionInput: {
             contents
           }
@@ -107,7 +115,8 @@ export default function QnAWrite(props) {
     }
   }
 
-  async function onClickUpdateAnswer(event) {
+  const onClickUpdateAnswer = async (event) => {
+   
     if (!contents) {
       Modal.error({content: "내용이 수정되지 않았습니다."})
       return;
@@ -116,21 +125,22 @@ export default function QnAWrite(props) {
     try { 
       await updateUseditemQuestionAnswer({
         variables: {
-          useditemQuestionId: event.target.id,
-          updateUseditemQuestionInput: {
+          useditemQuestionAnswerId: props.answerId, 
+          updateUseditemQuestionAnswerInput: {
             contents
           }
         },
         refetchQueries: [
           {
-          query: FETCH_USEDITEM_QUESTIONS,
+          query: FETCH_USEDITEM_QUESTION_ANSWERS, 
           variables:{ 
-            useditemId: String(router.query.marketId) 
+            useditemQuestionId: props.data._id, 
           }
           }
         ]
       })
      props.setIsAnswer?.(false);
+     props.setIsEdit?.(false)
      Modal.confirm({content: "답변을 수정합니다~!"})
 
     } catch(error) {
@@ -145,9 +155,11 @@ export default function QnAWrite(props) {
     onClickSubmitAnswer={onClickSubmitAnswer}
     onClickUpdateAnswer={onClickUpdateAnswer}
     data={props.data}
-    answerData={props.answerData}
     isEdit={props.isEdit}
     contents={contents}
     isAnswer={props.isAnswer}
+    answerId={props.answerId}
+    answerIndex={props.answerIndex}
+    Adata={props.Adata}
     />
 }

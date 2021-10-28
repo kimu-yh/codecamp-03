@@ -66,7 +66,6 @@ const [createUser] = useMutation(CREATE_USER)
 
 function onChangeUserInput(event) {
   setUserInput({...userInput, [event.target.name]: event.target.value})
-  console.log(userInput)
 }
 
 async function onClickSignup() {

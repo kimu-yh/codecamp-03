@@ -17,6 +17,7 @@ export default function HeaderUI(props) {
           onClick={props.onClickMoveToMyPage}
           src={props.data?.fetchUserLoggedIn?.picture} 
           name={props.data?.fetchUserLoggedIn?.name}
+          balance={props.data?.fetchUserLoggedIn?.userPoint.amount}
         />
         <Logout onClick={props.onClickLogout} /> 
         </ButtonWrapper>)

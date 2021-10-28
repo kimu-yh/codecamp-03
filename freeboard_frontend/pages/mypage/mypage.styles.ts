@@ -100,6 +100,6 @@ export const ButtonWrapper = styled.div`
 export const PointWrapper = styled.div`
   width: 350px;
 `
-export const PointImage = styled.div`
+export const PointImage = styled.img`
   width: 240px;
 `

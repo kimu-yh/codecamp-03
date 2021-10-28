@@ -1,8 +1,8 @@
-import { useQuery, useLazyQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import QnAListUI from "./QnAList.presenter"
 import { FETCH_USEDITEM_QUESTIONS } from "../QnA.queries";
-import { useEffect } from "react";
+
 
 export default function QnAList() {
   const router = useRouter()
@@ -11,7 +11,6 @@ export default function QnAList() {
       useditemId: router.query.marketId, 
     }
   })
-  console.log(Qdata)
 
   function onLoadMore() {
     if (!Qdata) return;

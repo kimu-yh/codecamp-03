@@ -45,21 +45,20 @@ const PickCount = styled.div`
   height: 20px;
   width: 20px;
 `
-export default function BestProductComponent({bestImages, bestName, 
-  bestRemarks, bestPrice, bestPickedCount, onClick}) {
+export default function BestProductComponent(props) {
 
   return (
-    <Wrapper onClick={onClick}>
-      <ProductImage src={ bestImages  
-        ? `https://storage.googleapis.com/${{bestImages}}`
+  <Wrapper id={props.id} onClick={props.onClick}>
+      <ProductImage src={ props.bestImages.length 
+        ? `https://storage.googleapis.com/${props.bestImages[0]}`
         : "/images/noImages.png"
       } />
-      <ProductName>{bestName}</ProductName>
-      <Remarks>{bestRemarks}</Remarks>
-      <Price>{bestPrice}</Price>
+      <ProductName>{props.bestName}</ProductName>
+      <Remarks>{props.bestRemarks}</Remarks>
+      <Price>{props.bestPrice}</Price>
       <PickWrapper>
         <Pick src="/images/heartFull.png"/>
-        <PickCount>{bestPickedCount}</PickCount>
+        <PickCount>{props.bestPickedCount}</PickCount>
       </PickWrapper>
     </Wrapper>
   )

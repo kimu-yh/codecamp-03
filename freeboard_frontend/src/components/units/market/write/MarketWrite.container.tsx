@@ -41,7 +41,6 @@ export default function MarketWrite(props) {
   });
 
   async function onClickSubmit(data) {
-    console.log("data:", data)
    
       try {
         const uploadFiles = files
@@ -60,12 +59,11 @@ export default function MarketWrite(props) {
               remarks: data.remarks,
               contents: data.contents,
               price: Number(data.price),
-              tags: data.tags.split(','),
+              tags: data.tags.split(' '),
               images: myImages,
             },
           },
         })
-        console.log("등록완료ID", result.data.createUseditem._id )
         router.push(`/market/${result.data.createUseditem._id}`)
 
       } catch(error) {
@@ -135,14 +133,12 @@ export default function MarketWrite(props) {
   }
   return (
     <MarketWriteUI
-      // isOpen={isOpen} 이거는 어드레스 창 여는 스테이트
       handleSubmit={handleSubmit}
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
       onChangeFiles={onChangeFiles}
       register={register}
       formState={formState}
-      // onChangeTags={onChangeTags}
       isEdit={props.isEdit}
       data={props.data}
       onChangeMyEditor={onChangeMyEditor}

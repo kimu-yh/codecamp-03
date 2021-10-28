@@ -4,6 +4,13 @@ export default function TodaySawUI(props) {
  
   return  (
     <S.Wrapper>
+      { props.close 
+      ? 
+        <S.OpenButton onClick={props.onClickClose} >오늘 본 상품 열기</S.OpenButton>
+      
+      : (
+      <> 
+      <S.CloseButton onClick={props.onClickClose}>닫기</S.CloseButton>
       <S.Title>오늘 본 상품</S.Title>
       { process.browser && JSON.parse(sessionStorage.getItem("todaySaw"))?.slice(-3).map(el=>(
         <S.Box key={el._id} onClick={() => props.onClickMoveToDetail(el)}>
@@ -18,7 +25,10 @@ export default function TodaySawUI(props) {
           <S.Price>{el.price} 원</S.Price>
           <S.Tags>#{el.tags?.join(" #")}</S.Tags>
         </S.Box>
+        
       ))}
+      </>
+    )}
     </S.Wrapper>
   )
 }

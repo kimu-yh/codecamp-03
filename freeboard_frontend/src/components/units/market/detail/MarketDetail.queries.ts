@@ -13,8 +13,23 @@ export const FETCH_USEDITEM = gql`
       createdAt
       pickedCount
       seller {
+        _id
         picture
         name
+      }
+    }
+  }
+`
+
+export const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      _id
+      name
+      email
+      picture
+      userPoint {
+        amount
       }
     }
   }
@@ -36,6 +51,17 @@ export const FETCH_USEDITEM_IPICKED = gql`
   query fetchUseditemsIPicked($search: String, $page: Int) {
     fetchUseditemsIPicked(search: $search, page: $page) {
       _id
+    }
+  }
+`
+
+export const CREATE_POINT_TRANSACTION_OF_BUYING_AND_SELLING = gql`
+  mutation createPointTransactionOfBuyingAndSelling($useritemId: ID!) {
+    createPointTransactionOfBuyingAndSelling(useritemId: $useritemId) {
+      _id
+      buyer {
+        _id
+      }
     }
   }
 `

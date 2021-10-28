@@ -13,6 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form';
 import Payment from './payment'
+import { Modal } from 'antd';
 
 const schema = yup.object().shape({
   myEmail: yup
@@ -25,11 +26,11 @@ const schema = yup.object().shape({
     .required("필수 입력 사항입니다"),
 })
 
-
-
 export default function MyPage() {
   const [ updateUser ] = useMutation(UPDATE_USER)
+  const [isOpen, setIsOpen] = useState(false)
   const { setUserInfo, userInfo } = useContext(GlobalContext)
+
   const { data } = useQuery(FETCH_USER_LOGGED_IN)
   const [files, setFiles] = useState<(File | null)[]>([null])
   const [uploadFile] = useMutation(UPLOAD_FILE);
@@ -45,7 +46,6 @@ export default function MyPage() {
       name: data?.fetchUserLoggedIn.name,
       picture: data?.fetchUserLoggedIn.picture
     })
-    console.log("picture:", userInfo.picture)
   }, [data])
    
   function onChangeFiles(file: File, index: number) {
@@ -54,7 +54,7 @@ export default function MyPage() {
     setFiles(newFiles)
   }
 
-  async function onChangeUpdate(data) {
+ const onChangeUpdate = async (updata) => {
     
     try {
       const uploadFiles = files.map((el) => (el 
@@ -63,23 +63,36 @@ export default function MyPage() {
       const imagesResults = await Promise.all(uploadFiles); 
       const myImages = imagesResults.map((el) => 
           el?.data.uploadFile.url || ""); 
-
-      const result = await updateUser({
+      await updateUser({
         variables: {
           updateUserInput: {
-            name: data.myName,
-            picture: myImages
-          }
+            name: updata.myName,
+            picture: myImages[0],
+          },
+        },
+        update(cache, {data}) {
+          cache.modify({
+            fields: {
+              fetchUserLoggedIn: (prev) => {
+                return [data.updateUser, ...prev]
+              }
+            }
+          })
         }
       })
-      console.log("id:", result.data.updateUser._id)
+      setUserInfo({
+        email: data?.fetchUserLoggedIn.email,
+        name: data?.fetchUserLoggedIn.name,
+        picture: data?.fetchUserLoggedIn.picture
+      })
+      Modal.confirm({content: "프로필을 업데이트 하였습니다!"})
     } catch(error) {
-      alert(error.message)
+      Modal.error({content: error.message})
     }
   }
 
-  function onClickChargePoint() {
-    
+  function onClickOpenPayment() {
+    setIsOpen(prev => !prev)
   }
 
   return (
@@ -117,10 +130,21 @@ export default function MyPage() {
               <div>{formState.errors.myEmail?.message}</div>
             주 소 <Point />
           </InfoWrapper>
-         </Body>
-         <PointWrapper>
-           <PointImage src="/images/point.png" onClick={onClickChargePoint} />
+          <PointWrapper>
+           <PointImage src="/images/point.png" onClick={onClickOpenPayment} /> 
+           {isOpen && 
+            (<Modal 
+                visible={isOpen} 
+                onCancel={() => setIsOpen(prev => !prev)} 
+                onOk={() => setIsOpen(prev => !prev)}
+              > 
+              <Payment 
+                data={data}
+              />
+              </Modal>
+            )}
          </PointWrapper>
+         </Body>
          <ButtonWrapper>
          <MyButton type="submit" isValid={formState.isValid}>
           프로필 업데이트!

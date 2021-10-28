@@ -24,6 +24,8 @@ export default function MarketDetailUI(props) {
     centerMode: true
   }
   
+  console.log(props)
+
   return (
     <S.Container>
       <S.Header>
@@ -38,7 +40,7 @@ export default function MarketDetailUI(props) {
       <S.PickWrapper id={props.data?.fetchUseditem._id} onClick={props.onClickPick}>
           <S.Pick>
             {
-              props.picked
+              props.picked || (props.dataIpicked?.fetchUseditemsIPicked.map(e => e._id).includes(props.marketId))
               ? <HeartFilled /> 
               : <HeartOutlined />
             }
@@ -72,8 +74,15 @@ export default function MarketDetailUI(props) {
       <S.Hr />
       <S.ButtonWrapper>
         <SubmitButton name="목록으로" onClick={props.onClickMoveToList}/>
-        <SubmitButton name="수정하기" onClick={props.onClickMoveToEdit}/>
-        <SubmitButton name="삭제하기" onClick={props.onClickDelete}/>
+
+        { props.data?.fetchUseditem.seller._id === props.loginData?.fetchUserLoggedIn._id
+        ? ( <>
+            <SubmitButton name="수정하기" onClick={props.onClickMoveToEdit}/>
+            <SubmitButton name="삭제하기" onClick={props.onClickDelete}/>
+            </>
+          )
+        : <SubmitButton name="구매하기" onClick={props.onClickBuy}/>
+        }
       </S.ButtonWrapper>
     </S.Container>
   

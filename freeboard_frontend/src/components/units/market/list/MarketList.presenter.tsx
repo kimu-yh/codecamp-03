@@ -3,9 +3,11 @@ import SubmitButton  from '../../../Button/SubmitButton'
 import { S } from './MarketList.styles'
 import TodaySaw from '../../TodaySaw/TodaySaw.container'
 import InfiniteScroll from "react-infinite-scroller"
+import { useState } from 'react'
 
 
 export default function MarketListUI(props) {
+  const [close, setClose] = useState(false)
 
   return(
     <S.Container>
@@ -13,7 +15,8 @@ export default function MarketListUI(props) {
       <S.BestWrapper >
         { props.best?.fetchUseditemsOfTheBest.map((el) => (
           <BestProduct key={el._id}
-          bestImages={el.images[0]}
+          id={el._id}
+          bestImages={el.images.filter(e => e)}
           bestName={el.name}
           bestRemarks={el.remarks}
           bestPrice={el.price}
@@ -34,18 +37,19 @@ export default function MarketListUI(props) {
           useWindow={false}
           // height={"1004px"}
           >
+
             <S.ListWrapper>
               {props.data?.fetchUseditems.map((el, index) => (
               <S.ProductList key={el._id + index} id={el._id} onClick={props.onClickMoveToMarketDetailandSetTS(el)}>
                 <S.InfoLeft>
-                  <S.ProductImage src={el.images[0]  
-                    ? `https://storage.googleapis.com/${el.images[0]}`
+                  <S.ProductImage src={el.images.length  
+                    ? `https://storage.googleapis.com/${el.images.filter(e => e)[0]}`
                     : "/images/noImages.png"
                   } />
                   <S.ColumnWrapper>
                     <S.ProductName>{el.name}</S.ProductName>
                     <S.Remarks>{el.remarks}</S.Remarks>
-                    <S.Tags>{el.tags.join(' ,')}</S.Tags>
+                    <S.Tags>#{el.tags.join(' #')}</S.Tags>
                     <S.LineWrapper>
                       <div>
                         <S.SellerImage src={ el.seller.picture ? 
@@ -63,7 +67,7 @@ export default function MarketListUI(props) {
                 <S.Price>{el.price}원</S.Price>
             </S.ProductList>
             ))}
-            <TodaySaw />
+            <TodaySaw close={close} setClose={setClose} />
           </S.ListWrapper>
       </InfiniteScroll>
     <S.ButtonWrapper>
