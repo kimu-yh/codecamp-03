@@ -64,7 +64,7 @@ export default function MarketWrite(props) {
             },
           },
         })
-        router.push(`/market/${result.data.createUseditem._id}`)
+        router.push(`/markets/${result.data.createUseditem._id}`)
 
       } catch(error) {
         Modal.error({ content: error.message })
@@ -120,7 +120,7 @@ export default function MarketWrite(props) {
           useditemId: router.query.marketId
         }
       })
-      router.push(`/market/${result.data.updateUseditem._id}`)
+      router.push(`/markets/${result.data.updateUseditem._id}`)
     } catch(error) {
       Modal.error({ content: error.message })
     }

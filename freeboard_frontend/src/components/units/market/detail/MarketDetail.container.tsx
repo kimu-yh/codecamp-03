@@ -24,11 +24,11 @@ export default function MarketDetail() {
   
   
   function onClickMoveToList() {
-    router.push(`/market`)
+    router.push(`/markets`)
   }
  
   function onClickMoveToEdit() {
-    router.push(`/market/${router.query.marketId}/edit`)
+    router.push(`/markets/${router.query.marketId}/edit`)
   }
   
   async function onClickDelete() { 
@@ -38,7 +38,7 @@ export default function MarketDetail() {
         variables: {useditemId: router.query.marketId }
       })
       Modal.confirm({ content: "게시물이 삭제되었습니다."}) 
-      router.push("/market");
+      router.push("/markets");
     } catch(error) {
       Modal.error({ content: error.message })
     }

@@ -11,7 +11,7 @@ export default function NavigationUI(props) {
       <>|</>
       <MenuItem id="/boards/new" onClick={props.onClickMenu}>🖌 내 이야기</MenuItem>
       <>|</>
-      <MenuItem id="/market" onClick={props.onClickMenu}>📦 중고마켓</MenuItem>
+      <MenuItem id="/markets" onClick={props.onClickMenu}>📦 중고마켓</MenuItem>
     </Wrapper>
   )
 }

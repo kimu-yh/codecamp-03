@@ -21,8 +21,8 @@ const Label = styled.label`
   font-size: 20px;
 `
 const ErrorMessage = styled.div`
-  margin-top: 5px;
   color: red;
+  margin-top: 40px;
 `
 export default function TextBox(props) { 
   return (

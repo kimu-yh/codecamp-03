@@ -2,18 +2,18 @@ import { useMutation, useQuery} from '@apollo/client';
 import { useContext, useEffect , useState  } from 'react';
 import { GlobalContext } from '../_app';
 import {Wrapper, WelcomeMessage, UpdateWrapper,
-        Name, Email, 
-        Point, MyButton, 
+        Name, Email,  Point, MyButton, MyButton2,
         Body, PhotoWrapper, InfoWrapper, 
-        Form, ButtonWrapper, PointWrapper, PointImage, 
+        Form, ButtonWrapper, PointWrapper, PointImage, PointTitle, 
         } from './mypage.styles'
-import { FETCH_USER_LOGGED_IN, UPDATE_USER, UPLOAD_FILE } from './mypage.queries'
+import { FETCH_USER_LOGGED_IN, UPDATE_USER, UPLOAD_FILE} from './mypage.queries'
 import ImageUpload from '../../src/components/commons/imageUpload/imageUpload.container';
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useForm } from 'react-hook-form';
 import Payment from './payment'
 import { Modal } from 'antd';
+import { useRouter } from 'next/router';
 
 const schema = yup.object().shape({
   myEmail: yup
@@ -27,6 +27,7 @@ const schema = yup.object().shape({
 })
 
 export default function MyPage() {
+  const router = useRouter()
   const [ updateUser ] = useMutation(UPDATE_USER)
   const [isOpen, setIsOpen] = useState(false)
   const { setUserInfo, userInfo } = useContext(GlobalContext)
@@ -95,6 +96,14 @@ export default function MyPage() {
     setIsOpen(prev => !prev)
   }
 
+  function onClickMoveToItemsIBought() {
+    router.push("/markets")
+  }
+
+  function onClickMoveToMyItems() {
+    router.push("/markets")
+  }
+
   return (
     
     <Wrapper>
@@ -105,6 +114,7 @@ export default function MyPage() {
       <Form onSubmit={handleSubmit(onChangeUpdate)}>
         <Body>
          {/* <Frame src="/images/profileFrame.png" /> */}
+        
           <PhotoWrapper>
             {
               new Array(1).fill(1).map((el, index)=> (
@@ -117,6 +127,7 @@ export default function MyPage() {
               ))
             }
           </PhotoWrapper>
+         
           <InfoWrapper>
             닉네임 <Name 
               type="text" 
@@ -131,7 +142,13 @@ export default function MyPage() {
             주 소 <Point />
           </InfoWrapper>
           <PointWrapper>
-           <PointImage src="/images/point.png" onClick={onClickOpenPayment} /> 
+            <PointTitle placement="top" 
+              color={'yellow'}
+              title="포인트 충전하러가기"
+            >
+              <PointImage
+                src="/images/point.png" onClick={onClickOpenPayment} /> 
+            </PointTitle>
            {isOpen && 
             (<Modal 
                 visible={isOpen} 
@@ -146,9 +163,15 @@ export default function MyPage() {
          </PointWrapper>
          </Body>
          <ButtonWrapper>
-         <MyButton type="submit" isValid={formState.isValid}>
-          프로필 업데이트!
-        </MyButton>
+          <MyButton type="submit" isValid={formState.isValid}>
+            프로필 업데이트!
+          </MyButton>
+          <MyButton2 onClick={onClickMoveToItemsIBought}>
+            내가 산 상품 보러가기
+          </MyButton2>
+          <MyButton2 onClick={onClickMoveToMyItems}>
+            내가 올린 상품 보러가기
+          </MyButton2>
         </ButtonWrapper>
         </Form>
       </UpdateWrapper>

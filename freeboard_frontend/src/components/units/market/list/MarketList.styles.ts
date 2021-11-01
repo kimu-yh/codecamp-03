@@ -24,9 +24,16 @@ export const S = {
     border-bottom: 1px sold gray;
   `,
   Onsale: styled.span`
-    height: 27px;
+    width: 100px;
+    height: 50px;
     font-size: 18px;
+    margin-left: 20px;
     margin-right: 20px;
+    :hover {
+      font-weight: 700;
+      font-size: 20px;
+    }
+    cursor: pointer;
   `,
   Soldout: styled.span`
     height: 27px;

@@ -7,7 +7,7 @@ export default function TodaySaw(props) {
 
   function onClickMoveToDetail(el) {
     
-    router.push(`/market/${el._id}`)
+    router.push(`/markets/${el._id}`)
   }
 
   function onClickClose() {

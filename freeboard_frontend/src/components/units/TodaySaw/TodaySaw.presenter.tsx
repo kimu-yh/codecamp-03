@@ -14,7 +14,7 @@ export default function TodaySawUI(props) {
       <S.Title>오늘 본 상품</S.Title>
       { process.browser && JSON.parse(sessionStorage.getItem("todaySaw"))?.slice(-3).map(el=>(
         <S.Box key={el._id} onClick={() => props.onClickMoveToDetail(el)}>
-          <S.Image src={`https://storage.googleapis.com/${el.images[0]}`}
+          <S.Image src={el.images?.length ? `https://storage.googleapis.com/${el.images[0]}` : "/images/noImages.png"}
           />
           <S.PickWrapper>
             <S.Pick src="/images/heartFull.png" />

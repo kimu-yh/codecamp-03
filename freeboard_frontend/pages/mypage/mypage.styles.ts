@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Tooltip } from 'antd';
 
 export const Wrapper = styled.div`
   display: flex;
@@ -22,15 +23,6 @@ export const UpdateWrapper = styled.div`
   margin: 10px;
   padding: 10px;
   align-items: flex-start;
-`
-
-export const Picture = styled.img`
-  border-radius: 70px;
-  height: 52px;
-  width: 52px;
-  margin: 10px;
-  border: none;
-  background-color: darkgreen;
 `
 
 export const Name = styled.input`
@@ -66,10 +58,27 @@ export const MyButton = styled.button`
   border-radius: 10px;
   border: none;
   background-color: ${(props: Iprops) => (props.isValid ? "#c5efe4" : "lightgray")};
-  width: 400px;
+  width: 300px;
   height: 50px;
   cursor: pointer;
 `
+
+export const MyButton2 = styled.button`
+  padding: 10px;
+  margin: 20px;
+  border-radius: 10px;
+  border: none;
+  background-color: #caf3f9;
+  :hover{
+    background-color: #99c0c6;
+    font-weight: 700;
+    font-size: 17px;
+  }
+  width: 300px;
+  height: 50px;
+  cursor: pointer;
+`
+
 export const Body = styled.div`
   display: flex;
   flex-direction: row;
@@ -78,16 +87,18 @@ export const Body = styled.div`
   align-content: center;
   margin: 10px;
 `
+
 export const PhotoWrapper = styled.div`
+  padding: 10px ;
   width: 200px;
   height: 240px;
-  border: 7px solid gray;
-  
+  background-image: url("/images/frame2.png");
+  background-color: #4a585b;
+  margin-right: 20px;
 `
 export const InfoWrapper = styled.div`
   width: 400px;
   height: 240px;
-  /* border: 1px solid gray; */
   padding: 10px;
   margin-left: 10px;
 `
@@ -98,8 +109,14 @@ export const ButtonWrapper = styled.div`
   text-align: center;
 `
 export const PointWrapper = styled.div`
-  width: 350px;
+  width: 240px;
+  margin-left: 10px;
 `
 export const PointImage = styled.img`
-  width: 240px;
+  width: 200px;
+  cursor: pointer;
 `
+export const PointTitle = styled(Tooltip)`
+
+`
+ 

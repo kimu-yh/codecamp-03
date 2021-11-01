@@ -10,7 +10,7 @@ const SubmitButton = styled.button`
   margin: 80px auto;
   width: 179px;
   height: 52px;
-  background-color: ${(props: IProps) => (props.isValid ? "#FFD600" : "#BDBDBD")};
+  background-color: ${(props: IProps) => (props.isValid ? "#FFD600" : "#caf3f9")};
   :hover {
     font-size: 20px;
     font-weight: 700;
