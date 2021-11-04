@@ -4,11 +4,11 @@ import { S } from './MarketList.styles'
 import TodaySaw from '../../TodaySaw/TodaySaw.container'
 import InfiniteScroll from "react-infinite-scroller"
 import { useState } from 'react'
-
+import { v4 as uuidv4 } from 'uuid';
 
 export default function MarketListUI(props) {
   const [close, setClose] = useState(false)
-  console.log(props)
+  
   return(
     <S.Container>
       <S.Title>베스트 상품</S.Title>
@@ -27,29 +27,40 @@ export default function MarketListUI(props) {
         }
       </S.BestWrapper>
         <S.NavBar>
-          <S.Onsale id={"fetchUseditems"}
-          onClick={props.onClickItemsSelling}>판매중 상품</S.Onsale>
+          <S.OnPage id={""}
+          onClick={props.onClickMoveToId}>판매중 상품</S.OnPage>
           <>|</>
-          <S.Onsale id={"fetchUseditems"}
-          onClick={props.onClickItemsSold}>판매된 상품</S.Onsale>
+          <S.Onsale id={"sold"}
+          onClick={props.onClickMoveToId}>판매된 상품</S.Onsale>
           <>|</>
-          <S.Onsale id={"fetchUseditemsIBought"}
-          onClick={props.onClickItemsIbought}>내가 산 상품</S.Onsale>
+          <S.Onsale id={"ibought"}
+          onClick={props.onClickMoveToId}>내가 산 상품</S.Onsale>
           <>|</>
-          <S.Onsale id={"fetchUseditems"}
-          onClick={props.onClickMyItems}>내가 올린 상품</S.Onsale>
-          <>|</>
-          <S.Onsale id={"fetchUseditemsIPicked"}
-          onClick={props.onClickIPicked}>내가 찜한 상품</S.Onsale>
+          <S.Onsale id={"ipicked"}
+          onClick={props.onClickMoveToId}>내가 찜한 상품</S.Onsale>
         </S.NavBar>
-            <S.ListWrapper>
-        <InfiniteScroll
-              pageStart={0}
-              loadMore={props.onLoadMore}
-              hasMore={true}
-              useWindow={false}
-            >
-              {props.data?.map((el, index) => (
+        <S.SearchWrapper>
+          <S.SearchTitle 
+            name="title"
+            placeholder="제목을 검색해주세요"
+            onChange={props.onChangeSearch}
+          />
+          <S.SearchIcon />
+          <S.Challendar 
+            renderExtraFooter={() => 'extra footer'}
+            name="date"
+            onChange={props.onChangeDate} 
+          />
+        </S.SearchWrapper>
+      
+        <S.ListWrapper>
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={props.onLoadMore}
+            hasMore={true}
+            useWindow={false}
+          >
+            {props.data?.map((el, index) => (
               <S.ProductList key={el._id + index} id={el._id} onClick={props.onClickMoveToMarketDetailandSetTS(el)}>
                 <S.InfoLeft>
                   <S.ProductImage src={el.images?.length  
@@ -57,7 +68,14 @@ export default function MarketListUI(props) {
                     : "/images/noImages.png"
                   } />
                   <S.ColumnWrapper>
-                    <S.ProductName>{el.name}</S.ProductName>
+                    <S.ProductName>{el.name
+                    .replaceAll(props.keyword, `#$%${props.keyword}#$%`)
+                    .split('#$%')
+                    .map(el => (
+                      <S.MyWord key={uuidv4()} 
+                        isMatched={props.keyword === el}>{el}
+                      </S.MyWord>
+                    ))}</S.ProductName>
                     <S.Remarks>{el.remarks}</S.Remarks>
                     <S.Tags>#{el.tags?.join(' #')}</S.Tags>
                     <S.LineWrapper>
@@ -81,7 +99,7 @@ export default function MarketListUI(props) {
             </InfiniteScroll>
           </S.ListWrapper>
     <S.ButtonWrapper>
-      <SubmitButton name="상품등록하기" onClick={props.onClickMoveToMarketNew} />
+      <SubmitButton name="상품등록하기" id={"new"} onClick={props.onClickMoveToId} />
     </S.ButtonWrapper>
     </S.Container>
   )

@@ -170,7 +170,7 @@ export default function MyPage() {
             내가 산 상품 보러가기
           </MyButton2>
           <MyButton2 onClick={onClickMoveToMyItems}>
-            내가 올린 상품 보러가기
+            내가 찜한 상품 보러가기
           </MyButton2>
         </ButtonWrapper>
         </Form>

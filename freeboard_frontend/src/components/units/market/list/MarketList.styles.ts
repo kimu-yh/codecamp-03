@@ -1,10 +1,57 @@
 import styled from "@emotion/styled";
+import { SearchOutlined } from '@ant-design/icons';
+import { DatePicker, Space } from 'antd';
+
+const { RangePicker } = DatePicker;
+interface Iprops {
+  isMatched: boolean;
+}
 
 export const S = {
-
+  Challendar: styled(RangePicker)`
+  width: 440px;
+  height: 52px;
+  margin-left: 42px;
+  padding: 14px 19px;
+  font-size: 14px;
+  text-align: center;
+  `,
+  SpaceTag: styled(Space)`
+  direction: vertical;
+  size: 12;
+  `,
   Container: styled.div`
     margin: auto;
     width: 1200px;
+  `,
+  SearchIcon: styled(SearchOutlined)`
+  position: absolute;
+  left: 10px;
+  font-size: 20px;
+  margin-left: 20px;
+  `,
+  SearchTitle: styled.input`
+  background-color: #F2F2F2;
+  border-radius: 10px;
+  width: 710px;
+  height: 52px;
+  font-size: 20px;
+  border: none;
+  padding: 14px 10px 14px 50px;
+  `,
+  MyWord: styled.span`
+   color: ${(props: Iprops) => props.isMatched ? 
+   "blue" : "black"}
+  `,
+  SearchWrapper: styled.div`
+  margin: 10px 0px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 7px;
+  position: relative;
   `,
   BestWrapper: styled.div`
     display: flex;
@@ -19,13 +66,11 @@ export const S = {
   `,
   NavBar: styled.div`
     margin-top: 80px;
-    height: 52px;
-    padding-bottom: 40px;
-    border-bottom: 1px sold gray;
+    height: 50px;
   `,
   Onsale: styled.span`
     width: 100px;
-    height: 50px;
+    height: 40px;
     font-size: 18px;
     margin-left: 20px;
     margin-right: 20px;
@@ -34,6 +79,14 @@ export const S = {
       font-size: 20px;
     }
     cursor: pointer;
+  `,
+  OnPage: styled.span`
+    width: 100px;
+    height: 40px;
+    margin-right: 20px;
+    font-weight: 700;
+    font-size: 20px;
+    border-bottom: 1px solid black;
   `,
   Soldout: styled.span`
     height: 27px;
@@ -112,5 +165,6 @@ export const S = {
     height: 1004px;
     width: 1240px;
     overflow: auto;
-  `
+  `,
+
 }

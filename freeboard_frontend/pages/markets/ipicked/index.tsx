@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client'
 import {FETCH_USEDITEM_IPICKED} from '../../../src/components/units/market/list/MarketList.queries'
-import MarketListUI from '../../../src/components/units/market/list/MarketList.presenter'
+import MarketListPageUI from '../../../src/components/units/market/list/MarketListPages.presenter';
 
 export default function IPicked() {
   const { data : iPicked, fetchMore : fetchMoreIPicked } = useQuery(FETCH_USEDITEM_IPICKED, {
@@ -15,7 +15,7 @@ export default function IPicked() {
 
     fetchMoreIPicked({
       variables: {
-        page: Math.ceil(Number(iPicked?.length / 10))
+        page: Math.ceil(Number(iPicked?.fetchUseditemsIPicked.length / 10))
       },
       updateQuery: (prev, {fetchMoreResult}) => {
         return {
@@ -28,8 +28,8 @@ export default function IPicked() {
     })
   }
 
-  return ( <MarketListUI 
-    data={iPicked.fetchUseditemsIPicked}
+  return ( <MarketListPageUI
+    data={iPicked?.fetchUseditemsIPicked}
     onLoadMore={onLoadMoreIpicked}
   /> 
   )

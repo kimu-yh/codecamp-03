@@ -118,7 +118,7 @@ export default function PaymentPage(props) {
     <Wrapper>
       <Notice1>쉬는 시간 사이트에서 1캔은 1원입니다</Notice1>
       <Notice>{props.data?.fetchUserLoggedIn.name}님의 보유 포인트는 ${
-              userInfo.amount || props.data?.fetchUserLoggedIn?.userPoint.amount
+              userInfo.balance || props.data?.fetchUserLoggedIn?.userPoint.amount
             }캔 입니다.</Notice>
       <Text>충전금액:
         <InputAmount type="text" onChange={onChangeAmount} />

@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client'
 import {FETCH_USEDITEMS_IBOUGHT} from '../../../src/components/units/market/list/MarketList.queries'
 import MarketListPageUI from '../../../src/components/units/market/list/MarketListPages.presenter';
 
-export default function IBought(props) {
+export default function IBought() {
   const { data: iBought, fetchMore : fetchMoreIBought } = useQuery(FETCH_USEDITEMS_IBOUGHT, {
     variables: {
       search: "",
@@ -15,7 +15,7 @@ export default function IBought(props) {
 
     fetchMoreIBought({
       variables: {
-        page: Math.ceil(Number(iBought?.length / 10))
+        page: Math.ceil(Number(iBought?.fetchUseditemsIBought.length / 10))
       },
       updateQuery: (prev, {fetchMoreResult}) => {
         return {
@@ -31,7 +31,6 @@ export default function IBought(props) {
   return ( <MarketListPageUI
     data={iBought?.fetchUseditemsIBought}
     onLoadMore={onLoadMoreIbought}
-    onClickMoveToMarketDetailandSetTS={props.onClickMoveToMarketDetailandSetTS}
   /> 
   )
 }
